@@ -2,6 +2,7 @@ import 'package:game_flix_flutter/core/errors/exceptions.dart';
 import 'package:game_flix_flutter/core/utils/constants.dart';
 import 'package:game_flix_flutter/features/games/data/model/games_response.dart';
 import 'package:dio/dio.dart';
+import 'package:game_flix_flutter/features/games/data/model/genres_response.dart';
 
 abstract class GamesRemoteDataSource {
   Future<List<GameResponse>> getGames();

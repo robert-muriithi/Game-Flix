@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import '../../model/genres_response.dart';
 
 abstract class GenresRemoteDataSource {
-  Future<List<GenreResponse>> getGames();
+  Future<List<GenreResponse>> getGenres();
 }
 
 class GamesRemoteDataSourceImpl extends GenresRemoteDataSource {
@@ -14,7 +14,7 @@ class GamesRemoteDataSourceImpl extends GenresRemoteDataSource {
   GamesRemoteDataSourceImpl(this.dio);
 
   @override
-  Future<List<GenreResponse>> getGames() async {
+  Future<List<GenreResponse>> getGenres() async {
     try{
       final response = await dio.get(Constants.kBaserUrl);
       final data = response.data as List;
