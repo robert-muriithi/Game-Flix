@@ -8,7 +8,7 @@ class GenresEntity extends Equatable {
   final int count;
   final String? next;
   final String? previous;
-  final List<ResultEntity> results;
+  final List<GenresResults> results;
 
    const GenresEntity({this.id, required this.count, this.next, this.previous, required this.results});
 
@@ -17,25 +17,25 @@ class GenresEntity extends Equatable {
 
 }
 
-class ResultEntity extends Equatable {
+class GenresResults extends Equatable {
   final int id;
   final String name;
   final String gamesCount;
-  final List<GameEntity> game;
+  final List<GenresGames> game;
   final String backgroundImage;
 
-  const ResultEntity({required this.id, required this.name, required this.gamesCount, required this.game, required this.backgroundImage});
+  const GenresResults({required this.id, required this.name, required this.gamesCount, required this.game, required this.backgroundImage});
 
   @override
   List<Object?> get props => [id, name, gamesCount, game, backgroundImage];
 
 }
 
-class GameEntity extends Equatable {
+class GenresGames extends Equatable {
   final String id;
   final String name;
 
-  const GameEntity({required this.name, required this.id});
+  const GenresGames({required this.name, required this.id});
   @override
   List<Object?> get props => [id, name];
 
