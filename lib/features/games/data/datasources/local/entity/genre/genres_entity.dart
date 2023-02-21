@@ -4,13 +4,13 @@ import 'package:game_flix_flutter/core/utils/constants.dart';
 
 @Entity(tableName:Constants.kGenresTableName)
 class GenresEntity extends Equatable {
-  @primaryKey final int id;
+  @primaryKey final int? id;
   final int count;
   final String? next;
   final String? previous;
   final List<ResultEntity> results;
 
-   const GenresEntity({required this.id, required this.count, this.next, this.previous, required this.results});
+   const GenresEntity({this.id, required this.count, this.next, this.previous, required this.results});
 
   @override
   List<Object?> get props => [id, count, next, previous, results];

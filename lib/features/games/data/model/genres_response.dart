@@ -28,7 +28,7 @@ class ResultsResponse extends Results {
     required int id,
     required String name,
     required String gamesCount,
-    required List<Games> game,
+    required List<GamesResponse> game,
     required String backgroundImage
   }) : super(
     id: id,
@@ -44,13 +44,13 @@ class ResultsResponse extends Results {
       name: json['name'],
       gamesCount: json['games_count'],
       backgroundImage: json['image_background'],
-      game: (json['games'] as List).map((e) => Games.fromJson(e)).toList()
+      game: (json['games'] as List).map((e) => GamesResponse.fromJson(e)).toList()
     );
   }
 }
 
-class Games extends Game {
-  const Games({
+class GamesResponse extends Games {
+  const GamesResponse({
     required String id,
     required String name,
   }) : super(
@@ -58,8 +58,8 @@ class Games extends Game {
     name: name,
   );
 
-  factory Games.fromJson(Map<String, dynamic> json){
-    return Games(
+  factory GamesResponse.fromJson(Map<String, dynamic> json){
+    return GamesResponse(
       id: json['id'],
       name: json['name'],
     );

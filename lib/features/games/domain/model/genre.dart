@@ -22,7 +22,7 @@ class Results extends Equatable{
   final int id;
   final String name;
   final String gamesCount;
-  final List<Game> game;
+  final List<Games> game;
   final String backgroundImage;
 
   const Results({required this.id, required this.name, required this.gamesCount, required this.game, required this.backgroundImage});
@@ -38,11 +38,11 @@ class Results extends Equatable{
 
 }
 
-class Game extends Equatable {
+class Games extends Equatable {
   final String id;
   final String name;
 
-  const Game({required this.name, required this.id});
+  const Games({required this.name, required this.id});
 
   @override
   List<Object?> get props => [
