@@ -3,19 +3,21 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:game_flix_flutter/core/usecase/usecase.dart';
+import 'package:game_flix_flutter/features/games/domain/usecase/get_all_genres_usecase.dart';
 
 import '../../../../core/errors/failure.dart';
 import '../../../../core/utils/constants.dart';
 import '../../domain/model/game.dart';
+import '../../domain/model/genre.dart';
 import '../../domain/usecase/get_all_game_usecase.dart';
 
 part 'games_event.dart';
 part 'games_state.dart';
 
 class GamesBloc extends Bloc<GamesEvent, GamesState> {
-  final GetAllGamesUseCase getAllGamesUseCase;
+  final GetAllGenresUseCase getGenresUseCase;
 
-  GamesBloc(this.getAllGamesUseCase) : super(const GamesInitialState()) {
+  GamesBloc(this.getGenresUseCase) : super(const GamesInitialState()) {
     on<GetGamesEvent>(getGamesEventObserver);
   }
 
@@ -23,11 +25,13 @@ class GamesBloc extends Bloc<GamesEvent, GamesState> {
   Future<void> getGamesEventObserver(emit, event) async {
     if(event is GetGamesEvent){
       emit(const GamesLoadingState());
-      final result = await getAllGamesUseCase(NoParams());
+      final result = await getGenresUseCase.call(NoParams());
       result.fold(
           (failure) => emit(GamesErrorState(message: mapFailureToMessage(failure))),
-          (games) => emit(GamesLoadedState(games: games))
+          (genres) => emit(GamesLoadedState(genres: genres))
       );
+    }else {
+      emit(const GamesErrorState(message: Constants.UNEXPECTED_FAILURE_MESSAGE));
     }
   }
 

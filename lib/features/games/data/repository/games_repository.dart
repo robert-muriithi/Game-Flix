@@ -10,6 +10,7 @@ import 'package:game_flix_flutter/features/games/domain/model/genre.dart';
 import 'package:game_flix_flutter/features/games/domain/repository/games_repository.dart';
 import '../../../../core/network/network.dart';
 import '../mappers/mappers.dart';
+import 'package:logger/logger.dart';
 
 class GamesRepositoryImpl implements GamesRepository {
   final GamesLocalDataSource localDataSource;
@@ -27,6 +28,7 @@ class GamesRepositoryImpl implements GamesRepository {
 
   @override
   Future<Either<Failure, List<Game>>> getAllGames() async {
+    final log  = Logger();
     if (await networkInfo.isConnected()) {
       try {
         final remoteData = await remoteDataSource.getGames();
@@ -51,6 +53,7 @@ class GamesRepositoryImpl implements GamesRepository {
 
   @override
   Future<Either<Failure, List<Genre>>> getAllGenres() async {
+    final log  = Logger();
     if (await networkInfo.isConnected()) {
       try {
         final remoteData = await genresRemoteDataSource.getGenres();

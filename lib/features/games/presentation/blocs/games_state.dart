@@ -17,12 +17,12 @@ class GamesLoadingState extends GamesState {
 }
 
 class GamesLoadedState extends GamesState {
-  const GamesLoadedState({ required this.games});
-  final List<Game> games;
+  const GamesLoadedState({ required this.genres});
+  final List<Genre> genres;
 
   @override
   List<Object?> get props => [
-    games
+    genres
   ];
 }
 
