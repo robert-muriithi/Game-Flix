@@ -3,18 +3,18 @@ import 'package:floor/floor.dart';
 import 'package:game_flix_flutter/features/games/data/datasources/local/entity/genre/genres_entity.dart';
 
 
-class GameEntityConverter extends TypeConverter<List<GameEntity>, String> {
+class GameEntityConverter extends TypeConverter<List<GenresGames>, String> {
   @override
-  List<GameEntity> decode(String databaseValue) {
+  List<GenresGames> decode(String databaseValue) {
     List<dynamic> list = json.decode(databaseValue);
-    return List<GameEntity>.from(list.map((i) => GameEntity(
+    return List<GenresGames>.from(list.map((i) => GenresGames(
         id: i['id'].toString(),
         name: i['name']
     )));
   }
 
   @override
-  String encode(List<GameEntity> value) {
+  String encode(List<GenresGames> value) {
     List<Map<String, dynamic>> list = value.map((i) => {
       'id': int.parse(i.id),
       'name': i.name
@@ -23,16 +23,16 @@ class GameEntityConverter extends TypeConverter<List<GameEntity>, String> {
   }
 }
 
-class ResultEntityConverter extends TypeConverter<List<ResultEntity>, String> {
+class ResultEntityConverter extends TypeConverter<List<GenresResults>, String> {
 
   @override
-  List<ResultEntity> decode(String databaseValue) {
+  List<GenresResults> decode(String databaseValue) {
     List<dynamic> list = json.decode(databaseValue);
-    return List<ResultEntity>.from(list.map((i) => ResultEntity(
+    return List<GenresResults>.from(list.map((i) => GenresResults(
         id: i['id'],
         name: i['name'],
         gamesCount: i['games_count'].toString(),
-        game: List<GameEntity>.from(i['game'].map((i) => GameEntity(
+        game: List<GenresGames>.from(i['game'].map((i) => GenresGames(
             id: i['id'].toString(),
             name: i['name']
         ))),
@@ -42,7 +42,7 @@ class ResultEntityConverter extends TypeConverter<List<ResultEntity>, String> {
   }
 
   @override
-  String encode(List<ResultEntity> value) {
+  String encode(List<GenresResults> value) {
 
     List<Map<String, dynamic>> list = value.map((i) => {
       'id': i.id,
