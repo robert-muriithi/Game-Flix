@@ -9,7 +9,7 @@ class Routes {
   static const initialRoute = gamesPage;
 
   static final Map<String, WidgetBuilder> routes = {
-    gamesPage: (context) => const GamesPage(),
+    gamesPage: (context) =>  GamesPage(),
     gameDetailsPage: (context) => const GameDetailsPage()
   };
 
