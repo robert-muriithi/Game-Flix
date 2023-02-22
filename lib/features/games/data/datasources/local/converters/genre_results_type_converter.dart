@@ -8,7 +8,7 @@ class GameEntityConverter extends TypeConverter<List<GenresGames>, String> {
   List<GenresGames> decode(String databaseValue) {
     List<dynamic> list = json.decode(databaseValue);
     return List<GenresGames>.from(list.map((i) => GenresGames(
-        id: i['id'].toString(),
+        id: i['id'],
         name: i['name']
     )));
   }
@@ -16,7 +16,7 @@ class GameEntityConverter extends TypeConverter<List<GenresGames>, String> {
   @override
   String encode(List<GenresGames> value) {
     List<Map<String, dynamic>> list = value.map((i) => {
-      'id': int.parse(i.id),
+      'id': i.id,
       'name': i.name
     }).toList();
     return json.encode(list);
@@ -31,12 +31,12 @@ class ResultEntityConverter extends TypeConverter<List<GenresResults>, String> {
     return List<GenresResults>.from(list.map((i) => GenresResults(
         id: i['id'],
         name: i['name'],
-        gamesCount: i['games_count'].toString(),
+        gamesCount: i['games_count'],
         game: List<GenresGames>.from(i['game'].map((i) => GenresGames(
-            id: i['id'].toString(),
+            id: i['id'],
             name: i['name']
         ))),
-        backgroundImage: i['background_image']
+        backgroundImage: i['image_background']
     )));
 
   }
@@ -49,10 +49,10 @@ class ResultEntityConverter extends TypeConverter<List<GenresResults>, String> {
       'name': i.name,
       'games_count': i.gamesCount,
       'game': i.game.map((i) => {
-        'id': int.parse(i.id),
+        'id': i.id,
         'name': i.name
       }).toList(),
-      'background_image': i.backgroundImage
+      'image_background': i.backgroundImage
     }).toList();
 
     return json.encode(list);
