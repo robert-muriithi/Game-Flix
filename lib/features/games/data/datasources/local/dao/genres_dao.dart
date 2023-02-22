@@ -7,7 +7,7 @@ import '../entity/genre/genres_entity.dart';
 abstract class GenresDao {
 
   @Insert(onConflict: OnConflictStrategy.replace)
-  Future<void> insertGenres(List<GenresEntity> games);
+  Future<void> insertGenres(GenresEntity games);
 
   @Query('SELECT * FROM ${Constants.kGenresTableName}')
   Future<List<GenresEntity>> getAllGenres();
