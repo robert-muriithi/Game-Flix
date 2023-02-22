@@ -6,7 +6,7 @@ import 'entity/genre/genres_entity.dart';
 abstract class GenresLocalDataSource {
   Future<void> deleteGenres();
   Future<List<GenresEntity>> getGenres();
-  Future<void> insertGenres(List<GenresEntity> genres);
+  Future<void> insertGenres(GenresEntity genres);
 }
 
 class GenresLocalDataSourceImpl extends GenresLocalDataSource {
@@ -36,7 +36,7 @@ class GenresLocalDataSourceImpl extends GenresLocalDataSource {
   }
 
   @override
-  Future<void> insertGenres(List<GenresEntity> genres) async {
+  Future<void> insertGenres(GenresEntity genres) async {
     try{
       final dao = database.genresDao;
       await dao.insertGenres(genres);
