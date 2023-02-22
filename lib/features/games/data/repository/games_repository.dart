@@ -58,7 +58,14 @@ class GamesRepositoryImpl implements GamesRepository {
       try {
         final remoteData = await genresRemoteDataSource.getGenres();
         genresLocalDataSource.deleteGenres();
-        await genresLocalDataSource.insertGenres(remoteData.map((e) => toEntityGenre(e)).toList());
+        //Insert genres to local database
+        
+        await genresLocalDataSource.insertGenres(remoteData.genresResponseToEntity(remoteData));
+        
+        
+        
+        //await genresLocalDataSource.insertGenres(remoteData.map((e) => toEntityGenre(e)).toList());
+       // await genresLocalDataSource.insertGenres(remoteData);
         final localData = await genresLocalDataSource.getGenres();
         final genres = localData.map((e) => toGenre(e)).toList();
         return Right(genres);
