@@ -1,18 +1,18 @@
 import 'package:equatable/equatable.dart';
 
 class Genre extends Equatable {
-  final int count;
-  final String? next;
-  final String? previous;
-  final List<Results> results;
+  final int? count;
+  final int? next;
+  final int? previous;
+  final List<Results>? results;
 
   const Genre({required this.count, this.next, this.previous, required this.results});
 
   @override
   List<Object?> get props => [
     count,
-    next,
-    previous,
+    /*next,
+    previous,*/
     results
   ];
 
@@ -21,8 +21,8 @@ class Genre extends Equatable {
 class Results extends Equatable{
   final int id;
   final String name;
-  final String gamesCount;
-  final List<Games> game;
+  final int gamesCount;
+  final List<Games?>? game;
   final String backgroundImage;
 
   const Results({required this.id, required this.name, required this.gamesCount, required this.game, required this.backgroundImage});
@@ -39,7 +39,7 @@ class Results extends Equatable{
 }
 
 class Games extends Equatable {
-  final String id;
+  final int id;
   final String name;
 
   const Games({required this.name, required this.id});
