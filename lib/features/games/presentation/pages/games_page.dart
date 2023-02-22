@@ -15,6 +15,7 @@ class GamesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Games'),
+        elevation: 1,
       ),
       body: buildBody(context),
     );
@@ -34,7 +35,7 @@ class GamesPage extends StatelessWidget {
               return const CircularProgressIndicator();
             }
             else if(state is GamesLoadedState){
-              final genres = state.genres;
+              final genres = state.results;
               return GenresListWidget(genres: genres);
             }
             else if(state is GamesErrorState){
