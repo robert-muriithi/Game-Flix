@@ -5,22 +5,22 @@ import 'package:game_flix_flutter/core/utils/constants.dart';
 @Entity(tableName:Constants.kGenresTableName)
 class GenresEntity extends Equatable {
   @primaryKey final int? id;
-  final int count;
-  final String? next;
-  final String? previous;
+  final int? count;
+  final int? next;
+  final int? previous;
   final List<GenresResults> results;
 
    const GenresEntity({this.id, required this.count, this.next, this.previous, required this.results});
 
   @override
-  List<Object?> get props => [id, count, next, previous, results];
+  List<Object?> get props => [id, count, /*count, next, previous,*/ results];
 
 }
 
 class GenresResults extends Equatable {
   final int id;
   final String name;
-  final String gamesCount;
+  final int gamesCount;
   final List<GenresGames> game;
   final String backgroundImage;
 
@@ -32,7 +32,7 @@ class GenresResults extends Equatable {
 }
 
 class GenresGames extends Equatable {
-  final String id;
+  final int id;
   final String name;
 
   const GenresGames({required this.name, required this.id});
