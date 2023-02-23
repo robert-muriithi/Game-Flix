@@ -17,11 +17,14 @@ class GamesPage extends StatelessWidget {
         title: const Text('Games'),
         elevation: 1,
       ),
-      body: buildBody(context),
+      body:  const Center(
+        child: Text('Games page'),
+      )
+      /*buildBody(context),*/
     );
   }
 
-  BlocProvider<GamesBloc> buildBody(BuildContext context){
+ /* BlocProvider<GamesBloc> buildBody(BuildContext context){
     return BlocProvider(
         create: (_) => sl<GamesBloc>(),
         child: BlocBuilder<GamesBloc, GamesState>(
@@ -35,7 +38,7 @@ class GamesPage extends StatelessWidget {
               return const CircularProgressIndicator();
             }
             else if(state is GamesLoadedState){
-              final genres = state.results;
+              final genres = state.games;
               return GenresListWidget(genres: genres);
             }
             else if(state is GamesErrorState){
@@ -51,6 +54,6 @@ class GamesPage extends StatelessWidget {
 
   void dispatchEvent(BuildContext context){
     BlocProvider.of<GamesBloc>(context).add(GetGamesEvent());
-  }
+  }*/
 
 }

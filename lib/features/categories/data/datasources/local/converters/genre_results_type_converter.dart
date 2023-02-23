@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:floor/floor.dart';
-import 'package:game_flix_flutter/features/games/data/datasources/local/entity/genre/genres_entity.dart';
+import 'package:game_flix_flutter/features/categories/data/datasources/local/entity/genre/genres_entity.dart';
+
 
 
 class GameEntityConverter extends TypeConverter<List<GenresGames>, String> {

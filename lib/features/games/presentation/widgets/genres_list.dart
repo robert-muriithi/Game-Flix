@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../domain/model/genre.dart';
+import '../../../categories/domain/model/genre.dart';
+import '../../domain/model/game.dart';
 
 class GenresListWidget extends StatefulWidget {
   const GenresListWidget({Key? key, required this.genres}) : super(key: key);
-  final List<Results?> genres;
+  final List<Game?> genres;
 
   @override
   State<GenresListWidget> createState() => _GenresListWidgetState();

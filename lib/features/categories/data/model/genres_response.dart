@@ -1,4 +1,4 @@
-import 'package:game_flix_flutter/features/games/domain/model/genre.dart';
+import 'package:game_flix_flutter/features/categories/domain/model/genre.dart';
 
 
 class GenreResponse {

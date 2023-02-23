@@ -2,6 +2,7 @@ import '../../../../../core/data/local/database/database.dart';
 import '../../../../../core/errors/exceptions.dart';
 import 'entity/genre/genres_entity.dart';
 
+
 abstract class GenresLocalDataSource {
   Future<void> deleteGenres();
   Future<List<GenresResults>> getGenres();

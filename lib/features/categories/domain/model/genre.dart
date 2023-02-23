@@ -1,23 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-/*class Genre extends Equatable {
-  final int? count;
-  final int? next;
-  final int? previous;
-  final List<Results>? results;
-
-  const Genre({required this.count, this.next, this.previous, required this.results});
-
-  @override
-  List<Object?> get props => [
-    count,
-    next,
-    previous,
-    results
-  ];
-
-}*/
-
 
 class Results extends Equatable{
   final int id;

@@ -10,3 +10,23 @@ class NoParams extends Equatable {
   @override
   List<Object?> get props => [];
 }
+
+class Params extends Equatable {
+  final int count;
+  final String prev;
+  final String next;
+  final String key;
+  const Params({
+    required this.count,
+    required this.prev,
+    required this.next,
+    required this.key,
+  });
+  @override
+  List<Object?> get props => [
+    count,
+    prev,
+    next,
+    key,
+  ];
+}

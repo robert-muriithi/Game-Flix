@@ -15,13 +15,13 @@ class GamesLoadingState extends GamesState {
 }
 
 class GamesLoadedState extends GamesState {
-  const GamesLoadedState({required this.results});
-  final List<Results> results;
+  const GamesLoadedState({required this.games});
+  final List<Game> games;
 
 
   @override
   List<Object?> get props => [
-    results
+    games
   ];
 }
 
