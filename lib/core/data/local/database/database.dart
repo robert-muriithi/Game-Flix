@@ -13,7 +13,7 @@ import '../../../../features/games/data/datasources/local/entity/genre/genres_en
 part 'database.g.dart';
 
 @TypeConverters([ResultEntityConverter, GameEntityConverter])
-@Database(version: 1, entities: [GamesEntity, GenresEntity])
+@Database(version: 1, entities: [GamesEntity, GenresResults])
 abstract class GameFlixDatabase extends FloorDatabase {
   GamesDao get gamesDao;
   GenresDao get genresDao;
