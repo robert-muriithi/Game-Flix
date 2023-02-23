@@ -3,7 +3,7 @@ import '../../domain/model/genre.dart';
 
 class GenresListWidget extends StatefulWidget {
   const GenresListWidget({Key? key, required this.genres}) : super(key: key);
-  final List<List<Results>?> genres;
+  final List<Results?> genres;
 
   @override
   State<GenresListWidget> createState() => _GenresListWidgetState();
@@ -32,7 +32,7 @@ class _GenresListWidgetState extends State<GenresListWidget> {
                 borderRadius: BorderRadius.circular(5.0),
               ),
               padding: const EdgeInsets.all(5),
-              child: Text(widget.genres[index]!.map((e) => e.name).join(''),
+              child: Text(widget.genres[index]!.name,
               style: const TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
