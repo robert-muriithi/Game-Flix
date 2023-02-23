@@ -5,13 +5,13 @@ import '../../../../core/errors/failure.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../repository/games_repository.dart';
 
-class GetAllGenresUseCase extends UseCase<List<Genre>, NoParams> {
+class GetAllGenresUseCase extends UseCase<List<Results>, NoParams> {
   final GamesRepository repository;
   GetAllGenresUseCase(this.repository);
 
   @override
-  Future<Either<Failure, List<Genre>>> call(NoParams params) async {
-    return repository.getAllGenres();
+  Future<Either<Failure, List<Results>>> call(NoParams params) async {
+    return repository.getGenres();
   }
 
 }
