@@ -41,7 +41,7 @@ class GamesBloc extends Bloc<GamesEvent, GamesState> {
       final result = await getGenresUseCase(NoParams());
       result.fold(
             (failure) => emit(GamesErrorState(message: mapFailureToMessage(failure))),
-            (genres) => emit(GamesLoadedState(results: genres.map((e) => e.results).toList())),
+            (results) => emit(GamesLoadedState(results: results)),
       );
     }else {
       emit(const GamesErrorState(message: Constants.UNEXPECTED_FAILURE_MESSAGE));

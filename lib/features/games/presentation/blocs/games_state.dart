@@ -16,8 +16,7 @@ class GamesLoadingState extends GamesState {
 
 class GamesLoadedState extends GamesState {
   const GamesLoadedState({required this.results});
-  //final List<Genre> genres;
-  final List<List<Results>?> results;
+  final List<Results> results;
 
 
   @override
