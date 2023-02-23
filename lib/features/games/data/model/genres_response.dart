@@ -1,44 +1,25 @@
-import 'package:game_flix_flutter/features/games/data/datasources/local/entity/genre/genres_entity.dart';
 import 'package:game_flix_flutter/features/games/domain/model/genre.dart';
 
-import '../mappers/mappers.dart';
 
-class GenreResponse extends Genre {
-  const GenreResponse({
-    required int? count,
-    required int? next,
-    required int? previous,
-    required List<ResultsResponse>? results,
-   }) : super(
-    count: count,
-    next: next,
-    previous: previous,
-    results: results
-  );
+class GenreResponse {
+  final int? count;
+  final int? next;
+  final int? previous;
+  final List<ResultsResponse>? results;
+
+   const GenreResponse({
+      this.count,
+     this.next,
+     this.previous,
+      this.results
+   });
 
  factory GenreResponse.fromJson(Map<String, dynamic> json){
     return GenreResponse(
       count: json['count'],
       next: json['next'],
       previous: json['previous'],
-       // results: (json['results'] as List).map((e) => ResultsResponse.fromJson(e)).toList()
       results: json['results'] != null ? (json['results'] as List).map((e) => ResultsResponse.fromJson(e)).toList() : null
-    );
-  }
-
-  GenresEntity genresResponseToEntity(GenreResponse? response) {
-    return GenresEntity(
-        count: response?.count ?? 0,
-        results: response?.results
-            ?.map((e) => toEntityResults(ResultsResponse(
-            id: e.id,
-            name: e.name,
-            gamesCount: e.gamesCount,
-            backgroundImage: e.backgroundImage,
-            game: e.game?.map((e) => toResponseGames(
-                GenresGames(id: e?.id ?? 0, name: e?.name ?? "")))
-                .toList())))
-            .toList() ?? []
     );
   }
 
@@ -69,6 +50,7 @@ class ResultsResponse extends Results {
     );
   }
 }
+
 
 class GamesResponse extends Games {
   const GamesResponse({
