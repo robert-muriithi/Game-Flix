@@ -29,92 +29,41 @@ Game toGame(GamesEntity entity) {
 }
 
 
-
-GenresEntity toEntityGenre(GenreResponse response) {
-  return GenresEntity(
-      count: response.count,
-      /*next: response.next,
-      previous: response.previous,*/
-      results: response.results!.map((e) => toEntityResults(ResultsResponse(
-              id: e.id,
-              name: e.name,
-              gamesCount: e.gamesCount,
-              backgroundImage: e.backgroundImage,
-              game: e.game!.map((e) => toResponseGames(
-                  GenresGames(id: e!.id, name: e.name))).toList()))).toList()
-  );
-}
-
-
-
-
-/*GenreResponse toResponseGenre(GenresEntity entity) {
-  return GenreResponse(
-      count: entity.count,
-      next: entity.next,
-      previous: entity.previous,
-      results: entity.results.map((e) => toResponseResults(
-          GenresResults(
-              id: e.id,
-              name: e.name,
-              gamesCount: e.gamesCount,
-              backgroundImage: e.backgroundImage,
-              game: e.game.map((e) => toResponseGame(
-                  GamesResponse(id: e.id, name: e.name))).toList()))).toList()
-  );
-}
-
-ResultsResponse toResponseResults(GenresResults entity) {
-  return ResultsResponse(
-      id: entity.id,
-      name: entity.name,
-      gamesCount: entity.gamesCount,
-      backgroundImage: entity.backgroundImage,
-      game: entity.game.map((e) => toResponseGame(
-          GamesResponse(id: e.id, name: e.name))).toList());
-}
-
-GenresGames toResponseGame(GamesResponse entity) {
-  return GenresGames(id: entity.id, name: entity.name);
-}*/
-
-
-GenresResults toEntityResults(ResultsResponse? response) {
+GenresResults fromResultResponseToEntity(ResultsResponse response) {
   return GenresResults(
-      id: response!.id,
-      name: response.name,
+     id: response.id,
+     name: response.name,
       gamesCount: response.gamesCount,
       backgroundImage: response.backgroundImage,
-      game: response.game
-          !.map((e) => toEntityGames(GamesResponse(id: e!.id, name: e.name)))
-          .toList());
+       game: response.game!.map((e) => fromGamesResponseToEntityGames(
+           GamesResponse(id: e!.id, name: e.name))).toList()
+  );
 }
 
-GamesResponse toResponseGames(GenresGames? entity) {
-  return GamesResponse(id: entity!.id, name: entity.name);
+GenresGames fromGamesResponseToEntityGames(GamesResponse response) {
+  return GenresGames(
+     id: response.id,
+     name: response.name,
+  );
 }
 
-GenresGames toEntityGames(GamesResponse response) {
-  return GenresGames(id: response.id, name: response.name);
-}
-
-Genre toGenre(GenresEntity entity) {
-  return Genre(
-       count: entity.count,
-      /*next: entity.next,
-      previous: entity.previous,*/
-      results: entity.results.map((e) => toResults(e)).toList());
-}
-
-Results toResults(GenresResults entity) {
+Results fromEntityToDomainResults(GenresResults entity ){
   return Results(
-      id: entity.id,
-      name: entity.name,
-      gamesCount: entity.gamesCount,
-      backgroundImage: entity.backgroundImage,
-      game: entity.game.map((e) => toGames(e)).toList());
+    id: entity.id,
+    name: entity.name,
+    gamesCount: entity.gamesCount,
+    backgroundImage: entity.backgroundImage,
+    game: entity.game.map((e) => fromEntityToDomainGames(
+        GenresGames(id: e.id, name: e.name)
+    )).toList()
+  );
 }
 
-Games toGames(GenresGames entity) {
-  return Games(id: entity.id, name: entity.name);
+Games fromEntityToDomainGames(GenresGames entity ){
+  return Games(
+    id: entity.id,
+    name: entity.name,
+  );
 }
+
+
