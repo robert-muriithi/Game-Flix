@@ -5,5 +5,6 @@ import '../../../../core/errors/failure.dart';
 
 abstract class GamesRepository {
   Future<Either<Failure, List<Game>>> getAllGames();
-  Future<Either<Failure, List<Genre>>> getAllGenres();
+ // Future<Either<Failure, List<Genre>>> getAllGenres();
+  Future<Either<Failure, List<Results>>> getGenres();
 }

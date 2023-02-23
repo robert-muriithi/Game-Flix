@@ -51,7 +51,7 @@ class GamesRepositoryImpl implements GamesRepository {
     }
   }
 
-  @override
+/*  @override
   Future<Either<Failure, List<Genre>>> getAllGenres() async {
     final log  = Logger();
     if (await networkInfo.isConnected()) {
@@ -76,6 +76,35 @@ class GamesRepositoryImpl implements GamesRepository {
       try {
         final localData = await genresLocalDataSource.getGenres();
         final games = localData.map((e) => toGenre(e)).toList();
+        return Right(games);
+      } on DatabaseException catch (exception) {
+        return Left(DatabaseFailure(exception.message));
+      }
+    }
+  }*/
+
+  @override
+  Future<Either<Failure, List<Results>>> getGenres() async {
+    final log = Logger();
+    if (await networkInfo.isConnected()) {
+      try {
+        final genreResponse = await  genresRemoteDataSource.getGenres();
+        //Delete any existing genres
+        genresLocalDataSource.deleteGenres();
+        //Insert genres to local database
+        final genreResults = genreResponse.results?.map((e) => fromResultResponseToEntity(e)).toList();
+        genresLocalDataSource.insertGenres(genreResults ?? []);
+
+        final localData = await genresLocalDataSource.getGenres();
+        final genres = localData.map((e) => fromEntityToDomainResults(e)).toList();
+        return Right(genres);
+      } on ServerException catch (e) {
+        return Left(ServerFailure(e.message));
+      }
+    } else {
+      try {
+        final localData = await genresLocalDataSource.getGenres();
+        final games = localData.map((e) => fromEntityToDomainResults(e)).toList();
         return Right(games);
       } on DatabaseException catch (exception) {
         return Left(DatabaseFailure(exception.message));
