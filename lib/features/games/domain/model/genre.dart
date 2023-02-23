@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class Genre extends Equatable {
+/*class Genre extends Equatable {
   final int? count;
   final int? next;
   final int? previous;
@@ -11,12 +11,13 @@ class Genre extends Equatable {
   @override
   List<Object?> get props => [
     count,
-    /*next,
-    previous,*/
+    next,
+    previous,
     results
   ];
 
-}
+}*/
+
 
 class Results extends Equatable{
   final int id;
@@ -36,7 +37,11 @@ class Results extends Equatable{
     backgroundImage
   ];
 
+  @override
+  bool get stringify => true;
 }
+
+
 
 class Games extends Equatable {
   final int id;
@@ -49,5 +54,8 @@ class Games extends Equatable {
     id,
     name,
   ];
+
+  @override
+  bool get stringify => true;
 
 }
