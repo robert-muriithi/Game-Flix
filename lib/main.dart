@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'features/games/presentation/routes/routes.dart';
+import 'config/routes/routes.dart';
 import 'injector.dart' as di;
 
 
