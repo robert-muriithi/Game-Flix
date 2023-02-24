@@ -7,5 +7,4 @@ abstract class GamesEvent extends Equatable {
 class GetGamesEvent extends GamesEvent {
   @override
   List<Object?> get props => [];
-
 }

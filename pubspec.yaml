@@ -21,6 +21,7 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   cupertino_icons: ^1.0.2
   retrofit: ^4.0.1
+  logger: ^1.1.0
 
 dev_dependencies:
   flutter_test:

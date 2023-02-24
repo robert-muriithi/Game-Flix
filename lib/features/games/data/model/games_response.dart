@@ -1,4 +1,4 @@
-import 'package:game_flix_flutter/features/games/data/datasources/local/entity/game_entity.dart';
+import 'package:game_flix_flutter/features/games/data/datasources/local/entity/game/game_entity.dart';
 
 import '../../domain/model/game.dart';
 
