@@ -1,36 +1,28 @@
 part of 'games_bloc.dart';
 
 abstract class GamesState extends Equatable {
-  const GamesState();
+  final bool noMoreData;
+  final List<GameResults> games;
+  final String? errorMessage;
+  const GamesState(this.games, this.noMoreData, this.errorMessage);
+
+  @override
+  List<Object?> get props => [noMoreData, games];
 }
 
 class GamesInitialState extends GamesState {
-  @override
-  List<Object?> get props => [];
+  GamesInitialState() : super([], false, null);
 }
 
 class GamesLoadingState extends GamesState {
-  @override
-  List<Object?> get props => [];
+  GamesLoadingState() : super([], false, null);
 }
 
 class GamesLoadedState extends GamesState {
-  const GamesLoadedState({required this.games});
-  final List<Game> games;
-
-
-  @override
-  List<Object?> get props => [
-    games
-  ];
+  const GamesLoadedState(List<GameResults> games, {required bool noMoreData}) : super(games,  noMoreData, null);
 }
 
 class GamesErrorState extends GamesState {
-  final String message;
-  const GamesErrorState({required this.message});
-
-  @override
-  List<Object?> get props => [
-    message
-  ];
+  GamesErrorState({required String error}) : super([], true,  error);
 }
+
