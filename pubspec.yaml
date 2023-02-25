@@ -22,6 +22,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   retrofit: ^4.0.1
   logger: ^1.1.0
+  cached_network_image: ^3.2.3
+  fluttericon: ^2.0.0
+  carbon_icons: ^0.0.1+2
 
 dev_dependencies:
   flutter_test:
