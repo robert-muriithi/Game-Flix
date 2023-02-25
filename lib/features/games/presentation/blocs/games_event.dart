@@ -8,3 +8,8 @@ class GetGamesEvent extends GamesEvent {
   @override
   List<Object?> get props => [];
 }
+
+class HideAppBarEvent extends GamesEvent {
+  @override
+  List<Object?> get props => [];
+}
