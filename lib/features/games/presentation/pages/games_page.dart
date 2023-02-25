@@ -6,10 +6,16 @@ import '../blocs/games_bloc.dart';
 import '../widgets/error_widget.dart';
 import '../widgets/genres_list.dart';
 
-class GamesPage extends StatelessWidget {
-   GamesPage({Key? key}) : super(key: key);
+class GamesPage extends StatefulWidget {
+   const GamesPage({Key? key}) : super(key: key);
 
+  @override
+  State<GamesPage> createState() => _GamesPageState();
+}
+
+class _GamesPageState extends State<GamesPage> {
   BuildContext? blocContext;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,14 +23,11 @@ class GamesPage extends StatelessWidget {
         title: const Text('Games'),
         elevation: 1,
       ),
-      body:  const Center(
-        child: Text('Games page'),
-      )
-      /*buildBody(context),*/
+      body: buildBody(context),
     );
   }
 
- /* BlocProvider<GamesBloc> buildBody(BuildContext context){
+  BlocProvider<GamesBloc> buildBody(BuildContext context){
     return BlocProvider(
         create: (_) => sl<GamesBloc>(),
         child: BlocBuilder<GamesBloc, GamesState>(
@@ -35,14 +38,18 @@ class GamesPage extends StatelessWidget {
               dispatchEvent(context);
             }
             if(state is GamesLoadingState){
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             }
             else if(state is GamesLoadedState){
-              final genres = state.games;
-              return GenresListWidget(genres: genres);
+              final games = state.games;
+              final noMoreData = state.noMoreData;
+              return GenresListWidget(
+                games: games,
+                noMoreData: noMoreData,
+              );
             }
             else if(state is GamesErrorState){
-              return ErrorMessageWidget(message: state.message);
+              return ErrorMessageWidget(message: state.errorMessage!);
             }else {
               return const ErrorMessageWidget(message: 'An unknown error occurred');
             }
@@ -54,6 +61,5 @@ class GamesPage extends StatelessWidget {
 
   void dispatchEvent(BuildContext context){
     BlocProvider.of<GamesBloc>(context).add(GetGamesEvent());
-  }*/
-
+  }
 }
