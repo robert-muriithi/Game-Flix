@@ -30,3 +30,18 @@ class Params extends Equatable {
     pageSize,
   ];
 }
+
+class GameDetailsParams extends Equatable {
+  final String apiKey;
+  final int id;
+
+  const GameDetailsParams({
+    this.apiKey = Constants.apiKey,
+    required this.id,
+  });
+  @override
+  List<Object?> get props => [
+    apiKey,
+    id,
+  ];
+}
