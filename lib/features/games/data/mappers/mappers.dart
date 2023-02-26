@@ -2,6 +2,10 @@ import 'package:game_flix_flutter/features/games/data/datasources/local/entity/g
 import 'package:game_flix_flutter/features/games/data/model/games_response.dart';
 import 'package:game_flix_flutter/features/games/domain/model/game.dart';
 
+import '../../domain/model/game_deatils.dart';
+import '../datasources/local/entity/games_details/games_details.dart';
+import '../model/game_details_response.dart';
+
 
 GamesResultsEntity fromResultResponseToEntity(Results results){
   return GamesResultsEntity(
@@ -20,7 +24,7 @@ GamesResultsEntity fromResultResponseToEntity(Results results){
       esrbRating: results.esrbRating ?? PlatformResult(id: 0, name: 'Not Rated', imageBackground: '', gamesCount: 0),
       shortScreenshots: results.shortScreenshots!,
       tags: results.tags!,
-      metaCritic: results.metaCritic!
+      metaCritic: results.metaCritic ?? 0
   );
 }
 
@@ -44,6 +48,57 @@ GameResults fromEntityToDomain(GamesResultsEntity entity){
       metaCritic: entity.metaCritic
   );
 }
+
+GameDetailsEntity fromGameDetailsResponseToEntity(GameDetailsResponse response){
+  return GameDetailsEntity(
+    id: response.id,
+    name: response.name,
+    backgroundImage: response.backgroundImage!,
+    backgroundImageAdditional: response.backgroundImageAdditional ?? '',
+    developers: response.developers!,
+    descriptionRaw: response.descriptionRaw!,
+    description: response.description!,
+    website: response.website!,
+    creatorsCount: response.creatorsCount!
+  );
+}
+
+GameDetails fromGameDetailsEntityToDomain(GameDetailsEntity entity){
+  return GameDetails(
+      id: entity.id,
+      name: entity.name,
+      backgroundImage: entity.backgroundImage,
+      backgroundImageAdditional: entity.backgroundImageAdditional,
+      developers: entity.developers,
+      descriptionRaw: entity.descriptionRaw,
+      description: entity.description,
+      website: entity.website,
+      creatorsCount: entity.creatorsCount
+  );
+}
+
+GamesResultsEntity fromDomainToEntity(GameResults gameResults){
+  return GamesResultsEntity(
+      id: gameResults.id!,
+      name: gameResults.name!,
+      released: gameResults.released!,
+      backgroundImage: gameResults.backgroundImage,
+      rating: gameResults.rating!,
+      ratingsCount: gameResults.ratingsCount!,
+      reviewsTextCount: gameResults.reviewsTextCount!,
+      suggestionsCount: gameResults.suggestionsCount!,
+      updated: gameResults.updated!,
+      reviewsCount: gameResults.reviewsCount!,
+      platforms: gameResults.platforms!,
+      genres: gameResults.genres!,
+      esrbRating: gameResults.esrbRating!,
+      shortScreenshots: gameResults.shortScreenshots!,
+      tags: gameResults.tags!,
+      metaCritic: gameResults.metaCritic!
+  );
+}
+
+
 
 
 

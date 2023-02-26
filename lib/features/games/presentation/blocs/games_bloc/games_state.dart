@@ -26,3 +26,11 @@ class GamesErrorState extends GamesState {
   GamesErrorState({required String error}) : super([], true,  error);
 }
 
+class AddGameToFavoritesState extends GamesState {
+  final bool isAdded;
+   AddGameToFavoritesState({required this.isAdded}) : super([], false, null);
+
+  @override
+  List<Object?> get props => [isAdded];
+}
+

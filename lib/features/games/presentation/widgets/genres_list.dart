@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/model/game.dart';
-import '../blocs/games_bloc.dart';
+import '../blocs/games_bloc/games_bloc.dart';
 import 'game_item_widget.dart';
 
 class GenresListWidget extends StatefulWidget {
@@ -84,7 +84,7 @@ class _GenresListWidgetState extends State<GenresListWidget> {
           shrinkWrap: true,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 1.7 / 2,
+            childAspectRatio: 1.5 / 2,
             crossAxisSpacing: 8,
             mainAxisSpacing: 7,
           ),

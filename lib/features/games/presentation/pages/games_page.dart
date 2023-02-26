@@ -2,28 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../injector.dart';
-import '../blocs/games_bloc.dart';
+import '../blocs/games_bloc/games_bloc.dart';
 import '../widgets/error_widget.dart';
 import '../widgets/genres_list.dart';
 
-class GamesPage extends StatefulWidget {
-   const GamesPage({Key? key}) : super(key: key);
+class GamesPage extends StatelessWidget {
+    GamesPage({Key? key}) : super(key: key);
 
-  @override
-  State<GamesPage> createState() => _GamesPageState();
-}
-
-class _GamesPageState extends State<GamesPage> {
   BuildContext? blocContext;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Games'),
-        elevation: 1,
-      ),
+      extendBody: true,
+      appBar: buildAppBar(),
       body: buildBody(context),
+    );
+  }
+
+  PreferredSizeWidget buildAppBar(){
+    return AppBar(
+      title:  Container(
+        margin: const EdgeInsets.only(top: 10),
+        child: const Text('Games'),
+      )
     );
   }
 
