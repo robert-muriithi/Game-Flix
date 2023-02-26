@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:floor/floor.dart';
 
 import '../../../../domain/model/game.dart';
+import '../../../../domain/model/game_deatils.dart';
 
 
 class PlatFormResultsConverters extends TypeConverter<List<PlatformsResults>, String> {
@@ -163,6 +164,31 @@ class ShortScreenshotsResultsConverters extends TypeConverter<List<ShortScreensh
     List<Map<String, dynamic>> list = value.map((i) => {
       'id': i.id,
       'image': i.image
+    }).toList();
+    return json.encode(list);
+  }
+
+}
+
+class DevelopersTypeConverter extends TypeConverter<List<Developers>, String> {
+  @override
+  List<Developers> decode(String databaseValue) {
+    List<dynamic> list = json.decode(databaseValue);
+    return List<Developers>.from(list.map((i) => Developers(
+        id: i['id'],
+        name: i['name'],
+        gamesCount: i['games_count'],
+        imageBackground: i['image_background']
+    )));
+  }
+
+  @override
+  String encode(List<Developers> value) {
+    List<Map<String, dynamic>> list = value.map((i) => {
+      'id': i.id,
+      'name': i.name,
+      'games_count' : i.gamesCount,
+      'image_background': i.imageBackground
     }).toList();
     return json.encode(list);
   }
