@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:game_flix_flutter/config/routes/routes.dart';
 import 'package:game_flix_flutter/features/games/domain/model/game.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:fluttericon/iconic_icons.dart';
-import 'package:fluttericon/fontelico_icons.dart';
 
 import '../../../../config/theme/colors.dart';
 
@@ -37,7 +35,8 @@ class GameItemWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   image: DecorationImage(
-                    image: CachedNetworkImageProvider( game!.backgroundImage, cacheKey: game!.backgroundImage),
+                    image: CachedNetworkImageProvider(game!.backgroundImage,
+                        cacheKey: game!.backgroundImage),
                     fit: BoxFit.cover,
                     scale: 2.0,
                   ),
@@ -58,14 +57,17 @@ class GameItemWidget extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal:8),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
                 children: [
                   Expanded(
                     child: Container(
                       child: Text(
                         game?.name ?? '',
-                        style: const TextStyle(color: AppColors.white, fontSize: 14, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            color: AppColors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -129,8 +131,10 @@ class GameItemWidget extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
-                children:   [
-                  const Text('Genres', style: TextStyle(color: Colors.white, fontSize: 11),
+                children: [
+                  const Text(
+                    'Genres',
+                    style: TextStyle(color: Colors.white, fontSize: 11),
                     overflow: TextOverflow.ellipsis,
                   ),
                   const Spacer(),

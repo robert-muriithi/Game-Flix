@@ -27,13 +27,12 @@ class GamesRepositoryImpl implements GamesRepository {
       {required this.gamesRemoteDataSource,
       required this.gamesLocalDataSource,
       required this.networkInfo,
-        required this.gameDetailsRemoteDataSource,
-        required this.gameDetailsLocalDataSource
-      });
+      required this.gameDetailsRemoteDataSource,
+      required this.gameDetailsLocalDataSource});
 
   @override
   Future<Either<Failure, List<GameResults>>> getAllGames(Params params) async {
-    final log  = Logger();
+    final log = Logger();
     if (await networkInfo.isConnected()) {
       try {
         final remoteData = await gamesRemoteDataSource.getGames(
@@ -43,7 +42,9 @@ class GamesRepositoryImpl implements GamesRepository {
         );
 
         gamesLocalDataSource.deleteGames();
-        final gameResults = remoteData.results?.map((e)=> fromResultResponseToEntity(e)).toList();
+        final gameResults = remoteData.results
+            ?.map((e) => fromResultResponseToEntity(e))
+            .toList();
         await gamesLocalDataSource.insertGame(gameResults ?? []);
         final localData = await gamesLocalDataSource.getGames();
         final games = localData.map((e) => fromEntityToDomain(e)).toList();
@@ -63,14 +64,13 @@ class GamesRepositoryImpl implements GamesRepository {
   }
 
   @override
-  Future<Either<Failure, GameDetails>> getGameDetails(GameDetailsParams params) async {
+  Future<Either<Failure, GameDetails>> getGameDetails(
+      GameDetailsParams params) async {
     final log = Logger();
     if (await networkInfo.isConnected()) {
       try {
         final remoteData = await gameDetailsRemoteDataSource.getGameDetails(
-          id: params.id,
-          key: params.apiKey
-        );
+            id: params.id, key: params.apiKey);
         gameDetailsLocalDataSource.deleteGameDetails();
         final gameResults = fromGameDetailsResponseToEntity(remoteData);
         await gameDetailsLocalDataSource.insertGameDetails(gameResults);
@@ -102,5 +102,4 @@ class GamesRepositoryImpl implements GamesRepository {
       return Left(DatabaseFailure(e.message));
     }
   }
-
 }

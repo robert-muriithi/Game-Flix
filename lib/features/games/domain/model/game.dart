@@ -20,45 +20,44 @@ class GameResults extends Equatable {
 
   GameResults(
       {this.id,
-        this.name,
-        this.released,
-        required this.backgroundImage,
-        required this.rating,
-        required this.ratingsCount,
-        required this.reviewsTextCount,
-        this.suggestionsCount,
-        this.updated,
-        this.reviewsCount,
-        this.platforms,
-        this.genres,
-        this.tags,
-        this.esrbRating,
-        this.metaCritic,
-        this.shortScreenshots});
+      this.name,
+      this.released,
+      required this.backgroundImage,
+      required this.rating,
+      required this.ratingsCount,
+      required this.reviewsTextCount,
+      this.suggestionsCount,
+      this.updated,
+      this.reviewsCount,
+      this.platforms,
+      this.genres,
+      this.tags,
+      this.esrbRating,
+      this.metaCritic,
+      this.shortScreenshots});
 
   @override
   List<Object?> get props => [
-    id,
-    name,
-    released,
-    backgroundImage,
-    rating,
-    ratingsCount,
-    reviewsTextCount,
-    suggestionsCount,
-    updated,
-    reviewsCount,
-    platforms,
-    genres,
-    tags,
-    esrbRating,
-    shortScreenshots,
-    metaCritic
-  ];
+        id,
+        name,
+        released,
+        backgroundImage,
+        rating,
+        ratingsCount,
+        reviewsTextCount,
+        suggestionsCount,
+        updated,
+        reviewsCount,
+        platforms,
+        genres,
+        tags,
+        esrbRating,
+        shortScreenshots,
+        metaCritic
+      ];
 
   @override
   bool get stringify => true;
-
 }
 
 class TagsResult extends Equatable {
@@ -77,13 +76,7 @@ class TagsResult extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
-    id,
-    name,
-    language,
-    gamesCount,
-    imageBackground
-  ];
+  List<Object?> get props => [id, name, language, gamesCount, imageBackground];
 
   @override
   bool get stringify => true;
@@ -96,15 +89,11 @@ class ShortScreenshotsResults extends Equatable {
   ShortScreenshotsResults({this.id, this.image});
 
   @override
-  List<Object?> get props => [
-    id,
-    image
-  ];
+  List<Object?> get props => [id, image];
 
   @override
   bool get stringify => true;
 }
-
 
 class GenresResult extends Equatable {
   int? id;
@@ -120,18 +109,13 @@ class GenresResult extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
-    id,
-    name,
-    gamesCount,
-    imageBackground
-  ];
+  List<Object?> get props => [id, name, gamesCount, imageBackground];
 
   @override
   bool get stringify => true;
-
 }
-class PlatformsResults  extends Equatable{
+
+class PlatformsResults extends Equatable {
   PlatformResult? platform;
   String? releasedAt;
   RequirementsEnResult? requirementsEn;
@@ -139,11 +123,7 @@ class PlatformsResults  extends Equatable{
   PlatformsResults({this.platform, this.releasedAt, this.requirementsEn});
 
   @override
-  List<Object?> get props => [
-    platform,
-    releasedAt,
-    requirementsEn
-  ];
+  List<Object?> get props => [platform, releasedAt, requirementsEn];
 
   @override
   bool get stringify => true;
@@ -165,13 +145,7 @@ class PlatformResult extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
-    id,
-    name,
-    image,
-    gamesCount,
-    imageBackground
-  ];
+  List<Object?> get props => [id, name, image, gamesCount, imageBackground];
 
   @override
   bool get stringify => true;
@@ -184,12 +158,8 @@ class RequirementsEnResult extends Equatable {
   RequirementsEnResult({this.minimum, this.recommended});
 
   @override
-  List<Object?> get props => [
-    minimum,
-    recommended
-  ];
+  List<Object?> get props => [minimum, recommended];
 
   @override
   bool get stringify => true;
 }
-

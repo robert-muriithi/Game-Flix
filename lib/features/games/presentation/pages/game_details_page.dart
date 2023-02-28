@@ -9,6 +9,7 @@ import '../widgets/game_details_widget.dart';
 
 class GameDetailsPage extends StatelessWidget {
   final GameResults game;
+
   GameDetailsPage({Key? key, required this.game}) : super(key: key);
 
   BuildContext? blocContext;
@@ -19,7 +20,8 @@ class GameDetailsPage extends StatelessWidget {
       body: buildBody(context),
     );
   }
- /* PreferredSizeWidget buildAppBar(){
+
+  /* PreferredSizeWidget buildAppBar(){
     return AppBar(
       title:  Container(
         margin: const EdgeInsets.only(top: 10),
@@ -28,39 +30,36 @@ class GameDetailsPage extends StatelessWidget {
     );
   }*/
 
-  BlocProvider<GameDetailsBloc> buildBody(BuildContext context){
+  BlocProvider<GameDetailsBloc> buildBody(BuildContext context) {
     return BlocProvider(
         create: (_) => sl<GameDetailsBloc>(),
         child: BlocBuilder<GameDetailsBloc, GameDetailsState>(
           builder: (context, state) {
             blocContext = context;
 
-            if(state is GameDetailsInitialState){
+            if (state is GameDetailsInitialState) {
               dispatchEvent(context);
             }
-            if(state is GameDetailsLoadingState){
+            if (state is GameDetailsLoadingState) {
               return const Center(child: CircularProgressIndicator());
-            }
-            else if(state is GameDetailsLoadedState){
+            } else if (state is GameDetailsLoadedState) {
               final gameDetails = state.gameDetails;
               return GameDetailsWidget(
                 gameDetails: gameDetails,
-                game : game,
+                game: game,
               );
-            }
-            else if(state is GameDetailsErrorState){
+            } else if (state is GameDetailsErrorState) {
               return ErrorMessageWidget(message: state.message);
-            }else {
-              return const ErrorMessageWidget(message: 'An unknown error occurred');
+            } else {
+              return const ErrorMessageWidget(
+                  message: 'An unknown error occurred');
             }
           },
-        )
-    );
+        ));
   }
 
-  void dispatchEvent(BuildContext context){
-    BlocProvider.of<GameDetailsBloc>(context).add(GetGameDetailsEvent(id: game.id!));
+  void dispatchEvent(BuildContext context) {
+    BlocProvider.of<GameDetailsBloc>(context)
+        .add(GetGameDetailsEvent(id: game.id!));
   }
-
-
 }

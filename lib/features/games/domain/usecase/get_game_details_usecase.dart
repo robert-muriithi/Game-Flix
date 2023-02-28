@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/errors/failure.dart';
@@ -8,6 +7,7 @@ import '../repository/games_repository.dart';
 
 class GetGameDetailsUseCase extends UseCase<GameDetails, GameDetailsParams> {
   final GamesRepository repository;
+
   GetGameDetailsUseCase(this.repository);
 
   @override
@@ -16,5 +16,4 @@ class GetGameDetailsUseCase extends UseCase<GameDetails, GameDetailsParams> {
       params,
     );
   }
-
 }

@@ -11,30 +11,29 @@ class GameDetails extends Equatable {
   final List<Developers>? developers;
   final String? descriptionRaw;
 
-  const GameDetails({
-    required this.id,
-    required this.name,
-    this.description,
-    this.backgroundImage,
-    this.backgroundImageAdditional,
-    this.website,
-    this.creatorsCount,
-    this.developers,
-    this.descriptionRaw
-});
+  const GameDetails(
+      {required this.id,
+      required this.name,
+      this.description,
+      this.backgroundImage,
+      this.backgroundImageAdditional,
+      this.website,
+      this.creatorsCount,
+      this.developers,
+      this.descriptionRaw});
 
   @override
   List<Object?> get props => [
-    id,
-    name,
-    description,
-    backgroundImage,
-    backgroundImageAdditional,
-    website,
-    creatorsCount,
-    developers,
-    descriptionRaw,
-  ];
+        id,
+        name,
+        description,
+        backgroundImage,
+        backgroundImageAdditional,
+        website,
+        creatorsCount,
+        developers,
+        descriptionRaw,
+      ];
 }
 
 class Developers extends Equatable {
@@ -46,11 +45,5 @@ class Developers extends Equatable {
   const Developers({this.id, this.name, this.gamesCount, this.imageBackground});
 
   @override
-  List<Object?> get props => [
-    id,
-    name,
-    gamesCount,
-    imageBackground
-  ];
-
+  List<Object?> get props => [id, name, gamesCount, imageBackground];
 }

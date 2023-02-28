@@ -7,7 +7,7 @@ import '../widgets/error_widget.dart';
 import '../widgets/genres_list.dart';
 
 class GamesPage extends StatelessWidget {
-    GamesPage({Key? key}) : super(key: key);
+  GamesPage({Key? key}) : super(key: key);
 
   BuildContext? blocContext;
 
@@ -20,48 +20,44 @@ class GamesPage extends StatelessWidget {
     );
   }
 
-  PreferredSizeWidget buildAppBar(){
+  PreferredSizeWidget buildAppBar() {
     return AppBar(
-      title:  Container(
-        margin: const EdgeInsets.only(top: 10),
-        child: const Text('Games'),
-      )
-    );
+        title: Container(
+      margin: const EdgeInsets.only(top: 10),
+      child: const Text('Games'),
+    ));
   }
 
-  BlocProvider<GamesBloc> buildBody(BuildContext context){
+  BlocProvider<GamesBloc> buildBody(BuildContext context) {
     return BlocProvider(
         create: (_) => sl<GamesBloc>(),
         child: BlocBuilder<GamesBloc, GamesState>(
           builder: (context, state) {
             blocContext = context;
 
-            if(state is GamesInitialState){
+            if (state is GamesInitialState) {
               dispatchEvent(context);
             }
-            if(state is GamesLoadingState){
+            if (state is GamesLoadingState) {
               return const Center(child: CircularProgressIndicator());
-            }
-            else if(state is GamesLoadedState){
+            } else if (state is GamesLoadedState) {
               final games = state.games;
               final noMoreData = state.noMoreData;
               return GenresListWidget(
                 games: games,
                 noMoreData: noMoreData,
               );
-            }
-            else if(state is GamesErrorState){
+            } else if (state is GamesErrorState) {
               return ErrorMessageWidget(message: state.errorMessage!);
-            }else {
-              return const ErrorMessageWidget(message: 'An unknown error occurred');
+            } else {
+              return const ErrorMessageWidget(
+                  message: 'An unknown error occurred');
             }
-
           },
-        )
-    );
+        ));
   }
 
-  void dispatchEvent(BuildContext context){
+  void dispatchEvent(BuildContext context) {
     BlocProvider.of<GamesBloc>(context).add(GetGamesEvent());
   }
 }

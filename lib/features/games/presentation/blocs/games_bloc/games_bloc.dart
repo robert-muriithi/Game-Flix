@@ -10,13 +10,15 @@ import '../../../domain/usecase/add_game_to_favorites.dart';
 import '../../../domain/usecase/get_all_game_usecase.dart';
 
 part 'games_event.dart';
+
 part 'games_state.dart';
 
 class GamesBloc extends Bloc<GamesEvent, GamesState> {
   final GetAllGamesUseCase getGamesUseCase;
   final AddGameToFavoritesUseCase addGameToFavoritesUseCase;
 
-  GamesBloc(this.getGamesUseCase, this.addGameToFavoritesUseCase) : super(GamesInitialState()) {
+  GamesBloc(this.getGamesUseCase, this.addGameToFavoritesUseCase)
+      : super(GamesInitialState()) {
     on<GamesEvent>(getGamesEventObserver);
     //on<HideAppBarEvent>(hideAppBarEventObserver);
   }
@@ -25,23 +27,24 @@ class GamesBloc extends Bloc<GamesEvent, GamesState> {
   static const int pageSize = 20;
   final List<GameResults> _games = [];
 
-  Future<void>getGamesEventObserver(event, emit) async {
-    if(event is GetGamesEvent) {
+  Future<void> getGamesEventObserver(event, emit) async {
+    if (event is GetGamesEvent) {
       emit(GamesLoadingState());
-      final result = await getGamesUseCase(Params(page: page, pageSize: pageSize));
+      final result =
+          await getGamesUseCase(Params(page: page, pageSize: pageSize));
       result.fold(
-              (failure) => emit(GamesErrorState(error: mapFailureToMessage(failure))),
-              (games) {
-            if (games.isNotEmpty) {
-              final noMoreData = games.length < pageSize;
-              _games.addAll(games);
-              page++;
-              emit(GamesLoadedState(_games, noMoreData: noMoreData));
-            } else {
-              emit(GamesErrorState(error: Constants.UNEXPECTED_FAILURE_MESSAGE));
-            }
-          }
-      );
+          (failure) =>
+              emit(GamesErrorState(error: mapFailureToMessage(failure))),
+          (games) {
+        if (games.isNotEmpty) {
+          final noMoreData = games.length < pageSize;
+          _games.addAll(games);
+          page++;
+          emit(GamesLoadedState(_games, noMoreData: noMoreData));
+        } else {
+          emit(GamesErrorState(error: Constants.UNEXPECTED_FAILURE_MESSAGE));
+        }
+      });
     } else if (event is RefreshGamesEvent) {
       page = 1;
       _games.clear();
@@ -50,17 +53,18 @@ class GamesBloc extends Bloc<GamesEvent, GamesState> {
       final game = event.game;
       final result = await addGameToFavoritesUseCase(game);
       result.fold(
-              (failure) => emit(GamesErrorState(error: mapFailureToMessage(failure))),
-              (isAdded) {emit( AddGameToFavoritesState(isAdded: isAdded));
-            /*if (isAdded) {
+          (failure) =>
+              emit(GamesErrorState(error: mapFailureToMessage(failure))),
+          (isAdded) {
+        emit(AddGameToFavoritesState(isAdded: isAdded));
+        /*if (isAdded) {
               game.isFavorite = true;
               emit(GamesLoadedState(_games, noMoreData: false));
             } else {
               emit(GamesErrorState(error: Constants.UNEXPECTED_FAILURE_MESSAGE));
             }*/
-          }
-      );
-    }else {
+      });
+    } else {
       emit(GamesErrorState(error: Constants.UNEXPECTED_FAILURE_MESSAGE));
     }
   }
@@ -71,9 +75,12 @@ class GamesBloc extends Bloc<GamesEvent, GamesState> {
 
   String mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
-      case ServerFailure: return Constants.SERVER_FAILURE_MESSAGE;
-      case DatabaseFailure: return Constants.DATABASE_FAILURE_MESSAGE;
-      default: return Constants.UNEXPECTED_FAILURE_MESSAGE;
+      case ServerFailure:
+        return Constants.SERVER_FAILURE_MESSAGE;
+      case DatabaseFailure:
+        return Constants.DATABASE_FAILURE_MESSAGE;
+      default:
+        return Constants.UNEXPECTED_FAILURE_MESSAGE;
     }
   }
 }

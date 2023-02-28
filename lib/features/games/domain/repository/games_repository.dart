@@ -6,6 +6,8 @@ import '../model/game_deatils.dart';
 
 abstract class GamesRepository {
   Future<Either<Failure, List<GameResults>>> getAllGames(Params params);
+
   Future<Either<Failure, GameDetails>> getGameDetails(GameDetailsParams params);
+
   Future<Either<Failure, bool>> addGameToFavorite(GameResults game);
 }

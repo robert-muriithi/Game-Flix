@@ -5,7 +5,7 @@ import '../blocs/games_bloc/games_bloc.dart';
 import 'game_item_widget.dart';
 
 class GenresListWidget extends StatefulWidget {
-   GenresListWidget({
+  const GenresListWidget({
     Key? key,
     required this.games,
     required this.noMoreData,
@@ -13,7 +13,6 @@ class GenresListWidget extends StatefulWidget {
 
   final List<GameResults?> games;
   final bool noMoreData;
-
 
   @override
   _GenresListWidgetState createState() => _GenresListWidgetState();
@@ -28,11 +27,14 @@ class _GenresListWidgetState extends State<GenresListWidget> {
   void initState() {
     super.initState();
     scrollController = ScrollController();
-    scrollController.addListener(() => onScrollListener(context, scrollController));
+    scrollController
+        .addListener(() => onScrollListener(context, scrollController));
   }
 
-  void onScrollListener(BuildContext context, ScrollController scrollController) {
-    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+  void onScrollListener(
+      BuildContext context, ScrollController scrollController) {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
       scrollPosition = scrollController.position.pixels;
       BlocProvider.of<GamesBloc>(context).add(GetGamesEvent());
     }
@@ -44,8 +46,8 @@ class _GenresListWidgetState extends State<GenresListWidget> {
     super.dispose();
   }
 
-  void jumpToScrollPosition(){
-   scrollController.jumpTo(scrollPosition);
+  void jumpToScrollPosition() {
+    scrollController.jumpTo(scrollPosition);
   }
 
   @override
@@ -57,7 +59,8 @@ class _GenresListWidgetState extends State<GenresListWidget> {
       margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
       child: NotificationListener<ScrollNotification>(
         onNotification: (scrollNotification) {
-          if (scrollNotification is ScrollEndNotification && scrollNotification.metrics.extentAfter == 0) {
+          if (scrollNotification is ScrollEndNotification &&
+              scrollNotification.metrics.extentAfter == 0) {
             jumpToScrollPosition();
             BlocProvider.of<GamesBloc>(context).add(GetGamesEvent());
           }
