@@ -1,7 +1,5 @@
 part of 'categories_bloc.dart';
 
-
-
 abstract class CategoriesState extends Equatable {
   const CategoriesState();
 }
@@ -18,21 +16,18 @@ class CategoriesLoadingState extends CategoriesState {
 
 class CategoriesLoadedState extends CategoriesState {
   const CategoriesLoadedState({required this.results});
+
   final List<Results> results;
 
-
   @override
-  List<Object?> get props => [
-    results
-  ];
+  List<Object?> get props => [results];
 }
 
 class CategoriesErrorState extends CategoriesState {
   final String message;
+
   const CategoriesErrorState({required this.message});
 
   @override
-  List<Object?> get props => [
-    message
-  ];
+  List<Object?> get props => [message];
 }

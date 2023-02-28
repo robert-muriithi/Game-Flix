@@ -10,6 +10,7 @@ import '../../domain/model/genre.dart';
 import '../../domain/usecase/get_categories_and_games_use_case.dart';
 
 part 'categories_event.dart';
+
 part 'categories_state.dart';
 
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
@@ -20,24 +21,28 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   }
 
   Future<void> getCategoriesEventObserver(event, emit) async {
-    if(event is GetCategoriesEvent){
+    if (event is GetCategoriesEvent) {
       emit(CategoriesLoadingState());
       final result = await getGenresUseCase(NoParams());
       result.fold(
-            (failure) => emit(CategoriesErrorState(message: mapFailureToMessage(failure))),
-            (games) => emit(CategoriesLoadedState(results: games)),
+        (failure) =>
+            emit(CategoriesErrorState(message: mapFailureToMessage(failure))),
+        (games) => emit(CategoriesLoadedState(results: games)),
       );
-    }else {
-      emit(const CategoriesErrorState(message: Constants.UNEXPECTED_FAILURE_MESSAGE));
+    } else {
+      emit(const CategoriesErrorState(
+          message: Constants.UNEXPECTED_FAILURE_MESSAGE));
     }
   }
 
   String mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
-      case ServerFailure: return Constants.SERVER_FAILURE_MESSAGE;
-      case DatabaseFailure: return Constants.DATABASE_FAILURE_MESSAGE;
-      default: return Constants.UNEXPECTED_FAILURE_MESSAGE;
+      case ServerFailure:
+        return Constants.SERVER_FAILURE_MESSAGE;
+      case DatabaseFailure:
+        return Constants.DATABASE_FAILURE_MESSAGE;
+      default:
+        return Constants.UNEXPECTED_FAILURE_MESSAGE;
     }
   }
-
 }

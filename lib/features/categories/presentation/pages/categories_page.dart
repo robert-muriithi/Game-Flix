@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:game_flix_flutter/config/theme/colors.dart';
 
 import '../../../../injector.dart';
 import '../../../games/presentation/widgets/error_widget.dart';
 import '../blocs/categories_bloc.dart';
-import '../widgets/background_wave_clipper.dart';
 import '../widgets/categories_list_widget.dart';
 import '../widgets/search_bar.dart';
 
