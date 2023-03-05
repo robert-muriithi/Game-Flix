@@ -293,15 +293,17 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                 padding: const EdgeInsets.all(8),
                 margin: const EdgeInsets.only(top: 5),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Platforms'),
+                    const Text('Platforms', style: TextStyle(color: AppColors.white),),
                     Expanded(
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                            itemCount: widget.game.platforms!.length,
                             itemBuilder: (context, index){
                              final platform = widget.game.platforms![index];
-                             return Text(platform.platform!.name!);
+                             return Text('${platform.platform!.name!}', style: const TextStyle(color: AppColors.white));
                             }
                         )
                     )
