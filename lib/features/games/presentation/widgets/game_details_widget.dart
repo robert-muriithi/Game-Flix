@@ -289,7 +289,7 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
               ),
               Container(
                 width: double.infinity,
-                height: 60,
+                height: 100,
                 padding: const EdgeInsets.all(8),
                 margin: const EdgeInsets.only(top: 5),
                 child: Column(
@@ -303,7 +303,17 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                            itemCount: widget.game.platforms!.length,
                             itemBuilder: (context, index){
                              final platform = widget.game.platforms![index];
-                             return Text('${platform.platform!.name!}', style: const TextStyle(color: AppColors.white));
+                             return Padding(
+                               padding: const EdgeInsets.all(8.0),
+                               child: Column(
+                                 children: [
+                                   if(platform.platform!.name!.contains('PlayStation')) const Icon(Icons.place)
+                                   else if(platform.platform!.name!.contains('Xbox')) const Icon(Icons.abc)
+                                   else const Icon(Icons.access_alarm),
+                                   Text(platform.platform!.name!, style: const TextStyle(color: AppColors.white)),
+                                 ],
+                               ),
+                             );
                             }
                         )
                     )
