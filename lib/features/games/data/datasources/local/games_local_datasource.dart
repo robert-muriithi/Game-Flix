@@ -1,13 +1,15 @@
 
 import 'package:game_flix_flutter/core/data/local/database/database.dart';
 import 'package:game_flix_flutter/features/games/data/datasources/local/entity/game/game_entity.dart';
+import 'package:logger/logger.dart';
 
 import '../../../../../core/errors/exceptions.dart';
 
 abstract class GamesLocalDataSource {
   Future<void> deleteGames();
-  Future<List<GamesEntity>> getGames();
-  Future<void> insertGame(List<GamesEntity> games);
+  Future<List<GamesResultsEntity>> getGames();
+  Future<void> insertGame(List<GamesResultsEntity> games);
+  Future<void> addGameToFavorite(GamesResultsEntity game);
 }
 
 class GamesLocalDataSourceImpl implements GamesLocalDataSource {
@@ -26,7 +28,7 @@ class GamesLocalDataSourceImpl implements GamesLocalDataSource {
   }
 
   @override
-  Future<List<GamesEntity>> getGames()  {
+  Future<List<GamesResultsEntity>> getGames()  {
     try{
       final dao = database.gamesDao;
       final localCache = dao.getAllGames();
@@ -37,10 +39,22 @@ class GamesLocalDataSourceImpl implements GamesLocalDataSource {
   }
 
   @override
-  Future<void> insertGame(List<GamesEntity> games) async {
+  Future<void> insertGame(List<GamesResultsEntity> games) async {
+    final log = Logger();
     try{
       final dao = database.gamesDao;
       await dao.insertGames(games);
+    }catch (exception){
+      log.e(exception.toString());
+      throw DatabaseException(message: exception.toString());
+    }
+  }
+
+  @override
+  Future<void> addGameToFavorite(GamesResultsEntity game) async {
+    try{
+      final dao = database.gamesDao;
+      await dao.addGameToFavorite(game);
     }catch (exception){
       throw DatabaseException(message: exception.toString());
     }

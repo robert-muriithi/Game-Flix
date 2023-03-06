@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class BackgroundWaveClipper extends CustomClipper<Path> {
-
   @override
   Path getClip(Size size) {
     var path = Path();
@@ -17,7 +16,8 @@ class BackgroundWaveClipper extends CustomClipper<Path> {
     final controlPoint = Offset(size.width * 0.4, size.height);
     final endPoint = Offset(size.width, minSize);
 
-    path.quadraticBezierTo(controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
+    path.quadraticBezierTo(
+        controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
 
     path.lineTo(size.width, 0.0);
     path.close();
@@ -28,5 +28,4 @@ class BackgroundWaveClipper extends CustomClipper<Path> {
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
     return oldClipper != this;
   }
-
 }

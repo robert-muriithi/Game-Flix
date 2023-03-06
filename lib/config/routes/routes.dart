@@ -5,11 +5,12 @@ import 'package:game_flix_flutter/features/games/presentation/pages/game_details
 import 'package:game_flix_flutter/features/games/presentation/pages/games_page.dart';
 
 import '../../core/navigation/navigation.dart';
+import '../../features/games/domain/model/game.dart';
 
 class Routes {
   static const String navigationContainer = '/';
   static const String gamesPage = '/games';
-  static const String gameDetailsPage = '/game_details';
+  static const String gameDetailsPage =  '/game_details';
   static const String categoriesPage = '/categories_page';
   static const String favoritesPage = '/favourites_page';
 
@@ -18,7 +19,7 @@ class Routes {
   static final Map<String, WidgetBuilder> routes = {
     navigationContainer: (context) => const NavigationContainer(),
     gamesPage: (context) =>  GamesPage(),
-    gameDetailsPage: (context) => const GameDetailsPage(),
+    gameDetailsPage: (context) => GameDetailsPage(game: ModalRoute.of(context)!.settings.arguments as GameResults),
     categoriesPage: (context) =>  CategoriesPage(),
     favoritesPage: (context) => const FavouritesPage()
   };

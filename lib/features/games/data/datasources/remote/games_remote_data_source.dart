@@ -2,10 +2,11 @@ import 'package:game_flix_flutter/core/errors/exceptions.dart';
 import 'package:game_flix_flutter/core/utils/constants.dart';
 import 'package:game_flix_flutter/features/games/data/model/games_response.dart';
 import 'package:dio/dio.dart';
-import 'package:game_flix_flutter/features/categories/data/model/genres_response.dart';
+import 'package:logger/logger.dart';
+
 
 abstract class GamesRemoteDataSource {
-  Future<List<GameResponse>> getGames();
+  Future<GamesResponse> getGames({required String key, required int page, required int pageSize});
 }
 
 class GamesRemoteDataSourceImpl extends GamesRemoteDataSource {
@@ -13,13 +14,13 @@ class GamesRemoteDataSourceImpl extends GamesRemoteDataSource {
   GamesRemoteDataSourceImpl(this.dio);
 
   @override
-  Future<List<GameResponse>> getGames() async {
+  Future<GamesResponse> getGames({required String key, required int page, required int pageSize}) async {
+    final log = Logger();
     try{
-      final response = await dio.get(Constants.kBaserUrl);
-      final data = response.data as List;
-      final parsedData = data.map((e) => GameResponse.fromJson(e)).toList();
-      return parsedData;
+      final response = await dio.get('${Constants.kBaserUrl}games?key=$key&page=$page&page_size=$pageSize');
+      return GamesResponse.fromJson(response.data);
     }catch (exception){
+      log.e(exception.toString());
       throw ServerException(message: exception.toString());
     }
   }

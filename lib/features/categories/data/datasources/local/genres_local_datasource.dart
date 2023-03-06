@@ -5,7 +5,9 @@ import 'entity/genre/genres_entity.dart';
 
 abstract class GenresLocalDataSource {
   Future<void> deleteGenres();
+
   Future<List<GenresResults>> getGenres();
+
   Future<void> insertGenres(List<GenresResults> results);
 }
 
@@ -16,7 +18,7 @@ class GenresLocalDataSourceImpl extends GenresLocalDataSource {
 
   @override
   Future<void> deleteGenres() async {
-    try{
+    try {
       final dao = database.genresDao;
       await dao.deleteGenres();
     } catch (e) {
@@ -26,7 +28,7 @@ class GenresLocalDataSourceImpl extends GenresLocalDataSource {
 
   @override
   Future<List<GenresResults>> getGenres() async {
-    try{
+    try {
       final dao = database.genresDao;
       final localCache = await dao.getAllGenres();
       return localCache;
@@ -37,7 +39,7 @@ class GenresLocalDataSourceImpl extends GenresLocalDataSource {
 
   @override
   Future<void> insertGenres(List<GenresResults> results) async {
-    try{
+    try {
       final dao = database.genresDao;
       await dao.insertGenres(results);
     } catch (e) {

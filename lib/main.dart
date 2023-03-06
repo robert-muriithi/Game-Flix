@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:game_flix_flutter/config/theme/theme.dart';
 import 'config/routes/routes.dart';
 import 'injector.dart' as di;
 
@@ -14,13 +16,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: Routes.initialRoute,
       routes: Routes.routes,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: themeData
     );
   }
 }

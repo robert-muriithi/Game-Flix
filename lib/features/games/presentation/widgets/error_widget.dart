@@ -6,10 +6,6 @@ class ErrorMessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child :(
-        Text(message)
-      )
-    );
+    return Center(child: (Text(message)));
   }
 }

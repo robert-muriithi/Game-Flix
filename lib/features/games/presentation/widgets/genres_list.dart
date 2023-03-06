@@ -1,69 +1,106 @@
 import 'package:flutter/material.dart';
-import '../../../categories/domain/model/genre.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/model/game.dart';
+import '../blocs/games_bloc/games_bloc.dart';
+import 'game_item_widget.dart';
 
 class GenresListWidget extends StatefulWidget {
-  const GenresListWidget({Key? key, required this.genres}) : super(key: key);
-  final List<Game?> genres;
+  const GenresListWidget({
+    Key? key,
+    required this.games,
+    required this.noMoreData,
+  }) : super(key: key);
+
+  final List<GameResults?> games;
+  final bool noMoreData;
 
   @override
-  State<GenresListWidget> createState() => _GenresListWidgetState();
+  _GenresListWidgetState createState() => _GenresListWidgetState();
 }
 
 class _GenresListWidgetState extends State<GenresListWidget> {
+  late ScrollController scrollController;
+
+  double scrollPosition = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+    scrollController
+        .addListener(() => onScrollListener(context, scrollController));
+  }
+
+  void onScrollListener(
+      BuildContext context, ScrollController scrollController) {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
+      scrollPosition = scrollController.position.pixels;
+      BlocProvider.of<GamesBloc>(context).add(GetGamesEvent());
+    }
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  void jumpToScrollPosition() {
+    scrollController.jumpTo(scrollPosition);
+  }
+
   @override
   Widget build(BuildContext context) {
-    if(widget.genres.isEmpty) {
-      return const Center(
-      child: Text('No Genres found'));
+    if (widget.games.isEmpty) {
+      return const Center(child: Text('No Games found'));
     }
     return Container(
-      height: 50,
-      margin: const EdgeInsets.only(top: 10),
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: widget.genres.length,
-        itemBuilder: (context, index) {
-          return Container(
-            padding: const EdgeInsets.all(5),
-            margin: const EdgeInsets.all(10),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              padding: const EdgeInsets.all(5),
-              child: Text(widget.genres[index]!.name,
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),),
-            ),
-          );
+      margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+      child: NotificationListener<ScrollNotification>(
+        onNotification: (scrollNotification) {
+          if (scrollNotification is ScrollEndNotification &&
+              scrollNotification.metrics.extentAfter == 0) {
+            jumpToScrollPosition();
+            BlocProvider.of<GamesBloc>(context).add(GetGamesEvent());
+          }
+          return false;
+          /*if (scrollNotification is ScrollStartNotification) {
+            scrollPosition = scrollNotification.metrics.pixels;
+          }
+          if (scrollNotification is ScrollUpdateNotification) {
+            if (scrollNotification.metrics.pixels > scrollPosition) {
+              // Scroll down
+              if (scrollNotification.metrics.pixels > 0) {
+                BlocProvider.of<GamesBloc>(context).add(HideAppBarEvent());
+              }
+            } else {
+              // Scroll up
+              if (scrollNotification.metrics.pixels < 0) {
+                BlocProvider.of<GamesBloc>(context).add(ShowAppBarEvent());
+              }
+            }
+          }
+          return true;*/
         },
+        child: GridView.builder(
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 1.5 / 2,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 7,
+          ),
+          controller: scrollController,
+          itemCount: widget.games.length,
+          itemBuilder: (context, index) {
+            final game = widget.games[index];
+            return GameItemWidget(
+              game: game,
+            );
+          },
+        ),
       ),
-
-      /*Row(
-        children: [
-          for (var genre in widget.genres)
-            Container(
-              padding: const EdgeInsets.all(5),
-              margin: const EdgeInsets.all(10),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                padding: const EdgeInsets.all(5),
-                child: Text(genre.results!.map((e) => e.name).join(''),
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),),
-              ),
-            )
-        ],
-      )*/
     );
   }
 }
