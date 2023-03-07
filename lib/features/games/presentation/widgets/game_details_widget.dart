@@ -33,7 +33,7 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: CustomScrollView(
-          shrinkWrap: true,
+      shrinkWrap: true,
       slivers: [
         SliverAppBar(
           pinned: true,
@@ -86,11 +86,12 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                 ),
               ),
               Positioned(
-                  top: 150,
-                  left: 120,
-                  right: 120,
-                  bottom: 30,
-                  child: Stack(children: [
+                top: 150,
+                left: 120,
+                right: 120,
+                bottom: 30,
+                child: Stack(
+                  children: [
                     Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -159,7 +160,9 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                         ),
                       ),
                     ),
-                  ])),
+                  ],
+                ),
+              ),
               Positioned(
                 bottom: 1,
                 left: 0,
@@ -222,8 +225,7 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                             style: const TextStyle(
                                 color: AppColors.white,
                                 fontSize: 12,
-                                fontWeight: FontWeight.bold
-                            ),
+                                fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -239,196 +241,232 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
           hasScrollBody: true,
           fillOverscroll: true,
           child: ListView(
-            physics: const NeverScrollableScrollPhysics(),
-            children:[
-              Column(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 60,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 5, left: 5),
-                          child: Text('Genres', style: TextStyle(color: AppColors.white, fontSize: 16),),
-                        ),
-                        Expanded(
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: widget.game.genres!.length,
-                                itemBuilder: (context, index){
-                                  final genre = widget.game.genres![index];
-                                  return Container(
-                                    margin: const EdgeInsets.all(5),
-                                    padding: const EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: AppColors.darkGrey
-                                    ),
-                                    child: Center(child: Text(genre.name ?? '')),
-                                  );
-                                }
-                            )
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    margin: const EdgeInsets.only(top: 5),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Description', style: TextStyle(color: AppColors.white, fontSize: 16),),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          widget.gameDetails.descriptionRaw!,
-                          style: const TextStyle(color: AppColors.white),
-                          textAlign: TextAlign.justify,
-                          maxLines: 9,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 100,
-                    padding: const EdgeInsets.all(8),
-                    margin: const EdgeInsets.only(top: 5),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text('Platforms', style: TextStyle(color: AppColors.white),),
-                        Expanded(
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: widget.game.platforms!.length,
-                                itemBuilder: (context, index){
-                                  final platform = widget.game.platforms![index];
-                                  final number = index + 1;
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      children: [
-                                        if(platform.platform!.name!.contains('PlayStation')) const Icon(Icons.place)
-                                        else if(platform.platform!.name!.contains('Xbox')) const Icon(Icons.abc)
-                                        else const Icon(Icons.access_alarm),
-                                        Text('$number ${platform.platform!.name!}', style: const TextStyle(color: AppColors.white)),
-                                      ],
-                                    ),
-                                  );
-                                }
-                            )
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 70,
-                    padding: const EdgeInsets.all(8),
-                    margin: const EdgeInsets.only(top: 5),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 5, left: 5),
-                          child: Text('Tags', style: TextStyle(color: AppColors.white, fontSize: 16),),
-                        ),
-                        Expanded(
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: widget.game.tags!.length,
-                                itemBuilder: (context, index){
-                                  final tag = widget.game.tags![index];
-                                  return Container(
-                                    margin: const EdgeInsets.all(5),
-                                    padding: const EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: AppColors.darkGrey
-                                    ),
-                                    child: Center(child: Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.bookmark,
-                                          color: AppColors.orange,
-                                        ),
-                                        Text(tag.name ?? '', style: const TextStyle(color: AppColors.white),)
-                                      ],
-                                    )),
-                                  );
-                                }
-                            )
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 200,
-                    padding: const EdgeInsets.all(8),
-                    margin: const EdgeInsets.only(top: 5),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 5, left: 5),
-                          child: Text('Screenshots', style: TextStyle(color: AppColors.white, fontSize: 16),),
-                        ),
-                        Expanded(
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 5),
-                            child: CarouselSlider(
-                              options: CarouselOptions(
-                                height: 150,
-                                autoPlay: true,
-                                autoPlayInterval: const Duration(seconds: 3),
-                                autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                                autoPlayCurve: Curves.fastOutSlowIn,
-                                enlargeCenterPage: true,
-                                scrollDirection: Axis.horizontal,
-                              ),
-                              items: widget.game.shortScreenshots!.map((i) {
-                                return Builder(
-                                  builder: (BuildContext context) {
-                                    return InkWell(
-                                      onTap: (){
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => ScreenshotsPage(screenshot: i.image!)));
-                                      },
-                                      child: Container(
-                                        width: MediaQuery.of(context).size.width,
-                                        margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                                        decoration: const BoxDecoration(
-                                          color: AppColors.darkGrey,
-                                        ),
-                                        child: Image.network(
-                                          i.image!,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
-                              }).toList(),
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      height: 60,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(top: 5, left: 5),
+                            child: Text(
+                              'Genres',
+                              style: TextStyle(
+                                  color: AppColors.white, fontSize: 16),
                             ),
                           ),
-                        )
-                      ],
+                          Expanded(
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: widget.game.genres!.length,
+                                  itemBuilder: (context, index) {
+                                    final genre = widget.game.genres![index];
+                                    return Container(
+                                      margin: const EdgeInsets.all(5),
+                                      padding: const EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          color: AppColors.darkGrey),
+                                      child:
+                                          Center(child: Text(genre.name ?? '')),
+                                    );
+                                  })),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ]
-          ),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      margin: const EdgeInsets.only(top: 5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Description',
+                            style:
+                                TextStyle(color: AppColors.white, fontSize: 16),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            widget.gameDetails.descriptionRaw!,
+                            style: const TextStyle(color: AppColors.white),
+                            textAlign: TextAlign.justify,
+                            maxLines: 9,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 100,
+                      padding: const EdgeInsets.all(8),
+                      margin: const EdgeInsets.only(top: 5),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Platforms',
+                            style: TextStyle(color: AppColors.white),
+                          ),
+                          Expanded(
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: widget.game.platforms!.length,
+                                  itemBuilder: (context, index) {
+                                    final platform =
+                                        widget.game.platforms![index];
+                                    final number = index + 1;
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: [
+                                          if (platform.platform!.name!
+                                              .contains('PlayStation'))
+                                            const Icon(Icons.place)
+                                          else if (platform.platform!.name!
+                                              .contains('Xbox'))
+                                            const Icon(Icons.abc)
+                                          else
+                                            const Icon(Icons.access_alarm),
+                                          Text(
+                                              '$number ${platform.platform!.name!}',
+                                              style: const TextStyle(
+                                                  color: AppColors.white)),
+                                        ],
+                                      ),
+                                    );
+                                  }))
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 70,
+                      padding: const EdgeInsets.all(8),
+                      margin: const EdgeInsets.only(top: 5),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(top: 5, left: 5),
+                            child: Text(
+                              'Tags',
+                              style: TextStyle(
+                                  color: AppColors.white, fontSize: 16),
+                            ),
+                          ),
+                          Expanded(
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: widget.game.tags!.length,
+                                  itemBuilder: (context, index) {
+                                    final tag = widget.game.tags![index];
+                                    return Container(
+                                      margin: const EdgeInsets.all(5),
+                                      padding: const EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          color: AppColors.darkGrey),
+                                      child: Center(
+                                          child: Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.bookmark,
+                                            color: AppColors.orange,
+                                          ),
+                                          Text(
+                                            tag.name ?? '',
+                                            style: const TextStyle(
+                                                color: AppColors.white),
+                                          )
+                                        ],
+                                      )),
+                                    );
+                                  })),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 200,
+                      padding: const EdgeInsets.all(8),
+                      margin: const EdgeInsets.only(top: 5),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(top: 5, left: 5),
+                            child: Text(
+                              'Screenshots',
+                              style: TextStyle(
+                                  color: AppColors.white, fontSize: 16),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.only(top: 5),
+                              child: CarouselSlider(
+                                options: CarouselOptions(
+                                  height: 150,
+                                  autoPlay: true,
+                                  autoPlayInterval: const Duration(seconds: 3),
+                                  autoPlayAnimationDuration:
+                                      const Duration(milliseconds: 800),
+                                  autoPlayCurve: Curves.fastOutSlowIn,
+                                  enlargeCenterPage: true,
+                                  scrollDirection: Axis.horizontal,
+                                ),
+                                items: widget.game.shortScreenshots!.map((i) {
+                                  return Builder(
+                                    builder: (BuildContext context) {
+                                      return InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ScreenshotsPage(
+                                                          screenshot:
+                                                              i.image!)));
+                                        },
+                                        child: Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 5.0),
+                                          decoration: const BoxDecoration(
+                                            color: AppColors.darkGrey,
+                                          ),
+                                          child: Image.network(
+                                            i.image!,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ]),
         )
       ],
     ));
