@@ -434,12 +434,13 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                                       return InkWell(
                                         onTap: () {
                                           Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ScreenshotsPage(
-                                                          screenshot:
-                                                              i.image!)));
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ScreenshotsPage(
+                                                      screenshot: i.image!),
+                                            ),
+                                          );
                                         },
                                         child: Container(
                                           width:
@@ -461,6 +462,55 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                               ),
                             ),
                           )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 70,
+                      padding: const EdgeInsets.all(8),
+                      margin: const EdgeInsets.only(top: 5),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(top: 5, left: 5),
+                            child: Text(
+                              'Developers',
+                              style: TextStyle(
+                                  color: AppColors.white, fontSize: 16),
+                            ),
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: widget.gameDetails.developers!.length,
+                              itemBuilder: (context, index) {
+                                final developer =
+                                    widget.gameDetails.developers![index];
+                                return Container(
+                                  height: 50,
+                                    margin: const EdgeInsets.all(5),
+                                    padding: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        /*image: DecorationImage(
+                                          image: NetworkImage(developer.imageBackground ?? ''),
+                                        ),*/
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          developer.name ?? '',
+                                          style: const TextStyle(
+                                              color: AppColors.orange),
+                                        )
+                                      ],
+                                    ));
+                              },
+                            ),
+                          ),
                         ],
                       ),
                     ),
