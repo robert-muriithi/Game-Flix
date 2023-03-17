@@ -4,23 +4,25 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'core/data/local/database/database.dart';
 import 'core/network/network.dart';
-import 'features/categories/data/repository/categories_repository_impl.dart';
-import 'features/categories/domain/repository/categories_repository.dart';
-import 'features/categories/domain/usecase/get_categories_and_games_use_case.dart';
-import 'features/categories/presentation/blocs/categories_bloc.dart';
-import 'features/games/data/datasources/local/game_details_datasource.dart';
-import 'features/games/data/datasources/local/games_local_datasource.dart';
-import 'features/categories/data/datasources/local/genres_local_datasource.dart';
-import 'features/games/data/datasources/remote/game_deatils_remote_data_source.dart';
-import 'features/games/data/datasources/remote/games_remote_data_source.dart';
-import 'features/categories/data/datasources/remote/remote_genres_data_source.dart';
-import 'features/games/data/repository/games_repository.dart';
-import 'features/games/domain/repository/games_repository.dart';
-import 'features/games/domain/usecase/add_game_to_favorites.dart';
-import 'features/games/domain/usecase/get_all_game_usecase.dart';
-import 'features/games/domain/usecase/get_game_details_usecase.dart';
-import 'features/games/presentation/blocs/game_details_bloc/game_details_bloc.dart';
-import 'features/games/presentation/blocs/games_bloc/games_bloc.dart';
+import 'feature/categories/data/repository/categories_repository_impl.dart';
+import 'feature/categories/domain/repository/categories_repository.dart';
+import 'feature/categories/domain/usecase/get_categories_use_case.dart';
+import 'feature/categories/domain/usecase/get_category_games_use_case.dart';
+import 'feature/categories/presentation/blocs/categories_bloc/categories_bloc.dart';
+import 'feature/categories/presentation/blocs/category_games_bloc/category_games_bloc.dart';
+import 'feature/games/data/datasources/local/game_details_datasource.dart';
+import 'feature/games/data/datasources/local/games_local_datasource.dart';
+import 'feature/categories/data/datasources/local/genres_local_datasource.dart';
+import 'feature/games/data/datasources/remote/game_details_remote_data_source.dart';
+import 'feature/games/data/datasources/remote/games_remote_data_source.dart';
+import 'feature/categories/data/datasources/remote/remote_genres_data_source.dart';
+import 'feature/games/data/repository/games_repository.dart';
+import 'feature/games/domain/repository/games_repository.dart';
+import 'feature/games/domain/usecase/add_game_to_favorites.dart';
+import 'feature/games/domain/usecase/get_all_game_usecase.dart';
+import 'feature/games/domain/usecase/get_game_details_usecase.dart';
+import 'feature/games/presentation/blocs/game_details_bloc/game_details_bloc.dart';
+import 'feature/games/presentation/blocs/games_bloc/games_bloc.dart';
 import 'package:dio/dio.dart';
 
 final sl = GetIt.instance;
@@ -37,12 +39,15 @@ void initFeatures() {
   sl.registerFactory(() => GamesBloc(sl(), sl()));
   sl.registerFactory(() => CategoriesBloc(sl()));
   sl.registerFactory(() => GameDetailsBloc(sl()));
+  sl.registerFactory(() => CategoryGamesBloc(sl()));
 
   //Use case
   sl.registerLazySingleton(() => GetCategoriesUseCase(sl()));
   sl.registerLazySingleton(() => GetAllGamesUseCase(sl()));
   sl.registerLazySingleton(() => GetGameDetailsUseCase(sl()));
   sl.registerLazySingleton(() => AddGameToFavoritesUseCase(sl()));
+  sl.registerLazySingleton(() => GetCategoryGameUseCase(sl()));
+  //sl.registerLazySingleton(() => GetCategoryGamesUseCase(sl()));
 
   //Repository
   sl.registerLazySingleton<GamesRepository>(() =>
