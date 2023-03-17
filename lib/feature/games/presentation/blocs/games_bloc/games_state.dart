@@ -36,3 +36,12 @@ class AddGameToFavoritesState extends GamesState {
   @override
   List<Object?> get props => [isAdded];
 }
+
+class AddedGameToFavoritesState extends GamesState {
+  final bool isAdded;
+
+  AddedGameToFavoritesState({required this.isAdded}) : super([], false, null);
+
+  @override
+  List<Object?> get props => [isAdded];
+}
