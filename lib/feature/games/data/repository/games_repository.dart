@@ -96,7 +96,7 @@ class GamesRepositoryImpl implements GamesRepository {
   Future<Either<Failure, bool>> addGameToFavorite(GameResults game) async {
     final log = Logger();
     try {
-      gamesLocalDataSource.addGameToFavorite(fromDomainToEntity(game));
+      await gamesLocalDataSource.addGameToFavorite(fromDomainToEntity(game));
       return const Right(true);
     } on DatabaseException catch (e) {
       log.e(e.message);
