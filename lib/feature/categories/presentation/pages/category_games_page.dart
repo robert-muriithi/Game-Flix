@@ -51,7 +51,14 @@ class CategoryGamesPage extends StatelessWidget {
   }
 
   void dispatchEvent(BuildContext context) {
-    BlocProvider.of<CategoryGamesBloc>(context).add(GetCategoryGamesEvent(id: genre.id));
+    List<int> ids = [];
+    if(genre.game != null){
+      for(var game in genre.game!){
+        var id = game?.id;
+        ids.add(id!);
+      }
+    }
+    BlocProvider.of<CategoryGamesBloc>(context).add(GetCategoryGamesEvent(ids: ids));
   }
 
 }
