@@ -4,14 +4,17 @@ import '../entity/fav_game_entity.dart';
 
 abstract class FavouritesDao {
   @Insert(onConflict: OnConflictStrategy.replace)
-  Future<void> addToFavourites(FavouriteEntity favourite);
+  Future<void> addToFavourites(FavoritesEntity favourite);
 
   @Query('SELECT * FROM ${Constants.kFavoritesTableName}')
-  Future<List<FavouriteEntity>> getFavorites ();
+  Future<List<FavoritesEntity>> getFavorites ();
 
   @Query('DELETE FROM ${Constants.kFavoritesTableName}')
   Future<void> deleteAllFavourites ();
 
   @Query('DELETE FROM ${Constants.kFavoritesTableName} WHERE id (:id)')
-  Future<void> deleteFavourite(String id);
+  Future<void> deleteFavourite(int id);
+
+  //Get Favorite by Id
+
 }
