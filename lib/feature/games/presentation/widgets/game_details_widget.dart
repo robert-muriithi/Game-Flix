@@ -1,34 +1,27 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_flix_flutter/config/theme/colors.dart';
 import 'package:game_flix_flutter/feature/games/domain/model/game.dart';
+import '../../../../injector.dart';
+import '../../../categories/presentation/widgets/error_widget.dart';
 import '../../domain/model/game_deatils.dart';
 import 'package:fluttericon/iconic_icons.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../blocs/games_bloc/games_bloc.dart';
 import '../pages/screenshots_page.dart';
 
-class GameDetailsWidget extends StatefulWidget {
+class GameDetailsWidget extends StatelessWidget {
   final GameResults game;
   final GameDetails gameDetails;
 
-  const GameDetailsWidget(
+  GameDetailsWidget(
       {Key? key, required this.game, required this.gameDetails})
       : super(key: key);
-
-  @override
-  State<GameDetailsWidget> createState() => _GameDetailsWidgetState();
-}
-
-class _GameDetailsWidgetState extends State<GameDetailsWidget> {
-  bool _isFavorite = false;
-
-  void _addFavorite() {
-    setState(() {
-      _isFavorite = !_isFavorite;
-    });
-  }
-
+  
+  BuildContext? blocContext;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,9 +30,10 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
       slivers: [
         SliverAppBar(
           pinned: true,
-          title: Text(widget.game.name!),
+          title: Text(game.name!),
           actions: [
-            IconButton(
+            _buildAddToFavoritesWidget(context),
+            /*IconButton(
               onPressed: () {
                 _addFavorite();
               },
@@ -52,7 +46,7 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                       Icons.favorite_border,
                       color: AppColors.white,
                     ),
-            ),
+            ),*/
             IconButton(
               onPressed: () {},
               icon: const Icon(Icons.share),
@@ -69,7 +63,7 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                 placeholder: (context, url) =>
                     const Center(child: CircularProgressIndicator()),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
-                imageUrl: widget.gameDetails.backgroundImageAdditional ?? '',
+                imageUrl: gameDetails.backgroundImageAdditional ?? '',
               ),
               Positioned(
                 top: 0,
@@ -97,8 +91,8 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: CachedNetworkImageProvider(
-                              widget.gameDetails.backgroundImage ?? '',
-                              cacheKey: widget.gameDetails.backgroundImage),
+                              gameDetails.backgroundImage ?? '',
+                              cacheKey: gameDetails.backgroundImage),
                           fit: BoxFit.cover,
                           scale: 1.0,
                         ),
@@ -141,7 +135,7 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                           children: [
                             Expanded(
                               child: Text(
-                                widget.game.name!,
+                                game.name!,
                                 style: const TextStyle(
                                   color: AppColors.white,
                                   fontSize: 10,
@@ -182,13 +176,13 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                         children: [
                           Icon(
                             Iconic.star,
-                            color: widget.game.rating! >= 4
+                            color: game.rating! >= 4
                                 ? AppColors.lightGreen
                                 : AppColors.orange,
                             size: 20,
                           ),
                           Text(
-                            widget.game.rating.toString(),
+                            game.rating.toString(),
                             style: const TextStyle(
                                 color: AppColors.white,
                                 fontSize: 12,
@@ -205,7 +199,7 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                             size: 20,
                           ),
                           Text(
-                            widget.game.reviewsCount.toString(),
+                            game.reviewsCount.toString(),
                             style: const TextStyle(
                                 color: AppColors.white,
                                 fontSize: 12,
@@ -222,7 +216,7 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                             size: 20,
                           ),
                           Text(
-                            '${widget.game.metaCritic.toString()}%',
+                            '${game.metaCritic.toString()}%',
                             style: const TextStyle(
                                 color: AppColors.white,
                                 fontSize: 12,
@@ -264,9 +258,9 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                           Expanded(
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: widget.game.genres!.length,
+                                  itemCount: game.genres!.length,
                                   itemBuilder: (context, index) {
-                                    final genre = widget.game.genres![index];
+                                    final genre = game.genres![index];
                                     return Container(
                                       margin: const EdgeInsets.all(5),
                                       padding: const EdgeInsets.all(5),
@@ -296,7 +290,7 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                             height: 5,
                           ),
                           Text(
-                            widget.gameDetails.descriptionRaw!,
+                            gameDetails.descriptionRaw!,
                             style: const TextStyle(color: AppColors.white),
                             textAlign: TextAlign.justify,
                             maxLines: 9,
@@ -321,10 +315,10 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                           Expanded(
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: widget.game.platforms!.length,
+                                  itemCount: game.platforms!.length,
                                   itemBuilder: (context, index) {
                                     final platform =
-                                        widget.game.platforms![index];
+                                        game.platforms![index];
                                     final number = index + 1;
                                     return Padding(
                                       padding: const EdgeInsets.all(8.0),
@@ -369,9 +363,9 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                           Expanded(
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: widget.game.tags!.length,
+                                  itemCount: game.tags!.length,
                                   itemBuilder: (context, index) {
-                                    final tag = widget.game.tags![index];
+                                    final tag = game.tags![index];
                                     return Container(
                                       margin: const EdgeInsets.all(5),
                                       padding: const EdgeInsets.all(5),
@@ -429,7 +423,7 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                                   enlargeCenterPage: true,
                                   scrollDirection: Axis.horizontal,
                                 ),
-                                items: widget.game.shortScreenshots!.map((i) {
+                                items: game.shortScreenshots?.map((i) {
                                   return Builder(
                                     builder: (BuildContext context) {
                                       return InkWell(
@@ -439,7 +433,7 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   ScreenshotsPage(
-                                                      screenshot: i.image!),
+                                                      screenshot: i.image ?? ''),
                                             ),
                                           );
                                         },
@@ -486,10 +480,10 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
                           Expanded(
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: widget.gameDetails.developers!.length,
+                              itemCount: gameDetails.developers!.length,
                               itemBuilder: (context, index) {
                                 final developer =
-                                    widget.gameDetails.developers![index];
+                                    gameDetails.developers![index];
                                 return Container(
                                   height: 50,
                                     margin: const EdgeInsets.all(5),
@@ -521,5 +515,40 @@ class _GameDetailsWidgetState extends State<GameDetailsWidget> {
         )
       ],
     ));
+  }
+  
+  
+  BlocProvider<GamesBloc> _buildAddToFavoritesWidget(BuildContext context){
+   return BlocProvider(
+     create: (_) => sl<GamesBloc>(),
+     child: BlocListener<GamesBloc, GamesState>(
+  listener: (context, state) {
+    if(state is  AddedGameToFavoritesState){
+
+    } else {
+      const Icon(
+          Icons.favorite_border
+      );
+    }
+  },
+  child: BlocBuilder<GamesBloc, GamesState>(
+       builder: (context, state){
+         blocContext = context;
+         if(state is AddGameToFavoritesState){
+           dispatchAddToFavoritesEvent(context);
+         }else {
+           return const ErrorMessageWidget(
+               message: 'An unknown error occurred');
+         }
+         return Container();
+       },
+     ),
+),
+   );
+   
+  }
+  
+  void dispatchAddToFavoritesEvent(BuildContext context) {
+    BlocProvider.of<GamesBloc>(context).add(AddGameToFavoritesEvent(game: game));
   }
 }
