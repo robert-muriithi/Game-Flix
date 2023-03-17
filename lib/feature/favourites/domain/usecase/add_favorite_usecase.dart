@@ -19,7 +19,7 @@ class AddToFavouriteUseCase extends UseCase<bool, Params> {
 }
 
 class Params extends Equatable {
-  final Favourite favourite;
+  final Favorites favourite;
   const Params({required this.favourite});
 
   @override
