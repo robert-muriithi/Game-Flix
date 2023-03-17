@@ -5,13 +5,12 @@ abstract class CategoryGamesEvent extends Equatable {
 }
 
 class GetCategoryGamesEvent extends CategoryGamesEvent {
-   const GetCategoryGamesEvent({required this.id, this.ids = const []});
+   const GetCategoryGamesEvent({required this.ids});
 
-  final int id;
   final List<int> ids;
 
   @override
-  List<Object?> get props => [id, ids];
+  List<Object?> get props => [ids];
 }
 
 // Path: lib\features\categories\presentation\blocs\categories_bloc\category_games_event.dart
