@@ -13,9 +13,8 @@ part 'category_games_event.dart';
 part 'category_games_state.dart';
 
 class CategoryGamesBloc extends Bloc<CategoryGamesEvent, CategoryGamesState> {
-  final GetCategoryGamesUseCase getGamesUseCase;
   final GetCategoryGameUseCase getGameUseCase;
-   CategoryGamesBloc(this.getGamesUseCase, this.getGameUseCase) : super(CategoryGamesInitialState()) {
+   CategoryGamesBloc(this.getGameUseCase) : super(CategoryGamesInitialState()) {
     on<CategoryGamesEvent>(getGamesEventObserver);
   }
 
@@ -38,7 +37,7 @@ class CategoryGamesBloc extends Bloc<CategoryGamesEvent, CategoryGamesState> {
     Future<void> getGamesEventObserver(event, emit) async {
     if (event is GetCategoryGamesEvent) {
       emit(CategoryGamesLoadingState());
-      final result = await getGameUseCase(GameDetailsParams(ids: event.ids, id: event.id));
+      final result = await getGameUseCase(CategoryGamesParams(ids: event.ids));
       result.fold(
         (failure) =>
             emit(CategoryGamesErrorState(message: mapFailureToMessage(failure))),
