@@ -8,12 +8,12 @@ import '../model/favourite.dart';
 import '../repository/favourites_repository.dart';
 import '../../../../core/params/params.dart';
 
-class GetFavouriteUseCase extends UseCase<List<Favourite>, NoParams> {
+class GetFavouriteUseCase extends UseCase<List<Favorites>, NoParams> {
   final FavouriteRepository favouriteRepository;
    GetFavouriteUseCase({required this.favouriteRepository});
 
   @override
-  Future<Either<Failure, List<Favourite>>> call(NoParams params) async {
+  Future<Either<Failure, List<Favorites>>> call(NoParams params) async {
     return await favouriteRepository.getAllFavorites();
   }
 
