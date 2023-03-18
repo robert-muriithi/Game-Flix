@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../config/theme/colors.dart';
-import '../../features/categories/presentation/pages/categories_page.dart';
-import '../../features/favourites/presentation/pages/favourites_page.dart';
-import '../../features/games/presentation/pages/games_page.dart';
-import 'package:fluttericon/iconic_icons.dart';
-import 'package:fluttericon/fontelico_icons.dart';
+import '../../feature/categories/presentation/pages/categories_page.dart';
+import '../../feature/favourites/presentation/pages/favourites_page.dart';
+import '../../feature/games/presentation/pages/games_page.dart';
 
 class NavigationContainer extends StatefulWidget {
   const NavigationContainer({Key? key}) : super(key: key);

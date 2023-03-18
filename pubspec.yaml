@@ -26,6 +26,8 @@ dependencies:
   fluttericon: ^2.0.0
   carbon_icons: ^0.0.1+2
   carousel_slider: ^4.2.1
+  share_plus: ^6.3.1
+  fluttertoast: ^8.2.1
 
 dev_dependencies:
   flutter_test:
