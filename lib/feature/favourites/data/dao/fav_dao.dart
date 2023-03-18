@@ -15,6 +15,10 @@ abstract class FavouritesDao {
   @Query('DELETE FROM ${Constants.kFavoritesTableName} WHERE id (:id)')
   Future<void> deleteFavourite(int id);
 
-  //Get Favorite by Id
+  @Insert(onConflict: OnConflictStrategy.replace)
+  Future<void> addGameToFavorite(FavoritesEntity game);
+
+  @Query('DELETE FROM ${Constants.kFavoritesTableName} WHERE id = :id')
+  Future<void> removeGameFromFavorite(int id);
 
 }
