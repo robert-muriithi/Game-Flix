@@ -1,4 +1,5 @@
 //Service Locator
+import 'package:game_flix_flutter/feature/games/domain/usecase/remove_game_from_favorites.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
@@ -21,6 +22,8 @@ import 'feature/games/domain/repository/games_repository.dart';
 import 'feature/games/domain/usecase/add_game_to_favorites.dart';
 import 'feature/games/domain/usecase/get_all_game_usecase.dart';
 import 'feature/games/domain/usecase/get_game_details_usecase.dart';
+import 'feature/games/domain/usecase/get_gane_from_favorites.dart';
+import 'feature/games/presentation/blocs/favorites_bloc/favorites_bloc.dart';
 import 'feature/games/presentation/blocs/game_details_bloc/game_details_bloc.dart';
 import 'feature/games/presentation/blocs/games_bloc/games_bloc.dart';
 import 'package:dio/dio.dart';
@@ -36,10 +39,11 @@ Future<void> init () async {
 
 void initFeatures() {
   //Bloc
-  sl.registerFactory(() => GamesBloc(sl(), sl()));
+  sl.registerFactory(() => GamesBloc(sl()));
   sl.registerFactory(() => CategoriesBloc(sl()));
   sl.registerFactory(() => GameDetailsBloc(sl()));
   sl.registerFactory(() => CategoryGamesBloc(sl()));
+  sl.registerFactory(() => FavoritesBloc(sl(), sl(), sl()));
 
   //Use case
   sl.registerLazySingleton(() => GetCategoriesUseCase(sl()));
@@ -47,6 +51,8 @@ void initFeatures() {
   sl.registerLazySingleton(() => GetGameDetailsUseCase(sl()));
   sl.registerLazySingleton(() => AddGameToFavoritesUseCase(sl()));
   sl.registerLazySingleton(() => GetCategoryGameUseCase(sl()));
+  sl.registerLazySingleton(() => RemoveGameFromFavoritesUseCase(sl()));
+  sl.registerLazySingleton(() => GetGameFromFavorites(sl()));
   //sl.registerLazySingleton(() => GetCategoryGamesUseCase(sl()));
 
   //Repository

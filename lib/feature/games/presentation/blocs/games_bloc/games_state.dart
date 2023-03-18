@@ -28,20 +28,16 @@ class GamesErrorState extends GamesState {
   GamesErrorState({required String error}) : super([], true, error);
 }
 
-class AddGameToFavoritesState extends GamesState {
-  final bool isAdded;
-
-  AddGameToFavoritesState({required this.isAdded}) : super([], false, null);
-
-  @override
-  List<Object?> get props => [isAdded];
+class GameAddedToFavoritesState extends GamesState {
+   final bool isAdded;
+   GameAddedToFavoritesState({required this.isAdded}) : super([], false, null);
 }
 
-class AddedGameToFavoritesState extends GamesState {
-  final bool isAdded;
+class GameFavoriteInitialState extends GamesState {
+   GameFavoriteInitialState() : super([], false, null);
+}
 
-  AddedGameToFavoritesState({required this.isAdded}) : super([], false, null);
-
-  @override
-  List<Object?> get props => [isAdded];
+class GameRemovedFromFavoritesState extends GamesState {
+   final bool isRemoved;
+   GameRemovedFromFavoritesState({required this.isRemoved}) : super([], false, null);
 }

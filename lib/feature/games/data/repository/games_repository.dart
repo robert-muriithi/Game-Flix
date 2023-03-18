@@ -103,4 +103,28 @@ class GamesRepositoryImpl implements GamesRepository {
       return Left(DatabaseFailure(e.message));
     }
   }
+
+  //Remove game from favorites
+  @override
+  Future<Either<Failure, bool>> removeGameFromFavorite(int id) async {
+    final log = Logger();
+    try {
+      await gamesLocalDataSource.removeGameFromFavorite(id);
+      return const Right(true);
+    } on DatabaseException catch (e) {
+      log.e(e.message);
+      return Left(DatabaseFailure(e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GameResults>> getGameFromFavorite(int id) async {
+    try {
+      final game = await gamesLocalDataSource.getGameFromFavorite(id);
+      final result = fromEntityToDomain(game!);
+      return Right(result);
+    } on DatabaseException catch (e) {
+      return Left(DatabaseFailure(e.message));
+    }
+  }
 }

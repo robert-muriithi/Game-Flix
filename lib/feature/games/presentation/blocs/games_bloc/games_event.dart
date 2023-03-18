@@ -27,3 +27,13 @@ class AddGameToFavoritesEvent extends GamesEvent {
   @override
   List<Object?> get props => [game];
 }
+
+class RemoveGameFromFavoritesEvent extends GamesEvent {
+  final GameResults game;
+
+  const RemoveGameFromFavoritesEvent({required this.game});
+
+  @override
+  List<Object?> get props => [game];
+}
+

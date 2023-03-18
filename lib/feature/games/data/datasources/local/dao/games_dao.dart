@@ -28,6 +28,9 @@ abstract class GamesDao {
   @Insert(onConflict: OnConflictStrategy.replace)
   Future<void> addGameToFavorite(GamesResultsEntity game);
 
+  @Query('DELETE FROM ${Constants.kFavoritesTableName} WHERE id = :id')
+  Future<void> removeGameFromFavorite(int id);
+
   @Query('SELECT * FROM ${Constants.kGameTableName} WHERE id = :id')
   Future<GamesResultsEntity?> getGameById(int id);
 

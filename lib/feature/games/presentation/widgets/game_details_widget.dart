@@ -9,18 +9,20 @@ import '../../domain/model/game_deatils.dart';
 import 'package:fluttericon/iconic_icons.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-import '../blocs/games_bloc/games_bloc.dart';
+import '../blocs/favorites_bloc/favorites_bloc.dart';
 import '../pages/screenshots_page.dart';
+import 'package:share_plus/share_plus.dart';
 
 class GameDetailsWidget extends StatelessWidget {
   final GameResults game;
   final GameDetails gameDetails;
 
   GameDetailsWidget(
-      {Key? key, required this.game, required this.gameDetails})
+      {Key? key, required this.game, required this.gameDetails, required this.isFavorite})
       : super(key: key);
   
   BuildContext? blocContext;
+  bool isFavorite;
   
   @override
   Widget build(BuildContext context) {
@@ -31,27 +33,7 @@ class GameDetailsWidget extends StatelessWidget {
         SliverAppBar(
           pinned: true,
           title: Text(game.name!),
-          actions: [
-            _buildAddToFavoritesWidget(context),
-            /*IconButton(
-              onPressed: () {
-                _addFavorite();
-              },
-              icon: _isFavorite
-                  ? const Icon(
-                      Icons.favorite,
-                      color: AppColors.orange,
-                    )
-                  : const Icon(
-                      Icons.favorite_border,
-                      color: AppColors.white,
-                    ),
-            ),*/
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.share),
-            ),
-          ],
+          actions: buildAppBarActions(context),
           expandedHeight: 270.0,
           flexibleSpace: FlexibleSpaceBar(
             background: Stack(
@@ -516,39 +498,106 @@ class GameDetailsWidget extends StatelessWidget {
       ],
     ));
   }
-  
-  
-  BlocProvider<GamesBloc> _buildAddToFavoritesWidget(BuildContext context){
-   return BlocProvider(
-     create: (_) => sl<GamesBloc>(),
-     child: BlocListener<GamesBloc, GamesState>(
-  listener: (context, state) {
-    if(state is  AddedGameToFavoritesState){
 
-    } else {
-      const Icon(
-          Icons.favorite_border
-      );
-    }
-  },
-  child: BlocBuilder<GamesBloc, GamesState>(
-       builder: (context, state){
-         blocContext = context;
-         if(state is AddGameToFavoritesState){
-           dispatchAddToFavoritesEvent(context);
-         }else {
-           return const ErrorMessageWidget(
-               message: 'An unknown error occurred');
-         }
-         return Container();
-       },
-     ),
-),
-   );
-   
+  //Build app bar actions
+  List<Widget> buildAppBarActions(BuildContext context) {
+    return [
+      _buildAddToFavoritesButton(context),
+      IconButton(
+        icon: const Icon(Icons.share),
+        onPressed: () {
+          Share.share('Check out this game ${game.name}');
+        },
+      ),
+    ];
   }
-  
+
+/*  BlocProvider<FavoritesBloc> _buildAddToFavoritesButton(BuildContext context) {
+    return BlocProvider(
+      create: (context) => sl<FavoritesBloc>(),
+      child: BlocBuilder<FavoritesBloc, FavoritesState>(
+        builder: (context, state) {
+          blocContext = context;
+          if (state is FavoritesInitial) {
+            return IconButton(
+              icon: isFavorite
+                  ? const Icon(Icons.favorite_border)
+                  : const Icon(Icons.favorite),
+              onPressed: () {
+                isFavorite = !isFavorite;
+                if (isFavorite) {
+                  dispatchAddToFavoritesEvent(context);
+                } else {
+                  dispatchRemoveFromFavsEvent(context);
+                }
+              },
+            );
+          } else if (state is FavoritesAdded) {
+            return IconButton(
+              icon: isFavorite
+                  ? const Icon(Icons.favorite_border)
+                  : const Icon(Icons.favorite),
+              onPressed: () {
+                isFavorite = !isFavorite;
+                if (isFavorite) {
+                  dispatchAddToFavoritesEvent(context);
+                } else {
+                  dispatchRemoveFromFavsEvent(context);
+                }
+              },
+            );
+          } else if (state is FavoritesRemoved) {
+            return IconButton(
+              icon: isFavorite
+                  ? const Icon(Icons.favorite_border)
+                  : const Icon(Icons.favorite),
+              onPressed: () {
+                isFavorite = !isFavorite;
+                if (isFavorite) {
+                  dispatchAddToFavoritesEvent(context);
+                } else {
+                  dispatchRemoveFromFavsEvent(context);
+                }
+              },
+            );
+          } else {
+            return const Text('Error');
+          }
+        },
+      ),
+    );
+  }*/
+
+  _buildAddToFavoritesButton(BuildContext context) {
+    return IconButton(
+      icon: isFavorite
+          ? const Icon(Icons.favorite_border)
+          : const Icon(Icons.favorite),
+      onPressed: () {
+        isFavorite = !isFavorite;
+        if (isFavorite) {
+          dispatchAddToFavoritesEvent(context);
+        } else {
+          dispatchRemoveFromFavsEvent(context);
+        }
+      },
+    );
+  }
+
   void dispatchAddToFavoritesEvent(BuildContext context) {
-    BlocProvider.of<GamesBloc>(context).add(AddGameToFavoritesEvent(game: game));
+    BlocProvider.of<FavoritesBloc>(context).add(
+      AddGameToFavoritesEvent(
+        game: game,
+      ),
+    );
+  }
+
+  void dispatchRemoveFromFavsEvent(BuildContext context) {
+    BlocProvider.of<FavoritesBloc>(context).add(
+      RemoveGameFromFavoritesEvent(
+        id: game.id!,
+      ),
+    );
+
   }
 }

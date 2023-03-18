@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../injector.dart';
 import '../../domain/model/game.dart';
+import '../blocs/favorites_bloc/favorites_bloc.dart';
 import '../blocs/game_details_bloc/game_details_bloc.dart';
 import '../widgets/error_widget.dart';
 import '../widgets/game_details_widget.dart';
@@ -21,16 +22,7 @@ class GameDetailsPage extends StatelessWidget {
     );
   }
 
-  /* PreferredSizeWidget buildAppBar(){
-    return AppBar(
-      title:  Container(
-        margin: const EdgeInsets.only(top: 10),
-        child:  Text(game.name!),
-      )
-    );
-  }*/
-
-  BlocProvider<GameDetailsBloc> buildBody(BuildContext context) {
+/*  BlocProvider<GameDetailsBloc> buildBody(BuildContext context) {
     return BlocProvider(
         create: (_) => sl<GameDetailsBloc>(),
         child: BlocBuilder<GameDetailsBloc, GameDetailsState>(
@@ -38,7 +30,7 @@ class GameDetailsPage extends StatelessWidget {
             blocContext = context;
 
             if (state is GameDetailsInitialState) {
-              dispatchEvent(context);
+              dispatchGetGameDetailsEvent(context);
             }
             if (state is GameDetailsLoadingState) {
               return const Center(child: CircularProgressIndicator());
@@ -56,10 +48,69 @@ class GameDetailsPage extends StatelessWidget {
             }
           },
         ));
+  }*/
+
+  MultiBlocProvider buildBody(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => sl<GameDetailsBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => sl<FavoritesBloc>(),
+        ),
+      ],
+      child: BlocBuilder<FavoritesBloc, FavoritesState>(
+        builder: (context, state) {
+          blocContext = context;
+          // final bool isFavorite = state is FavoritesLoadedState && state.fav.contains(game.id);
+          //bool isFavorite = state is FavoritesLoaded && state.game.id!.toString().contains(game.id.toString());
+          bool isFavorite = false;
+          if (state is FavoritesInitial) {
+            dispatchGetFavoriteGameEvent(context);
+          }
+          else if(state is FavoritesLoaded) {
+            isFavorite = state.game.id!.toString().contains(game.id.toString());
+          } else if(state is FavoritesError) {
+            isFavorite = false;
+          } else {
+            isFavorite = false;
+          }
+          return BlocBuilder<GameDetailsBloc, GameDetailsState>(
+            builder: (context, state) {
+              blocContext = context;
+              if (state is GameDetailsInitialState) {
+                dispatchGetGameDetailsEvent(context);
+              }
+              if (state is GameDetailsLoadingState) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is GameDetailsLoadedState) {
+                final gameDetails = state.gameDetails;
+                return GameDetailsWidget(
+                  gameDetails: gameDetails,
+                  game: game,
+                  isFavorite: isFavorite,
+                );
+              } else if (state is GameDetailsErrorState) {
+                return ErrorMessageWidget(message: state.message);
+              } else {
+                return const ErrorMessageWidget(
+                    message: 'An unknown error occurred');
+              }
+            },
+          );
+        },
+      ),
+    );
   }
 
-  void dispatchEvent(BuildContext context) {
-    BlocProvider.of<GameDetailsBloc>(context)
-        .add(GetGameDetailsEvent(id: game.id!));
+
+  void dispatchGetGameDetailsEvent(BuildContext context) {
+    BlocProvider.of<GameDetailsBloc>(context).add(
+        GetGameDetailsEvent(id: game.id!));
+  }
+
+  void dispatchGetFavoriteGameEvent(BuildContext context) {
+    BlocProvider.of<FavoritesBloc>(context).add(GetFavoriteEvent(id: game.id!));
   }
 }

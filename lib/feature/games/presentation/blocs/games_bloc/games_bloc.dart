@@ -9,6 +9,7 @@ import '../../../../../core/utils/constants.dart';
 import '../../../domain/model/game.dart';
 import '../../../domain/usecase/add_game_to_favorites.dart';
 import '../../../domain/usecase/get_all_game_usecase.dart';
+import '../../../domain/usecase/remove_game_from_favorites.dart';
 
 part 'games_event.dart';
 
@@ -16,10 +17,14 @@ part 'games_state.dart';
 
 class GamesBloc extends Bloc<GamesEvent, GamesState> {
   final GetAllGamesUseCase getGamesUseCase;
-  final AddGameToFavoritesUseCase addGameToFavoritesUseCase;
+/*  final AddGameToFavoritesUseCase addGameToFavoritesUseCase;
+  final RemoveGameFromFavoritesUseCase removeGameFromFavoritesUseCase;*/
 
-  GamesBloc(this.getGamesUseCase, this.addGameToFavoritesUseCase)
-      : super(GamesInitialState()) {
+  GamesBloc(
+      this.getGamesUseCase,
+/*      this.addGameToFavoritesUseCase,
+      this.removeGameFromFavoritesUseCase*/
+      ) : super(GamesInitialState()) {
     on<GamesEvent>(getGamesEventObserver);
     //on<HideAppBarEvent>(hideAppBarEventObserver);
   }
@@ -50,22 +55,8 @@ class GamesBloc extends Bloc<GamesEvent, GamesState> {
       page = 1;
       _games.clear();
       getGamesEventObserver(GetGamesEvent(), emit);
-    } else if (event is AddGameToFavoritesEvent) {
-      final game = event.game;
-      final result = await addGameToFavoritesUseCase(game);
-      result.fold(
-          (failure) =>
-              emit(GamesErrorState(error: mapFailureToMessage(failure))),
-          (isAdded) {
-        emit(AddGameToFavoritesState(isAdded: isAdded));
-        /*if (isAdded) {
-              game.isFavorite = true;
-              emit(GamesLoadedState(_games, noMoreData: false));
-            } else {
-              emit(GamesErrorState(error: Constants.UNEXPECTED_FAILURE_MESSAGE));
-            }*/
-      });
-    } else {
+    }
+    else {
       emit(GamesErrorState(error: Constants.UNEXPECTED_FAILURE_MESSAGE));
     }
   }
