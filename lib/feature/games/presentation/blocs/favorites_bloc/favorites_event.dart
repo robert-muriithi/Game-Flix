@@ -6,7 +6,9 @@ abstract class FavoritesEvent extends Equatable {
 
 class GetFavoriteEvent extends FavoritesEvent {
   final int id;
+
   const GetFavoriteEvent({required this.id});
+
   @override
   List<Object?> get props => [id];
 }
@@ -28,4 +30,3 @@ class RemoveGameFromFavoritesEvent extends FavoritesEvent {
   @override
   List<Object?> get props => [id];
 }
-

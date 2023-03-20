@@ -23,8 +23,6 @@ class FavoritesLoaded extends FavoritesState {
   List<Object> get props => [game];
 }
 
-
-
 class FavoritesAdded extends FavoritesState {
   final bool isAdded;
 

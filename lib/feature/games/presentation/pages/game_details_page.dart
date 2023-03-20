@@ -22,34 +22,6 @@ class GameDetailsPage extends StatelessWidget {
     );
   }
 
-/*  BlocProvider<GameDetailsBloc> buildBody(BuildContext context) {
-    return BlocProvider(
-        create: (_) => sl<GameDetailsBloc>(),
-        child: BlocBuilder<GameDetailsBloc, GameDetailsState>(
-          builder: (context, state) {
-            blocContext = context;
-
-            if (state is GameDetailsInitialState) {
-              dispatchGetGameDetailsEvent(context);
-            }
-            if (state is GameDetailsLoadingState) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is GameDetailsLoadedState) {
-              final gameDetails = state.gameDetails;
-              return GameDetailsWidget(
-                gameDetails: gameDetails,
-                game: game,
-              );
-            } else if (state is GameDetailsErrorState) {
-              return ErrorMessageWidget(message: state.message);
-            } else {
-              return const ErrorMessageWidget(
-                  message: 'An unknown error occurred');
-            }
-          },
-        ));
-  }*/
-
   MultiBlocProvider buildBody(BuildContext context) {
     return MultiBlocProvider(
       providers: [
@@ -68,10 +40,9 @@ class GameDetailsPage extends StatelessWidget {
           bool isFavorite = false;
           if (state is FavoritesInitial) {
             dispatchGetFavoriteGameEvent(context);
-          }
-          else if(state is FavoritesLoaded) {
+          } else if (state is FavoritesLoaded) {
             isFavorite = state.game.id!.toString().contains(game.id.toString());
-          } else if(state is FavoritesError) {
+          } else if (state is FavoritesError) {
             isFavorite = false;
           } else {
             isFavorite = false;
@@ -104,10 +75,9 @@ class GameDetailsPage extends StatelessWidget {
     );
   }
 
-
   void dispatchGetGameDetailsEvent(BuildContext context) {
-    BlocProvider.of<GameDetailsBloc>(context).add(
-        GetGameDetailsEvent(id: game.id!));
+    BlocProvider.of<GameDetailsBloc>(context)
+        .add(GetGameDetailsEvent(id: game.id!));
   }
 
   void dispatchGetFavoriteGameEvent(BuildContext context) {

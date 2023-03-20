@@ -29,7 +29,6 @@ class GamesPage extends StatelessWidget {
   }
 
   BlocProvider<GamesBloc> buildBody(BuildContext context) {
-
     return BlocProvider(
         create: (_) => sl<GamesBloc>(),
         child: BlocBuilder<GamesBloc, GamesState>(
