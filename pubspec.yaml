@@ -28,6 +28,7 @@ dependencies:
   carousel_slider: ^4.2.1
   share_plus: ^6.3.1
   fluttertoast: ^8.2.1
+  flutter_spinkit: ^5.1.0
 
 dev_dependencies:
   flutter_test:

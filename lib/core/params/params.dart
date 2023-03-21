@@ -58,3 +58,18 @@ class CategoryGamesParams extends Equatable {
   ];
 }
 
+class GamesParams extends Equatable {
+  final String apiKey;
+  final List<int> ids;
+
+  const GamesParams({
+    this.apiKey = Constants.apiKey,
+    required this.ids,
+  });
+  @override
+  List<Object?> get props => [
+    apiKey,
+    ids,
+  ];
+}
+

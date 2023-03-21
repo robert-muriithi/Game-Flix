@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:game_flix_flutter/feature/games/presentation/pages/tagged_games_page.dart';
 
 import '../../../../config/theme/colors.dart';
-import 'custom_painter.dart';
+import '../widgets/custom_painter.dart';
 import 'games_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-      physics: const ClampingScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       child: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -59,8 +59,9 @@ class _HomePageState extends State<HomePage>
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
-                child: _buildMenuBar(context),
+                child: _buildHeader(context),
               ),
+              _buildMenuBar(context),
               Expanded(
                 flex: 2,
                 child: PageView(
@@ -102,13 +103,13 @@ class _HomePageState extends State<HomePage>
   Widget _buildMenuBar(BuildContext context) {
     return Container(
       width: 300.0,
-      height: 50.0,
-      decoration: const BoxDecoration(
-        color: Color(0x552B2B2B),
-        borderRadius: BorderRadius.all(Radius.circular(25.0)),
+      height: 55.0,
+      decoration:  BoxDecoration(
+        border: Border.all(color: AppColors.orange, width: 2.0),
+        borderRadius: const BorderRadius.all(Radius.circular(25.0)),
       ),
       child: CustomPaint(
-        painter: CustomIndicator(controller: _pageController),
+        painter: BubbleIndicatorPainter(pageController: _pageController),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -117,7 +118,7 @@ class _HomePageState extends State<HomePage>
                 style: ButtonStyle(
                   overlayColor: MaterialStateProperty.all(Colors.transparent),
                 ),
-                onPressed: _onSignInButtonPress,
+                onPressed: _onGamesButtonPress,
                 child: Text(
                   'Games',
                   style: TextStyle(
@@ -133,7 +134,7 @@ class _HomePageState extends State<HomePage>
                 style: ButtonStyle(
                   overlayColor: MaterialStateProperty.all(Colors.transparent),
                 ),
-                onPressed: _onSignUpButtonPress,
+                onPressed: _onTagsButtonPress,
                 child: Text(
                   'Tags',
                   style: TextStyle(
@@ -149,12 +150,51 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  void _onSignInButtonPress() {
+  Widget _buildHeader(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 100.0,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const <Widget>[
+              Text(
+                'Game',
+                style: TextStyle(
+                  color: AppColors.white,
+                  fontSize: 24.0,
+                ),
+              ),
+              Text(
+                'Flix',
+                style: TextStyle(
+                  color: AppColors.orange,
+                  fontSize: 24.0,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 5.0),
+          const Text(
+            'Find your next favorite game',
+            style: TextStyle(
+              color: AppColors.white,
+              fontSize: 14.0,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _onGamesButtonPress() {
     _pageController.animateToPage(0,
         duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
   }
 
-  void _onSignUpButtonPress() {
+  void _onTagsButtonPress() {
     _pageController.animateToPage(1,
         duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
   }

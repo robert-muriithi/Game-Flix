@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failure.dart';
 import 'package:game_flix_flutter/core/usecase/usecase.dart';
+import '../datasources/local/favorites_local_data_source.dart';
 import '../datasources/local/games_local_datasource.dart';
 import 'package:game_flix_flutter/feature/categories/data/datasources/local/genres_local_datasource.dart';
 import '../datasources/remote/games_remote_data_source.dart';
@@ -22,6 +23,7 @@ class GamesRepositoryImpl implements GamesRepository {
   final GameDetailsLocalDataSource gameDetailsLocalDataSource;
   final GamesRemoteDataSource gamesRemoteDataSource;
   final GameDetailsRemoteDataSource gameDetailsRemoteDataSource;
+  ///final FavoritesLocalDataSource favoritesLocalDataSource;
   final NetworkInfo networkInfo;
 
   GamesRepositoryImpl(
@@ -29,7 +31,9 @@ class GamesRepositoryImpl implements GamesRepository {
       required this.gamesLocalDataSource,
       required this.networkInfo,
       required this.gameDetailsRemoteDataSource,
-      required this.gameDetailsLocalDataSource});
+      required this.gameDetailsLocalDataSource,
+     // required this.favoritesLocalDataSource
+      });
 
   @override
   Future<Either<Failure, List<GameResults>>> getAllGames(Params params) async {
@@ -89,42 +93,6 @@ class GamesRepositoryImpl implements GamesRepository {
       } on DatabaseException catch (exception) {
         return Left(DatabaseFailure(exception.message));
       }
-    }
-  }
-
-  @override
-  Future<Either<Failure, bool>> addGameToFavorite(GameResults game) async {
-    final log = Logger();
-    try {
-      await gamesLocalDataSource.addGameToFavorite(fromDomainToEntity(game));
-      return const Right(true);
-    } on DatabaseException catch (e) {
-      log.e(e.message);
-      return Left(DatabaseFailure(e.message));
-    }
-  }
-
-  //Remove game from favorites
-  @override
-  Future<Either<Failure, bool>> removeGameFromFavorite(int id) async {
-    final log = Logger();
-    try {
-      await gamesLocalDataSource.removeGameFromFavorite(id);
-      return const Right(true);
-    } on DatabaseException catch (e) {
-      log.e(e.message);
-      return Left(DatabaseFailure(e.message));
-    }
-  }
-
-  @override
-  Future<Either<Failure, GameResults>> getGameFromFavorite(int id) async {
-    try {
-      final game = await gamesLocalDataSource.getGameFromFavorite(id);
-      final result = fromEntityToDomain(game!);
-      return Right(result);
-    } on DatabaseException catch (e) {
-      return Left(DatabaseFailure(e.message));
     }
   }
 }

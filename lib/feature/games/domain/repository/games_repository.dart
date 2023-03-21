@@ -10,11 +10,12 @@ abstract class GamesRepository {
 
   Future<Either<Failure, GameDetails>> getGameDetails(GameDetailsParams params);
 
+/*
   Future<Either<Failure, bool>> addGameToFavorite(GameResults game);
 
   //Remove game from favorites
   Future<Either<Failure, bool>> removeGameFromFavorite(int id);
 
   //Get one game from favorites
-  Future<Either<Failure, GameResults>> getGameFromFavorite(int id);
+  Future<Either<Failure, GameResults>> getGameFromFavorite(int id);*/
 }

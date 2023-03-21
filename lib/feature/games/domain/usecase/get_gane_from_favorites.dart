@@ -4,10 +4,10 @@ import 'package:dartz/dartz.dart';
 import '../../../../core/errors/failure.dart';
 import '../../../../core/usecase/usecase.dart';
 import '../model/game.dart';
-import '../repository/games_repository.dart';
+import '../repository/favorites_repository.dart';
 
 class GetGameFromFavorites extends UseCase<GameResults, int> {
-  final GamesRepository repository;
+  final FavoritesRepository repository;
 
   GetGameFromFavorites(this.repository);
 

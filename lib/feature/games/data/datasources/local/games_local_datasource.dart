@@ -9,9 +9,9 @@ abstract class GamesLocalDataSource {
   Future<void> deleteGames();
   Future<List<GamesResultsEntity>> getGames();
   Future<void> insertGame(List<GamesResultsEntity> games);
-  Future<void> addGameToFavorite(GamesResultsEntity game);
+/*  Future<void> addGameToFavorite(GamesResultsEntity game);
   Future<void> removeGameFromFavorite(int id);
-  Future<GamesResultsEntity?> getGameFromFavorite(int id);
+  Future<GamesResultsEntity?> getGameFromFavorite(int id);*/
 }
 
 class GamesLocalDataSourceImpl implements GamesLocalDataSource {
@@ -52,7 +52,7 @@ class GamesLocalDataSourceImpl implements GamesLocalDataSource {
     }
   }
 
-  @override
+/*  @override
   Future<void> addGameToFavorite(GamesResultsEntity game) async {
     try{
       final dao = database.gamesDao;
@@ -81,6 +81,6 @@ class GamesLocalDataSourceImpl implements GamesLocalDataSource {
     }catch (exception){
       throw DatabaseException(message: exception.toString());
     }
-  }
+  }*/
 
 }

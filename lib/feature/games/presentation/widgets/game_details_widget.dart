@@ -512,72 +512,17 @@ class GameDetailsWidget extends StatelessWidget {
     ];
   }
 
-/*  BlocProvider<FavoritesBloc> _buildAddToFavoritesButton(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<FavoritesBloc>(),
-      child: BlocBuilder<FavoritesBloc, FavoritesState>(
-        builder: (context, state) {
-          blocContext = context;
-          if (state is FavoritesInitial) {
-            return IconButton(
-              icon: isFavorite
-                  ? const Icon(Icons.favorite_border)
-                  : const Icon(Icons.favorite),
-              onPressed: () {
-                isFavorite = !isFavorite;
-                if (isFavorite) {
-                  dispatchAddToFavoritesEvent(context);
-                } else {
-                  dispatchRemoveFromFavsEvent(context);
-                }
-              },
-            );
-          } else if (state is FavoritesAdded) {
-            return IconButton(
-              icon: isFavorite
-                  ? const Icon(Icons.favorite_border)
-                  : const Icon(Icons.favorite),
-              onPressed: () {
-                isFavorite = !isFavorite;
-                if (isFavorite) {
-                  dispatchAddToFavoritesEvent(context);
-                } else {
-                  dispatchRemoveFromFavsEvent(context);
-                }
-              },
-            );
-          } else if (state is FavoritesRemoved) {
-            return IconButton(
-              icon: isFavorite
-                  ? const Icon(Icons.favorite_border)
-                  : const Icon(Icons.favorite),
-              onPressed: () {
-                isFavorite = !isFavorite;
-                if (isFavorite) {
-                  dispatchAddToFavoritesEvent(context);
-                } else {
-                  dispatchRemoveFromFavsEvent(context);
-                }
-              },
-            );
-          } else {
-            return const Text('Error');
-          }
-        },
-      ),
-    );
-  }*/
-
   _buildAddToFavoritesButton(BuildContext context) {
     return IconButton(
-      icon: isFavorite
+      icon: isFavorite == false
           ? const Icon(Icons.favorite_border)
           : const Icon(Icons.favorite),
       onPressed: () {
-        isFavorite = !isFavorite;
-        if (isFavorite) {
+        if (isFavorite == false) {
+          isFavorite = true;
           dispatchAddToFavoritesEvent(context);
         } else {
+          isFavorite = false;
           dispatchRemoveFromFavsEvent(context);
         }
       },

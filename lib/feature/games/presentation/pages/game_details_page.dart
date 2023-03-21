@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/widgets/loading/loading.dart';
 import '../../../../injector.dart';
 import '../../domain/model/game.dart';
 import '../blocs/favorites_bloc/favorites_bloc.dart';
@@ -35,8 +36,6 @@ class GameDetailsPage extends StatelessWidget {
       child: BlocBuilder<FavoritesBloc, FavoritesState>(
         builder: (context, state) {
           blocContext = context;
-          // final bool isFavorite = state is FavoritesLoadedState && state.fav.contains(game.id);
-          //bool isFavorite = state is FavoritesLoaded && state.game.id!.toString().contains(game.id.toString());
           bool isFavorite = false;
           if (state is FavoritesInitial) {
             dispatchGetFavoriteGameEvent(context);
@@ -54,7 +53,7 @@ class GameDetailsPage extends StatelessWidget {
                 dispatchGetGameDetailsEvent(context);
               }
               if (state is GameDetailsLoadingState) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child: LoadingWidget());
               } else if (state is GameDetailsLoadedState) {
                 final gameDetails = state.gameDetails;
                 return GameDetailsWidget(
