@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.game_flix_flutter">
    <application
-        android:label="game_flix_flutter"
+        android:label="GameFlix"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
