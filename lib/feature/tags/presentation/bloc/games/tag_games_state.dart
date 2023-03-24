@@ -4,29 +4,29 @@ abstract class TagGamesState extends Equatable {
   const TagGamesState();
 }
 
-class TagGamesInitial extends TagGamesState {
+class TagGamesInitialState extends TagGamesState {
   @override
   List<Object> get props => [];
 }
 
-class TagGamesLoading extends TagGamesState {
+class TagGamesLoadingState extends TagGamesState {
   @override
   List<Object> get props => [];
 }
 
-class TagGamesLoaded extends TagGamesState {
+class TagGamesLoadedState extends TagGamesState {
   final List<GameDetails> games;
 
-  const TagGamesLoaded({required this.games});
+  const TagGamesLoadedState({required this.games});
 
   @override
   List<Object> get props => [games];
 }
 
-class TagGamesError extends TagGamesState {
+class TagGamesErrorState extends TagGamesState {
   final String message;
 
-  const TagGamesError({required this.message});
+  const TagGamesErrorState({required this.message});
 
   @override
   List<Object> get props => [message];

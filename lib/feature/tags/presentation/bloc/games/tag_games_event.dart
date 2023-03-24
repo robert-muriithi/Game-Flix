@@ -7,7 +7,7 @@ abstract class TagGamesEvent extends Equatable {
 class GetTagGamesEvent extends TagGamesEvent {
   final List<int> ids;
 
-  const GetTagGamesEvent(this.ids);
+  const GetTagGamesEvent({required this.ids});
 
   @override
   List<Object?> get props => [ids];

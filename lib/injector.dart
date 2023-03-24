@@ -2,7 +2,7 @@
 import 'package:game_flix_flutter/feature/games/domain/usecase/remove_game_from_favorites.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'core/data/local/database/database.dart';
 import 'core/network/network.dart';
 import 'feature/categories/data/repository/categories_repository_impl.dart';
@@ -31,6 +31,10 @@ import 'feature/games/presentation/blocs/game_details_bloc/game_details_bloc.dar
 import 'feature/games/presentation/blocs/games_bloc/games_bloc.dart';
 import 'package:dio/dio.dart';
 
+import 'feature/onboarding/data/datasources/local/onboarding_local_data_source.dart';
+import 'feature/onboarding/data/repository/onboarding_screens_repository_impl.dart';
+import 'feature/onboarding/domain/repository/onboarding_screens_repository.dart';
+import 'feature/onboarding/presentation/blocs/on_boarding_screens_bloc.dart';
 import 'feature/tags/data/datasource/remote/tags_remote_data_source.dart';
 import 'feature/tags/data/repository/tags_repository_impl.dart';
 import 'feature/tags/domain/repository/tags_repository.dart';
@@ -57,6 +61,7 @@ void initFeatures() {
   sl.registerFactory(() => FavoritesBloc(sl(), sl(), sl()));
   sl.registerFactory(() => TagGamesBloc(sl()));
   sl.registerFactory(() => TagsBloc(sl()));
+  sl.registerFactory(() => OnBoardingScreensBloc(sl()));
 
   //Use case
   sl.registerLazySingleton(() => GetCategoriesUseCase(sl()));
@@ -66,18 +71,18 @@ void initFeatures() {
   sl.registerLazySingleton(() => GetCategoryGameUseCase(sl()));
   sl.registerLazySingleton(() => RemoveGameFromFavoritesUseCase(sl()));
   sl.registerLazySingleton(() => GetGameFromFavorites(sl()));
-  sl.registerLazySingleton(() => GetTagsUseCase(sl()));
   sl.registerLazySingleton(() => GetTagsGameUseCase(sl()));
+  sl.registerLazySingleton(() => GetTagsUseCase(sl()));
   //sl.registerLazySingleton(() => GetCategoryGamesUseCase(sl()));
 
   //Repository
   sl.registerLazySingleton<GamesRepository>(() =>
       GamesRepositoryImpl(
-          gamesRemoteDataSource: sl(),
-          gamesLocalDataSource: sl(),
-          networkInfo: sl(),
-          gameDetailsLocalDataSource: sl(),
-          gameDetailsRemoteDataSource: sl(),
+        gamesRemoteDataSource: sl(),
+        gamesLocalDataSource: sl(),
+        networkInfo: sl(),
+        gameDetailsLocalDataSource: sl(),
+        gameDetailsRemoteDataSource: sl(),
       )
   );
 
@@ -88,20 +93,25 @@ void initFeatures() {
         networkInfo: sl(),
       )
   );
+  sl.registerLazySingleton<OnBoardingScreensRepository>(() =>
+      OnBoardingScreensRepositoryImpl(
+        localDataSource: sl(),
+      )
+  );
+
+  sl.registerLazySingleton<TagsRepository>(() =>
+      TagsRepositoryImpl(
+        tagsRemoteDataSource: sl(),
+        gameDetailsRemoteDataSource: sl(),
+        networkInfo: sl(),
+      )
+  );
 
   sl.registerLazySingleton<FavoritesRepository>(() =>
       FavoritesRepositoryImpl(
-          favoritesLocalDataSource: sl(),
+        favoritesLocalDataSource: sl(),
       )
   );
-  sl.registerLazySingleton<TagsRepository>(() =>
-      TagsRepositoryImpl(
-          tagsRemoteDataSource: sl(),
-          gameDetailsRemoteDataSource: sl(),
-          networkInfo: sl(),
-      )
-  );
-
 
   //Data source
   sl.registerLazySingleton<GenresRemoteDataSource>(() => GenresRemoteDataSourceImpl(sl()));
@@ -112,6 +122,8 @@ void initFeatures() {
 
   sl.registerLazySingleton<GameDetailsRemoteDataSource>(() => GameDetailsRemoteDatasourceImpl(sl()));
   sl.registerLazySingleton<GameDetailsLocalDataSource>(() => GameDetailsLocalDataSourceImpl(sl()));
+
+  sl.registerLazySingleton<OnBoardingLocalDataSource>(() => OnBoardingLocalDataSourceImpl(sharedPreferences: sl()));
 
   sl.registerLazySingleton<FavoritesLocalDataSource>(() => FavoritesLocalDataSourceImpl(sl()));
 
@@ -138,4 +150,8 @@ Future<void> initExternal() async{
       .build();
 
   sl.registerFactory(() => database);
+
+  //Shared preferences
+  final sharedPreferences = await SharedPreferences.getInstance();
+  sl.registerLazySingleton(() => sharedPreferences);
 }

@@ -10,6 +10,7 @@ import '../../feature/categories/presentation/pages/category_games_page.dart';
 import '../../feature/games/domain/model/game.dart';
 import '../../feature/games/presentation/pages/home_page.dart';
 import '../../feature/games/presentation/pages/screenshots_page.dart';
+import '../../feature/onboarding/presentation/pages/onboarding_screens_container.dart';
 
 class Routes {
   static const String navigationContainer = '/';
@@ -23,9 +24,10 @@ class Routes {
   static const initialRoute = navigationContainer;
 
   static final Map<String, WidgetBuilder> routes = {
-    navigationContainer: (context) => const NavigationContainer(),
+    //navigationContainer: (context) => const NavigationContainer(),
+    navigationContainer: (context) =>  OnBoardingScreensContainer(),
     //gamesPage: (context) =>  GamesPage(),
-    gamesPage: (context) => const HomePage(),
+    gamesPage: (context) => const NavigationContainer(),
     gameDetailsPage: (context) => GameDetailsPage(game: ModalRoute.of(context)!.settings.arguments as GameResults),
     categoriesPage: (context) =>  CategoriesPage(),
     favoritesPage: (context) => const FavouritesPage(),

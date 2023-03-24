@@ -14,21 +14,21 @@ part 'tag_games_state.dart';
 
 class TagGamesBloc extends Bloc<TagGamesEvent, TagGamesState> {
   final GetTagsGameUseCase getGamesUseCase;
-  TagGamesBloc(this.getGamesUseCase) : super(TagGamesInitial()) {
+  TagGamesBloc(this.getGamesUseCase) : super(TagGamesInitialState()) {
     on<TagGamesEvent>(getGamesEventObserver);
   }
 
   FutureOr<void> getGamesEventObserver(event, emit) async {
     if (event is GetTagGamesEvent) {
-      emit(TagGamesLoading());
+      emit(TagGamesLoadingState());
       final result = await getGamesUseCase(GamesParams(ids: event.ids));
       result.fold(
-          (failure) => emit(TagGamesError(message: mapFailureToMessage(failure))),
+          (failure) => emit(TagGamesErrorState(message: mapFailureToMessage(failure))),
           (games) {
         if (games.isNotEmpty) {
-          emit(TagGamesLoaded(games: games));
+          emit(TagGamesLoadedState(games: games));
         } else {
-          emit(const TagGamesError(message: 'No games found'));
+          emit(const TagGamesErrorState(message: 'No games found'));
         }
       });
     }

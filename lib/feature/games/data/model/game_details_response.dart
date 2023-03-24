@@ -10,8 +10,12 @@ class GameDetailsResponse extends GameDetails {
     required String? backgroundImageAdditional,
     required String? website,
     required int? creatorsCount,
+    required int? metacritic,
+    required String? released,
+    required List<GenresResponse>? genres,
     required List<DevelopersResponse>? developers,
-    required String? descriptionRaw}) : super(
+    required String? descriptionRaw
+  }) : super(
       id: id,
       name: name,
       description: description,
@@ -20,7 +24,10 @@ class GameDetailsResponse extends GameDetails {
       website: website,
       creatorsCount: creatorsCount,
       developers: developers,
-      descriptionRaw: descriptionRaw
+      descriptionRaw: descriptionRaw,
+      metacritic: metacritic,
+       released: released,
+      genres: genres,
     );
 
   factory GameDetailsResponse.fromJson(Map<String, dynamic> json) {
@@ -33,20 +40,43 @@ class GameDetailsResponse extends GameDetails {
       website: json['website'],
       creatorsCount: json['creators_count'],
       descriptionRaw: json['description_raw'],
-      developers: json['developers'] != null ? (json['developers'] as List).map((e) => DevelopersResponse.fromJson(e)).toList() : null
+      metacritic: json['metacritic'],
+      released: json['released'],
+      genres: (json['genres'] as List<dynamic>).map((e) => GenresResponse.fromJson(e)).toList(),
+      developers: (json['developers'] as List<dynamic>).map((e) => DevelopersResponse.fromJson(e)).toList(),
+
     );
   }
 }
 
+class GenresResponse extends Genres {
+    const GenresResponse({
+      required int id,
+      required String name,
+    }) : super(id: id, name: name);
+
+    factory GenresResponse.fromJson(Map<String, dynamic> json) {
+      return GenresResponse(
+        id: json['id'],
+        name: json['name'],
+      );
+    }
+
+}
 
 class DevelopersResponse extends  Developers {
 
   const DevelopersResponse({
     required int id,
     required String name,
-    required int? gamesCount,
-    required String? imageBackground
-  });
+    required int gamesCount,
+    required String imageBackground
+  }) : super(
+      id: id,
+      name: name,
+      gamesCount: gamesCount,
+      imageBackground: imageBackground,
+    );
 
   factory DevelopersResponse.fromJson(Map<String, dynamic> json) {
     return DevelopersResponse(

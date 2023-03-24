@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:game_flix_flutter/core/params/params.dart';
 import 'package:game_flix_flutter/feature/games/domain/model/game_deatils.dart';
 import 'package:game_flix_flutter/feature/tags/domain/model/tag.dart';
+import 'package:logger/logger.dart';
 
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failure.dart';
@@ -23,6 +24,7 @@ class TagsRepositoryImpl implements TagsRepository {
 
   @override
   Future<Either<Failure, List<TagResult>>> getTags(Params params) async {
+    final log = Logger();
     if(await networkInfo.isConnected()){
       try {
         final remoteTags = await tagsRemoteDataSource.getTags(
@@ -31,6 +33,7 @@ class TagsRepositoryImpl implements TagsRepository {
           pageSize: params.pageSize,
         );
         final results = remoteTags.results ?? [];
+        log.i('Tags: ${results.length}');
         return Right(results);
       } on ServerException catch (e) {
         return Left(ServerFailure(e.message));
@@ -43,6 +46,7 @@ class TagsRepositoryImpl implements TagsRepository {
 
   @override
   Future<Either<Failure, List<GameDetails>>> getGames(GamesParams params) async {
+    final log = Logger();
     if(await networkInfo.isConnected()){
       try {
         List<GameDetails> games = [];
@@ -53,6 +57,7 @@ class TagsRepositoryImpl implements TagsRepository {
           );
           games.add(remoteGames);
         }
+        log.i('Games: ${games.length}');
         return Right(games);
       } on ServerException catch (e) {
         return Left(ServerFailure(e.message));

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:game_flix_flutter/config/theme/theme.dart';
+import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'config/routes/routes.dart';
 import 'config/theme/colors.dart';
 import 'injector.dart' as di;
+import 'injector.dart';
 
 
 void main() async {
@@ -23,9 +26,11 @@ class MyApp extends StatelessWidget {
       systemNavigationBarColor: AppColors.dark,
       systemNavigationBarIconBrightness: Brightness.light,
     ));
+
+    final prefs = sl<SharedPreferences>();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.initialRoute,
+      initialRoute: prefs.getBool('onBoardingStatus') ?? false ? Routes.gamesPage : Routes.initialRoute,
       routes: Routes.routes,
       theme: themeData
     );

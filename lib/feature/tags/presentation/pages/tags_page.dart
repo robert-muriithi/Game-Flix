@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logger/logger.dart';
 
+import '../../../../core/widgets/loading/loading.dart';
 import '../../../../injector.dart';
+import '../../../categories/presentation/widgets/error_widget.dart';
 import '../../domain/model/tag.dart';
 import '../bloc/games/tag_games_bloc.dart';
 import '../bloc/tags/tags_bloc.dart';
@@ -10,7 +13,9 @@ import '../widget/tags_list_widget.dart';
 class TagsPage extends StatelessWidget {
   TagsPage({Key? key}) : super(key: key);
 
-  BuildContext? _blocContext;
+  BuildContext? blocContext;
+  List<int> ids = [];
+  List<TagResult> tags = [];
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +25,7 @@ class TagsPage extends StatelessWidget {
   }
 
   MultiBlocProvider _buildBody(BuildContext context) {
+    final log = Logger();
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => sl<TagsBloc>()),
@@ -27,64 +33,64 @@ class TagsPage extends StatelessWidget {
       ],
       child: BlocBuilder<TagsBloc, TagsState>(
         builder: (context, state) {
-          _blocContext = context;
+          blocContext = context;
           if (state is TagsInitialState) {
             dispatchGetTagsEvent(context);
           } else if (state is TagsLoadedState) {
-            return _buildTagsList(state.tags);
+            //game ids for each tag
+            tags = state.tags;
+            for(var i in state.tags){
+              if(i.games != null){
+                for(var j in i.games!){
+                  ids.add(j.id);
+                }
+              }
+            }
+            return BlocBuilder<TagGamesBloc, TagGamesState >(
+                builder: (context, state) {
+                  blocContext = context;
+                  if (state is TagGamesInitialState) {
+                    dispatchGetTagGamesEvent(context, ids: ids);
+                  }
+                  if (state is TagGamesLoadingState) {
+                    return const Center(child: LoadingWidget());
+                  } else if (state is TagGamesLoadedState) {
+                    final tagGames = state.games;
+                    return TagsListWidget(
+                      tagGames: tagGames,
+                      tags: tags,
+                      /*onTagPressed: (tag) {
+                        dispatchGetTagGamesEvent(context, tag: tag);
+                      },*/
+                    );
+                  } else if (state is TagGamesErrorState) {
+                    return ErrorMessageWidget(
+                      message: state.message,
+                      /*onRetryPressed: () {
+                        dispatchGetTagGamesEvent(blocContext!);
+                      },*/
+                    );
+                  } else {
+                    return const ErrorMessageWidget(message: 'An unknown error occurred');
+                  }
+                }
+            );
           } else if (state is TagsErrorState) {
-            return Center(
-              child: Text(state.message),
-            );
+            return  ErrorMessageWidget(message: state.message);
           } else {
-            return Center(
-              child: Text('Unknown state'),
-            );
+            return Container();
           }
-          return BlocBuilder<TagGamesBloc, TagGamesState>(
-            builder: (context, state) {
-              _blocContext = context;
-              if (state is TagGamesInitialState) {
-                dispatchGetTagGamesEvent(context);
-              }
-              if (state is TagGamesLoadingState) {
-                return const Center(child: LoadingWidget());
-              } else if (state is TagGamesLoadedState) {
-                final tagGames = state.tagGames;
-                return GameDetailsWidget(
-                  gameDetails: gameDetails,
-                  isFavorite: isFavorite,
-                  onFavoritePressed: () {
-                    dispatchFavoriteGameEvent(blocContext!, game);
-                  },
-                );
-              } else if (state is TagGamesErrorState) {
-                return ErrorWidget(
-                  message: state.message,
-                  onRetryPressed: () {
-                    dispatchGetGameDetailsEvent(blocContext!);
-                  },
-                );
-              } else {
-                return ErrorWidget(
-                  message: 'Unknown state',
-                  onRetryPressed: () {
-                    dispatchGetGameDetailsEvent(blocContext!);
-                  },
-                );
-              }
-            },
-          );
+          return Container();
         },
       ),
     );
   }
 
-  Widget _buildTagsList(List<TagResult> tags) {
-    return TagsListWidget(tags: tags);
-  }
-
   void dispatchGetTagsEvent(BuildContext context) {
     BlocProvider.of<TagsBloc>(context).add(GetTagsEvent());
+  }
+
+  void dispatchGetTagGamesEvent(BuildContext context, {required List<int> ids}) {
+    BlocProvider.of<TagGamesBloc>(context).add(GetTagGamesEvent(ids: ids));
   }
 }
