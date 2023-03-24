@@ -6,9 +6,9 @@ import 'dart:math';
 class BubbleIndicatorPainter extends CustomPainter {
   BubbleIndicatorPainter(
       {this.dxTarget = 125.0,
-        this.dxEntry = 25.0,
-        this.radius = 21.0,
-        this.dy = 25.0,
+        this.dxEntry = 20.0,
+        this.radius = 18.0,
+        this.dy = 20.0,
         required this.pageController})
       : super(repaint: pageController) {
     painter = Paint()
