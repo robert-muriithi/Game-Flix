@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-
 class ScreenshotsPage extends StatefulWidget {
   final String? screenshot;
+
   const ScreenshotsPage({Key? key, required this.screenshot}) : super(key: key);
 
   @override
@@ -17,7 +17,6 @@ class _ScreenshotsPageState extends State<ScreenshotsPage> {
   Offset _previousOffset = Offset.zero;
   final double maxScale = 4.0;
 
-
   void _onScaleStart(ScaleStartDetails details) {
     _previousScale = _scale;
     _previousOffset = details.focalPoint;
@@ -26,16 +25,17 @@ class _ScreenshotsPageState extends State<ScreenshotsPage> {
   void _onScaleUpdate(ScaleUpdateDetails details) {
     setState(() {
       _scale = (_previousScale * details.scale).clamp(1.0, maxScale);
-      _offset = _offset +
-          (details.focalPoint - _previousOffset) / _scale;
+      _offset = _offset + (details.focalPoint - _previousOffset) / _scale;
       _previousOffset = details.focalPoint;
     });
   }
+
   void _onVerticalDragUpdate(DragUpdateDetails details) {
     setState(() {
       _offset += Offset(0, details.delta.dy);
     });
   }
+
   void _onScaleEnd(ScaleEndDetails details) {
     _previousScale = 1.0;
   }
@@ -66,7 +66,7 @@ class _ScreenshotsPageState extends State<ScreenshotsPage> {
               ..scale(_scale),
             alignment: Alignment.center,
             child: CachedNetworkImage(
-                 imageUrl: widget.screenshot!,
+              imageUrl: widget.screenshot!,
             ),
           ),
         ),

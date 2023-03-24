@@ -4,23 +4,25 @@ import '../../model/game_details_response.dart';
 import 'package:game_flix_flutter/core/utils/constants.dart';
 import 'package:dio/dio.dart';
 
-
-
 abstract class GameDetailsRemoteDataSource {
-  Future<GameDetailsResponse> getGameDetails({required int id, required String key});
+  Future<GameDetailsResponse> getGameDetails(
+      {required int id, required String key});
 }
 
 class GameDetailsRemoteDatasourceImpl implements GameDetailsRemoteDataSource {
   final Dio dio;
+
   GameDetailsRemoteDatasourceImpl(this.dio);
 
   @override
-  Future<GameDetailsResponse> getGameDetails({required int id, required String key}) async {
+  Future<GameDetailsResponse> getGameDetails(
+      {required int id, required String key}) async {
     final log = Logger();
-    try{
-     final response = await dio.get('${Constants.kBaserUrl}games/$id?key=$key');
+    try {
+      final response =
+          await dio.get('${Constants.kBaserUrl}games/$id?key=$key');
       return GameDetailsResponse.fromJson(response.data);
-    }catch (exception) {
+    } catch (exception) {
       log.e(exception.toString());
       throw ServerException(message: exception.toString());
     }

@@ -28,6 +28,10 @@ dependencies:
   carousel_slider: ^4.2.1
   share_plus: ^6.3.1
   fluttertoast: ^8.2.1
+  flutter_spinkit: ^5.1.0
+  flutter_native_splash: ^2.2.19
+  flutter_launcher_icons: ^0.12.0
+  shared_preferences: ^2.0.20
 
 dev_dependencies:
   flutter_test:
@@ -35,6 +39,28 @@ dev_dependencies:
   build_runner: ^2.1.2
   flutter_lints: ^2.0.0
 
+flutter_native_splash:
+  image: assets/images/splash.png
+  color: "#1A1A1A"
+  color_dark: "#1A1A1A"
+  image_dark: assets/images/splash.png
+  android: true
+  ios: true
+
+  android_12:
+    image: assets/images/splash.png
+    icon_background_color: "#1A1A1A"
+    imge_dark: assets/images/splash.png
+    icon_background_color_dark: "#1A1A1A"
+
 flutter:
 
   uses-material-design: true
+  assets:
+    - assets/icons/
+    - assets/images/
+
+flutter_icons:
+  ios: true
+  android: true
+  image_path: assets/images/splash.png

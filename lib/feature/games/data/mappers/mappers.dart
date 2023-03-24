@@ -1,3 +1,5 @@
+import 'package:game_flix_flutter/feature/games/data/datasources/local/entity/favorites/favorites_entity.dart';
+
 import '../datasources/local/entity/game/game_entity.dart';
 import '../model/games_response.dart';
 import '../../domain/model/game.dart';
@@ -47,6 +49,40 @@ GameResults fromEntityToDomain(GamesResultsEntity entity){
       metaCritic: entity.metaCritic
   );
 }
+
+GameResults toFavoriteEntityFromDomain(FavoriteEntity entity){
+  return GameResults(
+      id: entity.id,
+      name: entity.name,
+      released: entity.released,
+      backgroundImage: entity.backgroundImage,
+      rating: entity.rating,
+      ratingsCount: entity.ratingsCount,
+      reviewsTextCount: entity.reviewsTextCount,
+      suggestionsCount: entity.suggestionsCount,
+      updated: entity.updated,
+      reviewsCount: entity.reviewsCount,
+      metaCritic: entity.metaCritic
+  );
+}
+
+FavoriteEntity fromFavoriteEntityToDomain(GameResults entity){
+  return FavoriteEntity(
+      id: entity.id!,
+      name: entity.name!,
+      released: entity.released!,
+      backgroundImage: entity.backgroundImage,
+      rating: entity.rating!,
+      ratingsCount: entity.ratingsCount!,
+      reviewsTextCount: entity.reviewsTextCount!,
+      suggestionsCount: entity.suggestionsCount!,
+      updated: entity.updated!,
+      reviewsCount: entity.reviewsCount!,
+      metaCritic: entity.metaCritic!
+  );
+}
+
+
 
 GameDetailsEntity fromGameDetailsResponseToEntity(GameDetailsResponse response){
   return GameDetailsEntity(

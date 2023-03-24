@@ -16,7 +16,7 @@ class GameDetailsLocalDataSourceImpl implements GameDetailsLocalDataSource {
   @override
   Future<void> deleteGameDetails() async {
     try {
-      final dao = database.gamesDao;
+      final dao = database.gameDetailsDao;
       await dao.deleteGameDetails();
     } catch (e) {
       throw DatabaseException(message: e.toString());
@@ -26,7 +26,7 @@ class GameDetailsLocalDataSourceImpl implements GameDetailsLocalDataSource {
   @override
   Future<GameDetailsEntity?> getGameDetails()  {
     try{
-      final dao = database.gamesDao;
+      final dao = database.gameDetailsDao;
       final localCache =  dao.getGameDetails();
       return localCache;
     }catch (exception){
@@ -38,7 +38,7 @@ class GameDetailsLocalDataSourceImpl implements GameDetailsLocalDataSource {
   Future<void> insertGameDetails(GameDetailsEntity game) async {
     final log = Logger();
     try{
-      final dao = database.gamesDao;
+      final dao = database.gameDetailsDao;
       await dao.insertGameDetails(game);
     }catch (exception){
       log.e(exception.toString());

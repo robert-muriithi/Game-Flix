@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/widgets/loading/loading.dart';
 import '../../../../injector.dart';
 import '../../../games/presentation/widgets/error_widget.dart';
 import '../blocs/categories_bloc/categories_bloc.dart';
@@ -43,7 +44,7 @@ class CategoriesPage extends StatelessWidget {
             }
             if(state is CategoriesLoadingState){
               return  const Center(
-                  child: CircularProgressIndicator());
+                  child: LoadingWidget());
             }
             else if(state is CategoriesLoadedState){
               final genres = state.results;

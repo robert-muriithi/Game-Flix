@@ -15,9 +15,7 @@ class GamesResponse {
     return GamesResponse(
         next: json['next'],
         previous: json['previous'],
-        results: json['results'] != null
-            ? (json['results'] as List).map((e) => Results.fromJson(e)).toList()
-            : null);
+        results: json['results'] != null ? (json['results'] as List).map((e) => Results.fromJson(e)).toList() : null);
   }
 }
 

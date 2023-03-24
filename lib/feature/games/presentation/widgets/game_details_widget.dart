@@ -18,12 +18,15 @@ class GameDetailsWidget extends StatelessWidget {
   final GameDetails gameDetails;
 
   GameDetailsWidget(
-      {Key? key, required this.game, required this.gameDetails, required this.isFavorite})
+      {Key? key,
+      required this.game,
+      required this.gameDetails,
+      required this.isFavorite})
       : super(key: key);
-  
+
   BuildContext? blocContext;
   bool isFavorite;
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,8 +39,7 @@ class GameDetailsWidget extends StatelessWidget {
           actions: buildAppBarActions(context),
           expandedHeight: 270.0,
           flexibleSpace: FlexibleSpaceBar(
-            background: Stack(
-                children: [
+            background: Stack(children: [
               CachedNetworkImage(
                 fit: BoxFit.cover,
                 width: double.infinity,
@@ -215,9 +217,8 @@ class GameDetailsWidget extends StatelessWidget {
           ),
         ),
         SliverFillRemaining(
-          hasScrollBody: true,
-          fillOverscroll: true,
           child: ListView(
+             shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 Column(
@@ -283,8 +284,8 @@ class GameDetailsWidget extends StatelessWidget {
                     ),
                     Container(
                       width: double.infinity,
-                      height: 100,
-                      padding: const EdgeInsets.all(8),
+                      height: 70,
+                      padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
                       margin: const EdgeInsets.only(top: 5),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -295,39 +296,58 @@ class GameDetailsWidget extends StatelessWidget {
                             style: TextStyle(color: AppColors.white),
                           ),
                           Expanded(
-                              child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: game.platforms!.length,
-                                  itemBuilder: (context, index) {
-                                    final platform =
-                                        game.platforms![index];
-                                    final number = index + 1;
-                                    return Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        children: [
-                                          if (platform.platform!.name!
-                                              .contains('PlayStation'))
-                                            const Icon(Icons.place)
-                                          else if (platform.platform!.name!
-                                              .contains('Xbox'))
-                                            const Icon(Icons.abc)
-                                          else
-                                            const Icon(Icons.access_alarm),
-                                          Text(
-                                              '$number ${platform.platform!.name!}',
-                                              style: const TextStyle(
-                                                  color: AppColors.white)),
-                                        ],
-                                      ),
-                                    );
-                                  }))
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: game.platforms!.length,
+                              itemBuilder: (context, index) {
+                                final platform = game.platforms![index];
+                                return Container(
+                                  height: 50,
+                                  width: 50,
+                                  margin: const EdgeInsets.all(5),
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      if(platform.platform!.name!.contains('PC'))
+                                        Image.asset('assets/icons/windows_logo.png', height: 25, width: 25,),
+                                      if(platform.platform!.name!.contains('PlayStation'))
+                                        Image.asset('assets/icons/ps_logo.png', height: 25, width: 25,),
+                                      if(platform.platform!.name!.contains('Xbox'))
+                                        Image.asset('assets/icons/xbox_logo.png', height: 25, width: 25,),
+                                      if(platform.platform!.name!.contains('Wii'))
+                                        Image.asset('assets/icons/wii_logo.png', height: 25, width: 25,),
+                                      if(platform.platform!.name!.contains('iOS') || platform.platform!.name!.contains('iPhone') || platform.platform!.name!.contains('iPad'))
+                                        Image.asset('assets/icons/apple_logo.png', height: 25, width: 25,),
+                                      if(platform.platform!.name!.contains('Android'))
+                                        Image.asset('assets/icons/android_logo.png', height: 25, width: 25,),
+                                      if(platform.platform!.name!.contains('macOs') || platform.platform!.name!.contains('Macintosh'))
+                                        Image.asset('assets/icons/mac.png', height: 25, width: 25,),
+                                      if(platform.platform!.name!.contains('Linux'))
+                                        Image.asset('assets/icons/linux_logo.png', height: 25, width: 25,),
+                                      if(platform.platform!.name!.contains('PS'))
+                                        Image.asset('assets/icons/ps_vista.png', height: 25, width: 25,),
+                                      if(platform.platform!.name!.contains('Nintendo'))
+                                        Image.asset('assets/icons/gamepad.png', height: 25, width: 25,),
+                                      if(platform.platform!.name!.contains('PSP'))
+                                        Image.asset('assets/icons/gamepad.png', height: 25, width: 25,),
+                                      if(platform.platform!.name!.contains('Game'))
+                                        Image.asset('assets/icons/gamepad.png', height: 25, width: 25,),
+                                      if(platform.platform!.name!.contains('SNES'))
+                                        Image.asset('assets/icons/gamepad.png', height: 25, width: 25,),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          )
                         ],
                       ),
                     ),
                     Container(
                       width: double.infinity,
-                      height: 70,
+                      height: 80,
                       padding: const EdgeInsets.all(8),
                       margin: const EdgeInsets.only(top: 5),
                       child: Column(
@@ -415,7 +435,8 @@ class GameDetailsWidget extends StatelessWidget {
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   ScreenshotsPage(
-                                                      screenshot: i.image ?? ''),
+                                                      screenshot:
+                                                          i.image ?? ''),
                                             ),
                                           );
                                         },
@@ -444,7 +465,7 @@ class GameDetailsWidget extends StatelessWidget {
                     ),
                     Container(
                       width: double.infinity,
-                      height: 70,
+                      height: 170,
                       padding: const EdgeInsets.all(8),
                       margin: const EdgeInsets.only(top: 5),
                       child: Column(
@@ -467,29 +488,49 @@ class GameDetailsWidget extends StatelessWidget {
                                 final developer =
                                     gameDetails.developers![index];
                                 return Container(
-                                  height: 50,
+                                    width: 90,
                                     margin: const EdgeInsets.all(5),
-                                    padding: const EdgeInsets.all(5),
+                                    padding: const EdgeInsets.all(3),
                                     decoration: BoxDecoration(
-                                        /*image: DecorationImage(
-                                          image: NetworkImage(developer.imageBackground ?? ''),
-                                        ),*/
-                                        borderRadius:
-                                            BorderRadius.circular(20)),
+                                        color:
+                                            AppColors.darkGrey.withOpacity(0.1),
+                                        borderRadius: BorderRadius.circular(8)),
                                     child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          developer.name ?? '',
-                                          style: const TextStyle(
-                                              color: AppColors.orange),
+                                        CircleAvatar(
+                                          radius: 35,
+                                          backgroundImage: NetworkImage(
+                                              developer.imageBackground ?? ''),
+                                        ),
+                                        const Spacer(),
+                                        Expanded(
+                                          child: Text(
+                                            developer.name ?? '',
+                                            style: const TextStyle(
+                                              color: AppColors.white,
+                                              fontSize: 11,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                            maxLines: 2,
+                                            softWrap: true,
+                                          ),
                                         )
                                       ],
                                     ));
                               },
                             ),
                           ),
+                          const SizedBox(
+                            height: 20,
+                          ),
                         ],
                       ),
+                    ),
+                    const SizedBox(
+                      height: 50,
                     ),
                   ],
                 ),
@@ -512,72 +553,17 @@ class GameDetailsWidget extends StatelessWidget {
     ];
   }
 
-/*  BlocProvider<FavoritesBloc> _buildAddToFavoritesButton(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<FavoritesBloc>(),
-      child: BlocBuilder<FavoritesBloc, FavoritesState>(
-        builder: (context, state) {
-          blocContext = context;
-          if (state is FavoritesInitial) {
-            return IconButton(
-              icon: isFavorite
-                  ? const Icon(Icons.favorite_border)
-                  : const Icon(Icons.favorite),
-              onPressed: () {
-                isFavorite = !isFavorite;
-                if (isFavorite) {
-                  dispatchAddToFavoritesEvent(context);
-                } else {
-                  dispatchRemoveFromFavsEvent(context);
-                }
-              },
-            );
-          } else if (state is FavoritesAdded) {
-            return IconButton(
-              icon: isFavorite
-                  ? const Icon(Icons.favorite_border)
-                  : const Icon(Icons.favorite),
-              onPressed: () {
-                isFavorite = !isFavorite;
-                if (isFavorite) {
-                  dispatchAddToFavoritesEvent(context);
-                } else {
-                  dispatchRemoveFromFavsEvent(context);
-                }
-              },
-            );
-          } else if (state is FavoritesRemoved) {
-            return IconButton(
-              icon: isFavorite
-                  ? const Icon(Icons.favorite_border)
-                  : const Icon(Icons.favorite),
-              onPressed: () {
-                isFavorite = !isFavorite;
-                if (isFavorite) {
-                  dispatchAddToFavoritesEvent(context);
-                } else {
-                  dispatchRemoveFromFavsEvent(context);
-                }
-              },
-            );
-          } else {
-            return const Text('Error');
-          }
-        },
-      ),
-    );
-  }*/
-
   _buildAddToFavoritesButton(BuildContext context) {
     return IconButton(
-      icon: isFavorite
+      icon: isFavorite == false
           ? const Icon(Icons.favorite_border)
           : const Icon(Icons.favorite),
       onPressed: () {
-        isFavorite = !isFavorite;
-        if (isFavorite) {
+        if (isFavorite == false) {
+          isFavorite = true;
           dispatchAddToFavoritesEvent(context);
         } else {
+          isFavorite = false;
           dispatchRemoveFromFavsEvent(context);
         }
       },
@@ -598,6 +584,5 @@ class GameDetailsWidget extends StatelessWidget {
         id: game.id!,
       ),
     );
-
   }
 }

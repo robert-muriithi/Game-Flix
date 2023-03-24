@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/widgets/loading/loading.dart';
 import '../../../../injector.dart';
 import '../blocs/games_bloc/games_bloc.dart';
 import '../widgets/error_widget.dart';
@@ -14,8 +15,6 @@ class GamesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
-      appBar: buildAppBar(),
       body: buildBody(context),
     );
   }
@@ -25,7 +24,8 @@ class GamesPage extends StatelessWidget {
         title: Container(
       margin: const EdgeInsets.only(top: 10),
       child: const Text('Games'),
-    ));
+    )
+    );
   }
 
   BlocProvider<GamesBloc> buildBody(BuildContext context) {
@@ -39,7 +39,7 @@ class GamesPage extends StatelessWidget {
               dispatchEvent(context);
             }
             if (state is GamesLoadingState) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: LoadingWidget());
             } else if (state is GamesLoadedState) {
               final games = state.games;
               final noMoreData = state.noMoreData;
