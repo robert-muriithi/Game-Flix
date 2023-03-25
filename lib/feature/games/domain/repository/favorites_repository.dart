@@ -12,4 +12,7 @@ abstract class FavoritesRepository {
 
   //Get one game from favorites
   Future<Either<Failure, GameResults>> getGameFromFavorite(int id);
+
+  //Get all games from favorites
+   Future<Either<Failure, List<GameResults>>> getAllFavorites();
 }

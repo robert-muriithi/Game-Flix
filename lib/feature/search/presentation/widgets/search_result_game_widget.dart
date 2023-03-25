@@ -1,31 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:game_flix_flutter/config/theme/colors.dart';
-import 'package:game_flix_flutter/feature/games/domain/model/game.dart';
-import '../../../../injector.dart';
-import '../../../categories/presentation/widgets/error_widget.dart';
-import '../../domain/model/game_deatils.dart';
-import 'package:fluttericon/iconic_icons.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
-import '../blocs/favorites_bloc/favorites_bloc.dart';
-import '../pages/screenshots_page.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttericon/iconic_icons.dart';
 import 'package:share_plus/share_plus.dart';
 
-class GameDetailsWidget extends StatelessWidget {
-  final GameResults game;
-  final GameDetails gameDetails;
+import '../../../../config/theme/colors.dart';
+import '../../../games/domain/model/game_deatils.dart';
+import '../../../games/presentation/pages/screenshots_page.dart';
+import '../../domain/model/search_results_model.dart';
 
-  GameDetailsWidget(
-      {Key? key,
-      required this.game,
-      required this.gameDetails,
-      required this.isFavorite})
+class SearchResultGameWidget extends StatelessWidget {
+  final GameDetails game;
+  final SearchResultsModel result;
+
+  const SearchResultGameWidget(
+      {Key? key, required this.game, required this.result})
       : super(key: key);
-
-  BuildContext? blocContext;
-  bool isFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +25,7 @@ class GameDetailsWidget extends StatelessWidget {
       slivers: [
         SliverAppBar(
           pinned: true,
-          title: Text(game.name!),
+          title: Text(game.name),
           actions: buildAppBarActions(context),
           expandedHeight: 270.0,
           flexibleSpace: FlexibleSpaceBar(
@@ -47,7 +37,7 @@ class GameDetailsWidget extends StatelessWidget {
                 placeholder: (context, url) =>
                     const Center(child: CircularProgressIndicator()),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
-                imageUrl: gameDetails.backgroundImageAdditional ?? '',
+                imageUrl: game.backgroundImageAdditional ?? '',
               ),
               Positioned(
                 top: 0,
@@ -75,8 +65,8 @@ class GameDetailsWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: CachedNetworkImageProvider(
-                              gameDetails.backgroundImage ?? '',
-                              cacheKey: gameDetails.backgroundImage),
+                              game.backgroundImage ?? '',
+                              cacheKey: game.backgroundImage),
                           fit: BoxFit.cover,
                           scale: 1.0,
                         ),
@@ -119,7 +109,7 @@ class GameDetailsWidget extends StatelessWidget {
                           children: [
                             Expanded(
                               child: Text(
-                                game.name!,
+                                game.name,
                                 style: const TextStyle(
                                   color: AppColors.white,
                                   fontSize: 10,
@@ -160,13 +150,13 @@ class GameDetailsWidget extends StatelessWidget {
                         children: [
                           Icon(
                             Iconic.star,
-                            color: game.rating! >= 4
+                            color: game.creatorsCount! >= 400
                                 ? AppColors.lightGreen
                                 : AppColors.orange,
                             size: 20,
                           ),
                           Text(
-                            game.rating.toString(),
+                            game.creatorsCount.toString(),
                             style: const TextStyle(
                                 color: AppColors.white,
                                 fontSize: 12,
@@ -178,12 +168,12 @@ class GameDetailsWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Icon(
-                            Iconic.chart_bar,
+                            Iconic.info,
                             color: AppColors.orange,
                             size: 20,
                           ),
                           Text(
-                            game.reviewsCount.toString(),
+                            game.website.toString(),
                             style: const TextStyle(
                                 color: AppColors.white,
                                 fontSize: 12,
@@ -200,7 +190,7 @@ class GameDetailsWidget extends StatelessWidget {
                             size: 20,
                           ),
                           Text(
-                            '${game.metaCritic.toString()}%',
+                            '${game.metacritic.toString()}%',
                             style: const TextStyle(
                                 color: AppColors.white,
                                 fontSize: 12,
@@ -241,9 +231,9 @@ class GameDetailsWidget extends StatelessWidget {
                           Expanded(
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: game.genres!.length,
+                                  itemCount: result.genres!.length,
                                   itemBuilder: (context, index) {
-                                    final genre = game.genres![index];
+                                    final genre = result.genres![index];
                                     return Container(
                                       margin: const EdgeInsets.all(5),
                                       padding: const EdgeInsets.all(5),
@@ -273,196 +263,12 @@ class GameDetailsWidget extends StatelessWidget {
                             height: 5,
                           ),
                           Text(
-                            gameDetails.descriptionRaw!,
+                            game.descriptionRaw!,
                             style: const TextStyle(color: AppColors.white),
                             textAlign: TextAlign.justify,
-                            maxLines: 9,
-                            overflow: TextOverflow.ellipsis,
+                            maxLines: 20,
+                            overflow: TextOverflow.fade,
                           ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 70,
-                      padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-                      margin: const EdgeInsets.only(top: 5),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Platforms',
-                            style: TextStyle(color: AppColors.white),
-                          ),
-                          Expanded(
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: game.platforms!.length,
-                              itemBuilder: (context, index) {
-                                final platform = game.platforms![index];
-                                return Container(
-                                  height: 50,
-                                  width: 50,
-                                  margin: const EdgeInsets.all(5),
-                                  padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      if (platform.platform!.name!
-                                          .contains('PC'))
-                                        Image.asset(
-                                          'assets/icons/windows_logo.png',
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (platform.platform!.name!
-                                          .contains('PlayStation'))
-                                        Image.asset(
-                                          'assets/icons/ps_logo.png',
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (platform.platform!.name!
-                                          .contains('Xbox'))
-                                        Image.asset(
-                                          'assets/icons/xbox_logo.png',
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (platform.platform!.name!
-                                          .contains('Wii'))
-                                        Image.asset(
-                                          'assets/icons/wii_logo.png',
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (platform.platform!.name!
-                                              .contains('iOS') ||
-                                          platform.platform!.name!
-                                              .contains('iPhone') ||
-                                          platform.platform!.name!
-                                              .contains('iPad'))
-                                        Image.asset(
-                                          'assets/icons/apple_logo.png',
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (platform.platform!.name!
-                                          .contains('Android'))
-                                        Image.asset(
-                                          'assets/icons/android_logo.png',
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (platform.platform!.name!
-                                              .contains('macOs') ||
-                                          platform.platform!.name!
-                                              .contains('Macintosh'))
-                                        Image.asset(
-                                          'assets/icons/mac.png',
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (platform.platform!.name!
-                                          .contains('Linux'))
-                                        Image.asset(
-                                          'assets/icons/linux_logo.png',
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (platform.platform!.name!
-                                          .contains('PS'))
-                                        Image.asset(
-                                          'assets/icons/ps_vista.png',
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (platform.platform!.name!
-                                          .contains('Nintendo'))
-                                        Image.asset(
-                                          'assets/icons/gamepad.png',
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (platform.platform!.name!
-                                          .contains('PSP'))
-                                        Image.asset(
-                                          'assets/icons/gamepad.png',
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (platform.platform!.name!
-                                          .contains('Game'))
-                                        Image.asset(
-                                          'assets/icons/gamepad.png',
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (platform.platform!.name!
-                                          .contains('SNES'))
-                                        Image.asset(
-                                          'assets/icons/gamepad.png',
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 80,
-                      padding: const EdgeInsets.all(8),
-                      margin: const EdgeInsets.only(top: 5),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(top: 5, left: 5),
-                            child: Text(
-                              'Tags',
-                              style: TextStyle(
-                                  color: AppColors.white, fontSize: 16),
-                            ),
-                          ),
-                          Expanded(
-                              child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: game.tags!.length,
-                                  itemBuilder: (context, index) {
-                                    final tag = game.tags![index];
-                                    return Container(
-                                      margin: const EdgeInsets.all(5),
-                                      padding: const EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          color: AppColors.darkGrey),
-                                      child: Center(
-                                          child: Row(
-                                        children: [
-                                          const Icon(
-                                            Icons.bookmark,
-                                            color: AppColors.orange,
-                                          ),
-                                          Text(
-                                            tag.name ?? '',
-                                            style: const TextStyle(
-                                                color: AppColors.white),
-                                          )
-                                        ],
-                                      )),
-                                    );
-                                  })),
                         ],
                       ),
                     ),
@@ -497,7 +303,7 @@ class GameDetailsWidget extends StatelessWidget {
                                   enlargeCenterPage: true,
                                   scrollDirection: Axis.horizontal,
                                 ),
-                                items: game.shortScreenshots?.map((i) {
+                                items: result.screenShots?.map((i) {
                                   return Builder(
                                     builder: (BuildContext context) {
                                       return InkWell(
@@ -555,10 +361,9 @@ class GameDetailsWidget extends StatelessWidget {
                           Expanded(
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: gameDetails.developers!.length,
+                              itemCount: game.developers!.length,
                               itemBuilder: (context, index) {
-                                final developer =
-                                    gameDetails.developers![index];
+                                final developer = game.developers![index];
                                 return Container(
                                     width: 90,
                                     margin: const EdgeInsets.all(5),
@@ -612,10 +417,8 @@ class GameDetailsWidget extends StatelessWidget {
     ));
   }
 
-  //Build app bar actions
   List<Widget> buildAppBarActions(BuildContext context) {
     return [
-      _buildAddToFavoritesButton(context),
       IconButton(
         icon: const Icon(Icons.share),
         onPressed: () {
@@ -623,38 +426,5 @@ class GameDetailsWidget extends StatelessWidget {
         },
       ),
     ];
-  }
-
-  _buildAddToFavoritesButton(BuildContext context) {
-    return IconButton(
-      icon: isFavorite == false
-          ? const Icon(Icons.favorite_border)
-          : const Icon(Icons.favorite),
-      onPressed: () {
-        if (isFavorite == false) {
-          isFavorite = true;
-          dispatchAddToFavoritesEvent(context);
-        } else {
-          isFavorite = false;
-          dispatchRemoveFromFavsEvent(context);
-        }
-      },
-    );
-  }
-
-  void dispatchAddToFavoritesEvent(BuildContext context) {
-    BlocProvider.of<FavoritesBloc>(context).add(
-      AddGameToFavoritesEvent(
-        game: game,
-      ),
-    );
-  }
-
-  void dispatchRemoveFromFavsEvent(BuildContext context) {
-    BlocProvider.of<FavoritesBloc>(context).add(
-      RemoveGameFromFavoritesEvent(
-        id: game.id!,
-      ),
-    );
   }
 }

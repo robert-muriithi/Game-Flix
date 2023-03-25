@@ -7,6 +7,7 @@ abstract class FavoritesLocalDataSource {
   Future<void> addGameToFavorite(FavoriteEntity game);
   Future<void> removeGameFromFavorite(int id);
   Future<FavoriteEntity?> getGameFromFavorite(int id);
+  Future<List<FavoriteEntity>> getAllFavorites();
 }
 
 class FavoritesLocalDataSourceImpl implements FavoritesLocalDataSource {
@@ -40,6 +41,17 @@ class FavoritesLocalDataSourceImpl implements FavoritesLocalDataSource {
     try{
       final dao = database.favoritesDao;
       dao.removeGameFromFavorite(id);
+    }catch (exception){
+      throw DatabaseException(message: exception.toString());
+    }
+  }
+
+  @override
+  Future<List<FavoriteEntity>> getAllFavorites() async {
+    try{
+      final dao = database.favoritesDao;
+      final games = await dao.getAllFavorites();
+      return games;
     }catch (exception){
       throw DatabaseException(message: exception.toString());
     }

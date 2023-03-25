@@ -16,4 +16,7 @@ abstract class FavoritesDao {
   @Query('SELECT * FROM ${Constants.kFavoritesTableName} WHERE id = :id')
   Future<FavoriteEntity?> getGameById(int id);
 
+  @Query('SELECT * FROM ${Constants.kFavoritesTableName}')
+  Future<List<FavoriteEntity>> getAllFavorites();
+
 }

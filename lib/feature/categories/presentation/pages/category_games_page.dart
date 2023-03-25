@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_flix_flutter/feature/games/domain/model/game.dart';
+import '../../../../core/widgets/loading/loading.dart';
 import '../../../../injector.dart';
 import '../../../games/presentation/widgets/error_widget.dart';
 import '../../domain/model/genre.dart';
@@ -34,7 +35,7 @@ class CategoryGamesPage extends StatelessWidget {
             dispatchEvent(context);
           }
           if (state is CategoryGamesLoadingState) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: LoadingWidget());
           } else if (state is CategoryGameLoadedState) {
             final games = state.games;
             return GamesListWidget(games: games);

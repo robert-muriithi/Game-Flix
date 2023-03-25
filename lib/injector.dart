@@ -11,6 +11,8 @@ import 'feature/categories/domain/usecase/get_categories_use_case.dart';
 import 'feature/categories/domain/usecase/get_category_games_use_case.dart';
 import 'feature/categories/presentation/blocs/categories_bloc/categories_bloc.dart';
 import 'feature/categories/presentation/blocs/category_games_bloc/category_games_bloc.dart';
+import 'feature/favourites/domain/usecase/get_favs_use_case.dart';
+import 'feature/favourites/presentation/bloc/favs_bloc.dart';
 import 'feature/games/data/datasources/local/favorites_local_data_source.dart';
 import 'feature/games/data/datasources/local/game_details_datasource.dart';
 import 'feature/games/data/datasources/local/games_local_datasource.dart';
@@ -35,6 +37,12 @@ import 'feature/onboarding/data/datasources/local/onboarding_local_data_source.d
 import 'feature/onboarding/data/repository/onboarding_screens_repository_impl.dart';
 import 'feature/onboarding/domain/repository/onboarding_screens_repository.dart';
 import 'feature/onboarding/presentation/blocs/on_boarding_screens_bloc.dart';
+import 'feature/search/data/datasources/remote/search_data_source.dart';
+import 'feature/search/data/repository/search_repository_impl.dart';
+import 'feature/search/domain/repository/search_repository.dart';
+import 'feature/search/domain/usecase/perform_search_use_case.dart';
+import 'feature/search/presentation/blocs/search_bloc/search_bloc.dart';
+import 'feature/search/presentation/blocs/search_details_bloc/search_result_bloc.dart';
 import 'feature/tags/data/datasource/remote/tags_remote_data_source.dart';
 import 'feature/tags/data/repository/tags_repository_impl.dart';
 import 'feature/tags/domain/repository/tags_repository.dart';
@@ -61,7 +69,13 @@ void initFeatures() {
   sl.registerFactory(() => FavoritesBloc(sl(), sl(), sl()));
   sl.registerFactory(() => TagGamesBloc(sl()));
   sl.registerFactory(() => TagsBloc(sl()));
+  sl.registerFactory(() => SearchBloc(sl()));
   sl.registerFactory(() => OnBoardingScreensBloc(sl()));
+  sl.registerFactory(() => SearchResultBloc(sl()));
+  sl.registerFactory(() => FavsBloc(
+    getFavoritesUseCase: sl(),
+    removeGameFromFavoritesUseCase: sl(),
+  ));
 
   //Use case
   sl.registerLazySingleton(() => GetCategoriesUseCase(sl()));
@@ -73,6 +87,8 @@ void initFeatures() {
   sl.registerLazySingleton(() => GetGameFromFavorites(sl()));
   sl.registerLazySingleton(() => GetTagsGameUseCase(sl()));
   sl.registerLazySingleton(() => GetTagsUseCase(sl()));
+  sl.registerLazySingleton(() => GetFavoritesUseCase(sl()));
+  sl.registerLazySingleton(() => PerformSearchUseCase(sl()));
   //sl.registerLazySingleton(() => GetCategoryGamesUseCase(sl()));
 
   //Repository
@@ -112,6 +128,12 @@ void initFeatures() {
         favoritesLocalDataSource: sl(),
       )
   );
+  sl.registerLazySingleton<SearchRepository>(() =>
+      SearchRepositoryImpl(
+        remoteDataSource: sl(),
+        networkInfo: sl(),
+      )
+  );
 
   //Data source
   sl.registerLazySingleton<GenresRemoteDataSource>(() => GenresRemoteDataSourceImpl(sl()));
@@ -128,6 +150,7 @@ void initFeatures() {
   sl.registerLazySingleton<FavoritesLocalDataSource>(() => FavoritesLocalDataSourceImpl(sl()));
 
   sl.registerLazySingleton<TagsRemoteDataSource>(() => TagsRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<SearchRemoteDataSource>(() => SearchRemoteDataSourceImpl(sl()));
 
 
 

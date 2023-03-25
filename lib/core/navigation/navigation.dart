@@ -19,7 +19,7 @@ class _NavigationContainerState extends State<NavigationContainer> {
   static final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
     CategoriesPage(),
-    const FavouritesPage(),
+    FavouritesPage(),
   ];
 
   void _onItemTapped(int index) {

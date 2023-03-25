@@ -9,21 +9,25 @@ class GamesListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-        itemCount: games.length,
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 1.5 / 2,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 7,
-        ),
-        itemBuilder: (context, index) {
-          final game = games[index];
-          return CategoryGameItemWidget(
-            game: game,
-          );
-        }
+    return Container(
+      padding: const EdgeInsets.all(8),
+      margin: const EdgeInsets.only(top: 10, left: 5, right: 5),
+      child: GridView.builder(
+          itemCount: games.length,
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 1.5 / 2,
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 7,
+          ),
+          itemBuilder: (context, index) {
+            final game = games[index];
+            return CategoryGameItemWidget(
+              game: game,
+            );
+          }
+      ),
     );
   }
 }

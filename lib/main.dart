@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
     final prefs = sl<SharedPreferences>();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: prefs.getBool('onBoardingStatus') ?? false ? Routes.gamesPage : Routes.initialRoute,
+      initialRoute: prefs.getBool('onBoardingStatus') ?? false ? Routes.homeContainer : Routes.initialRoute,
       routes: Routes.routes,
       theme: themeData
     );

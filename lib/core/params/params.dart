@@ -73,3 +73,24 @@ class GamesParams extends Equatable {
   ];
 }
 
+class SearchParams extends Equatable {
+  final String apiKey;
+  final String query;
+  final int page;
+  final int pageSize;
+
+  const SearchParams({
+    this.apiKey = Constants.apiKey,
+    required this.query,
+    this.page = 1,
+    this.pageSize = 20,
+  });
+  @override
+  List<Object?> get props => [
+    apiKey,
+    query,
+    page,
+    pageSize,
+  ];
+}
+
