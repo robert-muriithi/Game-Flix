@@ -36,6 +36,7 @@ class SearchResults extends SearchResultsModel{
     required int id,
     required double? score,
     required List<GenresResults>? genres,
+    required List<ShortScreenShotsResult>? screenShots
   }) : super(
           name: name,
           image: image,
@@ -43,6 +44,7 @@ class SearchResults extends SearchResultsModel{
           id: id,
           score: score,
           genres: genres,
+         screenShots: screenShots
         );
 
   factory SearchResults.fromJson(Map<String, dynamic> json) {
@@ -57,8 +59,19 @@ class SearchResults extends SearchResultsModel{
               .map((e) => GenresResults.fromJson(e))
               .toList()
           : null,
+      screenShots: json['short_screenshots'] != null
+        ? (json['short_screenshots'] as List).map((e) =>ShortScreenShotsResult.fromJson(e)).toList() : null
     );
   }
+}
+
+class ShortScreenShotsResult extends ShortScreenShots {
+  const ShortScreenShotsResult({required String image}): super (image: image);
+  
+  factory ShortScreenShotsResult.fromJson(Map<String, dynamic> json){
+    return ShortScreenShotsResult(image: json['image']);
+  }
+  
 }
 
 class GenresResults extends Genres {

@@ -11,7 +11,7 @@ class SearchItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, Routes.searchResultDetails, arguments: result.id);
+        Navigator.pushNamed(context, Routes.searchResultDetails, arguments: result);
       },
       child: Container(
         decoration: BoxDecoration(

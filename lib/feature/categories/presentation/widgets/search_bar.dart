@@ -30,10 +30,34 @@ class SliverSearchBar extends SliverPersistentHeaderDelegate {
         ),
       ),
       Positioned(
+        top: 12,
+        left: 5,
+        child: Image.asset(
+          'assets/images/start.png',
+          height: 100,
+          width: 100,
+        ),
+      ),
+       Positioned(
+        top: topPadding,
+          left: 100,
+          child: const Text('Discover your next\nfavourite game',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold
+              )
+          ),
+      ),
+
+      Positioned(
           top: topPadding + offset,
           left: 16,
           right: 16,
-          child: const SearchBarWidget())
+          child: const SearchBarWidget()
+      ),
+      //Image
+
     ]);
   }
 

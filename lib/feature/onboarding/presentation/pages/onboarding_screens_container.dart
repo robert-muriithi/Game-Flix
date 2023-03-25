@@ -121,7 +121,7 @@ class _OnBoardingScreensContainerState extends State<OnBoardingScreensContainer>
 
   void dispatchCompleteOnBoardingEvent(BuildContext context){
     BlocProvider.of<OnBoardingScreensBloc>(context).add(const CompleteOnBoardingEvent(true));
-    Navigator.pushNamed(context, Routes.gamesPage);
+    Navigator.pushReplacementNamed(context, Routes.homeContainer);
   }
 
   Widget _buildOnBoardingContent(int index){

@@ -56,4 +56,14 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, List<GameResults>>> getAllFavorites() {
+    try{
+      final dao = favoritesLocalDataSource.getAllFavorites();
+      return dao.then((value) => Right(value.map((e) => toFavoriteEntityFromDomain(e)).toList()));
+    } on DatabaseException catch (e) {
+      return Future.value(Left(DatabaseFailure(e.message)));
+    }
+  }
+
 }

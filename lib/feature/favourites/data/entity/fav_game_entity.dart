@@ -1,4 +1,4 @@
-
+/*
 import 'package:equatable/equatable.dart';
 import 'package:floor/floor.dart';
 import 'package:game_flix_flutter/core/utils/constants.dart';
@@ -62,5 +62,5 @@ class FavoritesEntity extends Equatable {
     shortScreenshots,
     metaCritic
   ];
-}
+}*/
 

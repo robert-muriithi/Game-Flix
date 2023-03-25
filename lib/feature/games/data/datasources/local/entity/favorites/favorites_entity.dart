@@ -3,7 +3,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:floor/floor.dart';
 import '../../../../../../../core/utils/constants.dart';
-import '../../../../../../favourites/domain/model/favourite.dart';
 
 @Entity(tableName: Constants.kFavoritesTableName)
 class FavoriteEntity extends Equatable {

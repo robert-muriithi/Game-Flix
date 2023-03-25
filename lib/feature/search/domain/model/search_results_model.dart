@@ -9,6 +9,7 @@ class SearchResultsModel extends Equatable {
   final int id;
   final double? score;
   final List<Genres>? genres;
+  final List<ShortScreenShots>? screenShots;
 
   const SearchResultsModel({
     required this.name,
@@ -17,6 +18,7 @@ class SearchResultsModel extends Equatable {
     required this.id,
     required this.score,
     required this.genres,
+    required this.screenShots,
   });
 
   @override
@@ -27,6 +29,7 @@ class SearchResultsModel extends Equatable {
     id,
     score,
     genres,
+    screenShots
   ];
 }
 
@@ -47,4 +50,12 @@ class Genres extends Equatable {
 
   @override
   bool get stringify => true;
+}
+
+class ShortScreenShots extends Equatable {
+  final String image;
+  const ShortScreenShots({required this.image});
+
+  @override
+  List<Object?> get props => [image];
 }

@@ -43,7 +43,7 @@ class Routes {
       genre: ModalRoute.of(context)!.settings.arguments as Results,
     ),
     searchResultDetails : (context) =>  SearchResultDetailsPage(
-       id: ModalRoute.of(context)!.settings.arguments as int,
+       result: ModalRoute.of(context)!.settings.arguments as SearchResultsModel,
     ),
   };
 
