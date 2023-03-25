@@ -218,7 +218,7 @@ class GameDetailsWidget extends StatelessWidget {
         ),
         SliverFillRemaining(
           child: ListView(
-             shrinkWrap: true,
+              shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 Column(
@@ -306,36 +306,108 @@ class GameDetailsWidget extends StatelessWidget {
                                   width: 50,
                                   margin: const EdgeInsets.all(5),
                                   padding: const EdgeInsets.all(5),
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5)),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      if(platform.platform!.name!.contains('PC'))
-                                        Image.asset('assets/icons/windows_logo.png', height: 25, width: 25,),
-                                      if(platform.platform!.name!.contains('PlayStation'))
-                                        Image.asset('assets/icons/ps_logo.png', height: 25, width: 25,),
-                                      if(platform.platform!.name!.contains('Xbox'))
-                                        Image.asset('assets/icons/xbox_logo.png', height: 25, width: 25,),
-                                      if(platform.platform!.name!.contains('Wii'))
-                                        Image.asset('assets/icons/wii_logo.png', height: 25, width: 25,),
-                                      if(platform.platform!.name!.contains('iOS') || platform.platform!.name!.contains('iPhone') || platform.platform!.name!.contains('iPad'))
-                                        Image.asset('assets/icons/apple_logo.png', height: 25, width: 25,),
-                                      if(platform.platform!.name!.contains('Android'))
-                                        Image.asset('assets/icons/android_logo.png', height: 25, width: 25,),
-                                      if(platform.platform!.name!.contains('macOs') || platform.platform!.name!.contains('Macintosh'))
-                                        Image.asset('assets/icons/mac.png', height: 25, width: 25,),
-                                      if(platform.platform!.name!.contains('Linux'))
-                                        Image.asset('assets/icons/linux_logo.png', height: 25, width: 25,),
-                                      if(platform.platform!.name!.contains('PS'))
-                                        Image.asset('assets/icons/ps_vista.png', height: 25, width: 25,),
-                                      if(platform.platform!.name!.contains('Nintendo'))
-                                        Image.asset('assets/icons/gamepad.png', height: 25, width: 25,),
-                                      if(platform.platform!.name!.contains('PSP'))
-                                        Image.asset('assets/icons/gamepad.png', height: 25, width: 25,),
-                                      if(platform.platform!.name!.contains('Game'))
-                                        Image.asset('assets/icons/gamepad.png', height: 25, width: 25,),
-                                      if(platform.platform!.name!.contains('SNES'))
-                                        Image.asset('assets/icons/gamepad.png', height: 25, width: 25,),
+                                      if (platform.platform!.name!
+                                          .contains('PC'))
+                                        Image.asset(
+                                          'assets/icons/windows_logo.png',
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (platform.platform!.name!
+                                          .contains('PlayStation'))
+                                        Image.asset(
+                                          'assets/icons/ps_logo.png',
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (platform.platform!.name!
+                                          .contains('Xbox'))
+                                        Image.asset(
+                                          'assets/icons/xbox_logo.png',
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (platform.platform!.name!
+                                          .contains('Wii'))
+                                        Image.asset(
+                                          'assets/icons/wii_logo.png',
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (platform.platform!.name!
+                                              .contains('iOS') ||
+                                          platform.platform!.name!
+                                              .contains('iPhone') ||
+                                          platform.platform!.name!
+                                              .contains('iPad'))
+                                        Image.asset(
+                                          'assets/icons/apple_logo.png',
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (platform.platform!.name!
+                                          .contains('Android'))
+                                        Image.asset(
+                                          'assets/icons/android_logo.png',
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (platform.platform!.name!
+                                              .contains('macOs') ||
+                                          platform.platform!.name!
+                                              .contains('Macintosh'))
+                                        Image.asset(
+                                          'assets/icons/mac.png',
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (platform.platform!.name!
+                                          .contains('Linux'))
+                                        Image.asset(
+                                          'assets/icons/linux_logo.png',
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (platform.platform!.name!
+                                          .contains('PS'))
+                                        Image.asset(
+                                          'assets/icons/ps_vista.png',
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (platform.platform!.name!
+                                          .contains('Nintendo'))
+                                        Image.asset(
+                                          'assets/icons/gamepad.png',
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (platform.platform!.name!
+                                          .contains('PSP'))
+                                        Image.asset(
+                                          'assets/icons/gamepad.png',
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (platform.platform!.name!
+                                          .contains('Game'))
+                                        Image.asset(
+                                          'assets/icons/gamepad.png',
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (platform.platform!.name!
+                                          .contains('SNES'))
+                                        Image.asset(
+                                          'assets/icons/gamepad.png',
+                                          height: 25,
+                                          width: 25,
+                                        ),
                                     ],
                                   ),
                                 );
