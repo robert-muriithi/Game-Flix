@@ -1,3 +1,4 @@
+<p align="center"><img src="assets/images/GameFlix.png" alt="GameFlix" height="150px"></p>
 # GameFlix
 
 An android app built using Flutter that consumes [RAWG API](https://rawg.io) to display current games, upcoming and popular video games 🎮and characters 🎃. It has been built following Clean Architecture Principle, Repository Pattern, MVVM Architecture in the presentation layer as well as Bloc pattern.
@@ -108,6 +109,36 @@ This app is built using TDD. The tests are divided into 3 layers:
 - [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) : A package which simplifies the task of updating your Flutter app's launcher icon.
 - [shared_preferences](https://pub.dev/packages/shared_preferences) : Flutter plugin for reading and writing simple key-value pairs. Wraps NSUserDefaults on iOS and SharedPreferences on Android.
 - [flutter_spinkit](https://pub.dev/packages/flutter_spinkit) : A collection of loading indicators animated with flutter. Heavily inspired by @tobiasahlin's SpinKit.
+
+
+## Screenshots
+
+<center>
+  <table>
+    <tr>
+        <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_154242_google-pixel4-justblack-portrait.png" /></td>
+        <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_154248_google-pixel4-justblack-portrait.png" /></td>   
+        <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_154304_google-pixel4-justblack-portrait.png" /></td> 
+        
+    </tr>  
+    <tr>
+         <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_153848_google-pixel4-justblack-portrait.png" /></td> 
+         <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_154030_google-pixel4-justblack-portrait.png" /></td> 
+         <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_153929_google-pixel4-justblack-portrait.png" /></td>  
+    </tr>
+    <tr>
+         <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_154100_google-pixel4-justblack-portrait.png" /></td>
+         <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_154100_google-pixel4-justblack-portrait.png" /></td>
+         <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_154212_google-pixel4-justblack-portrait.png" /></td>
+      
+    </tr>
+    <tr>
+         <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_154321_google-pixel4-justblack-portrait.png" /></td>
+         <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_163926_google-pixel4xl-justblack-portrait.png" /></td>
+          <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_163926_google-pixel4xl-justblack-portrait.png" /></td>
+    </tr>
+  </table>
+</center>
 
 
 
