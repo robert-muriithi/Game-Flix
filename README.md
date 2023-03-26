@@ -6,6 +6,9 @@
 An  app built using Flutter that consumes [RAWG API](https://rawg.io) to display current games, upcoming and popular video games 🎮and characters 🎃. It has been built following Clean Architecture Principle, Repository Pattern, MVVM Architecture in the presentation layer as well as Bloc pattern.
 
 
+> ## Scroll Down to screenshots :)
+
+
 ## Getting Started
 
 To run this project, 
@@ -147,4 +150,4 @@ This app is built using TDD. The tests are divided into 3 layers:
 - [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 - [TDD](https://www.youtube.com/watch?v=KtHQGs3mSfM)
 
-You found a bug? Please [file an issue]
+You found a bug? Please file an issue
