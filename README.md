@@ -1,7 +1,9 @@
 <p align="center"><img src="assets/images/GameFlix.png" alt="GameFlix" height="150px"></p>
+
+
 # GameFlix
 
-An android app built using Flutter that consumes [RAWG API](https://rawg.io) to display current games, upcoming and popular video games 🎮and characters 🎃. It has been built following Clean Architecture Principle, Repository Pattern, MVVM Architecture in the presentation layer as well as Bloc pattern.
+An  app built using Flutter that consumes [RAWG API](https://rawg.io) to display current games, upcoming and popular video games 🎮and characters 🎃. It has been built following Clean Architecture Principle, Repository Pattern, MVVM Architecture in the presentation layer as well as Bloc pattern.
 
 
 ## Getting Started
@@ -119,7 +121,6 @@ This app is built using TDD. The tests are divided into 3 layers:
         <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_154242_google-pixel4-justblack-portrait.png" /></td>
         <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_154248_google-pixel4-justblack-portrait.png" /></td>   
         <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_154304_google-pixel4-justblack-portrait.png" /></td> 
-        
     </tr>  
     <tr>
          <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_153848_google-pixel4-justblack-portrait.png" /></td> 
@@ -130,12 +131,11 @@ This app is built using TDD. The tests are divided into 3 layers:
          <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_154100_google-pixel4-justblack-portrait.png" /></td>
          <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_154100_google-pixel4-justblack-portrait.png" /></td>
          <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_154212_google-pixel4-justblack-portrait.png" /></td>
-      
     </tr>
     <tr>
          <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_154321_google-pixel4-justblack-portrait.png" /></td>
          <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_163926_google-pixel4xl-justblack-portrait.png" /></td>
-          <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_163926_google-pixel4xl-justblack-portrait.png" /></td>
+         <td><img width="250px" align="left" src="assets/screenshots/Screenshot_20230326_163926_google-pixel4xl-justblack-portrait.png" /></td>
     </tr>
   </table>
 </center>
