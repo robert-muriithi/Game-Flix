@@ -42,9 +42,11 @@ class FavouritesPage extends StatelessWidget {
               dispatchUpdateListEvent(context, state.isRemoved);
               return  Container();
              }
-             else {
-              return const ErrorMessageWidget(message: 'An unknown error occurred');
-            }
+             else if(state is FavsEmptyState){
+               return ErrorMessageWidget(message: state.message);
+             }else {
+               return Container();
+             }
           },
         ),
     );

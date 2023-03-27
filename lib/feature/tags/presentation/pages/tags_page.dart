@@ -36,51 +36,56 @@ class TagsPage extends StatelessWidget {
           blocContext = context;
           if (state is TagsInitialState) {
             dispatchGetTagsEvent(context);
-          } else if (state is TagsLoadedState) {
+          }
+          if (state is TagsLoadedState) {
             //game ids for each tag
             tags = state.tags;
-            for(var i in state.tags){
-              if(i.games != null){
-                for(var j in i.games!){
+            for (var i in state.tags) {
+              if (i.games != null) {
+                for (var j in i.games!) {
                   ids.add(j.id);
                 }
               }
             }
-            return BlocBuilder<TagGamesBloc, TagGamesState >(
+            return BlocBuilder<TagGamesBloc, TagGamesState>(
                 builder: (context, state) {
-                  blocContext = context;
-                  if (state is TagGamesInitialState) {
-                    dispatchGetTagGamesEvent(context, ids: ids);
-                  }
-                  if (state is TagGamesLoadingState) {
-                    return const Center(child: LoadingWidget());
-                  } else if (state is TagGamesLoadedState) {
-                    final tagGames = state.games;
-                    return TagsListWidget(
-                      tagGames: tagGames,
-                      tags: tags,
-                      /*onTagPressed: (tag) {
+              blocContext = context;
+              if (state is TagGamesInitialState) {
+                dispatchGetTagGamesEvent(context, ids: ids);
+              }
+              if (state is TagGamesLoadingState) {
+                return const Center(child: LoadingWidget());
+              } else if (state is TagGamesLoadedState) {
+                final tagGames = state.games;
+                return TagsListWidget(
+                  tagGames: tagGames,
+                  tags: tags,
+                  /*onTagPressed: (tag) {
                         dispatchGetTagGamesEvent(context, tag: tag);
                       },*/
-                    );
-                  } else if (state is TagGamesErrorState) {
-                    return ErrorMessageWidget(
-                      message: state.message,
-                      /*onRetryPressed: () {
+                );
+              } else if (state is TagGamesErrorState) {
+                return ErrorMessageWidget(
+                  message: state.message,
+                  /*onRetryPressed: () {
                         dispatchGetTagGamesEvent(blocContext!);
                       },*/
-                    );
-                  } else {
-                    return const ErrorMessageWidget(message: 'An unknown error occurred');
-                  }
-                }
-            );
+                );
+              }
+              else if (state is TagsGamesEmptyState) {
+                return ErrorMessageWidget(message: state.message);
+              }
+              else {
+                return Container();
+              }
+            });
           } else if (state is TagsErrorState) {
-            return  ErrorMessageWidget(message: state.message);
+            return ErrorMessageWidget(message: state.message);
+          } else if (state is TagsEmptyState) {
+            return ErrorMessageWidget(message: state.message);
           } else {
             return Container();
           }
-          return Container();
         },
       ),
     );
@@ -90,7 +95,8 @@ class TagsPage extends StatelessWidget {
     BlocProvider.of<TagsBloc>(context).add(GetTagsEvent());
   }
 
-  void dispatchGetTagGamesEvent(BuildContext context, {required List<int> ids}) {
+  void dispatchGetTagGamesEvent(BuildContext context,
+      {required List<int> ids}) {
     BlocProvider.of<TagGamesBloc>(context).add(GetTagGamesEvent(ids: ids));
   }
 }
