@@ -17,13 +17,8 @@ part 'games_state.dart';
 
 class GamesBloc extends Bloc<GamesEvent, GamesState> {
   final GetAllGamesUseCase getGamesUseCase;
-/*  final AddGameToFavoritesUseCase addGameToFavoritesUseCase;
-  final RemoveGameFromFavoritesUseCase removeGameFromFavoritesUseCase;*/
-
   GamesBloc(
       this.getGamesUseCase,
-/*      this.addGameToFavoritesUseCase,
-      this.removeGameFromFavoritesUseCase*/
       ) : super(GamesInitialState()) {
     on<GamesEvent>(getGamesEventObserver);
     //on<HideAppBarEvent>(hideAppBarEventObserver);

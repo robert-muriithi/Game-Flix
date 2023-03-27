@@ -26,7 +26,13 @@ class FavsBloc extends Bloc<FavsEvent, FavsState> {
       final result = await getFavoritesUseCase(NoParams());
       result.fold(
           (failure) => emit(FavsErrorState(message: mapFailureToMessage(failure))),
-          (games) => emit(FavsLoadedState(games: games)));
+          (games) {
+            if(games.isNotEmpty){
+              emit(FavsLoadedState(games: games));
+            } else {
+              emit(const FavsEmptyState(message: 'There is nothing here.'));
+            }
+          });
     } else if (event is RemoveFavEvent) {
       final result = await removeGameFromFavoritesUseCase(event.id);
       result.fold(

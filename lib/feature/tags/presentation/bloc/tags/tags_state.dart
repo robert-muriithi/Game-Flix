@@ -31,3 +31,12 @@ class TagsErrorState extends TagsState {
   @override
   List<Object> get props => [message];
 }
+
+class TagsEmptyState extends TagsState {
+  final String message;
+  const TagsEmptyState({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+
+}

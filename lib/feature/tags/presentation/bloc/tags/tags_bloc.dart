@@ -22,7 +22,7 @@ class TagsBloc extends Bloc<TagsEvent, TagsState> {
   int page = 1;
   final pageSize = 20;
 
-  Future<void> getTagsEventObserver(event, emit) async {
+  FutureOr<void> getTagsEventObserver(event, emit) async {
     if (event is GetTagsEvent) {
       emit(TagsLoadingState());
       final result = await getTagsUseCase(Params(page: page, pageSize: pageSize));
@@ -35,7 +35,7 @@ class TagsBloc extends Bloc<TagsEvent, TagsState> {
           page++;
           emit(TagsLoadedState(tags: _tags, noMoreData: noMoreData));
         } else {
-          emit(const TagsErrorState(message: Constants.UNEXPECTED_FAILURE_MESSAGE));
+          emit(const TagsEmptyState(message: 'No tags and games available'));
         }
       });
     } else if (event is RefreshTagsEvent) {

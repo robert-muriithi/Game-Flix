@@ -28,9 +28,11 @@ class TagGamesBloc extends Bloc<TagGamesEvent, TagGamesState> {
         if (games.isNotEmpty) {
           emit(TagGamesLoadedState(games: games));
         } else {
-          emit(const TagGamesErrorState(message: 'No games found'));
+          emit(const TagsGamesEmptyState(message: 'No games found'));
         }
       });
+    } else {
+      emit(const TagGamesErrorState(message: Constants.UNEXPECTED_FAILURE_MESSAGE));
     }
   }
 

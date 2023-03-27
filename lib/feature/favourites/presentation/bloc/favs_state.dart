@@ -40,3 +40,12 @@ class FavRemovedState extends FavsState {
   @override
   List<Object> get props => [isRemoved];
 }
+
+class FavsEmptyState extends FavsState {
+  final String message;
+  const FavsEmptyState({required this.message});
+
+  @override
+  List<Object?> get props => [message];
+
+}
