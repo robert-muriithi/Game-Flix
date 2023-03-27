@@ -91,8 +91,6 @@ class ShortScreenshotsResults extends Equatable {
   @override
   List<Object?> get props => [id, image];
 
-  @override
-  bool get stringify => true;
 }
 
 class GenresResult extends Equatable {
@@ -145,7 +143,7 @@ class PlatformResult extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, name, image, gamesCount, imageBackground];
+  List<Object?> get props => [id, name, gamesCount, imageBackground];
 
   @override
   bool get stringify => true;

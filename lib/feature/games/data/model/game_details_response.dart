@@ -14,7 +14,8 @@ class GameDetailsResponse extends GameDetails {
     required String? released,
     required List<GenresResponse>? genres,
     required List<DevelopersResponse>? developers,
-    required String? descriptionRaw
+    required String? descriptionRaw,
+    /*required List<ShortScreenShotsResponse> shortScreenShots,*/
   }) : super(
       id: id,
       name: name,
@@ -28,6 +29,7 @@ class GameDetailsResponse extends GameDetails {
       metacritic: metacritic,
        released: released,
       genres: genres,
+     /*screenShots: shortScreenShots,*/
     );
 
   factory GameDetailsResponse.fromJson(Map<String, dynamic> json) {
@@ -44,10 +46,56 @@ class GameDetailsResponse extends GameDetails {
       released: json['released'],
       genres: (json['genres'] as List<dynamic>).map((e) => GenresResponse.fromJson(e)).toList(),
       developers: (json['developers'] as List<dynamic>).map((e) => DevelopersResponse.fromJson(e)).toList(),
+      /*shortScreenShots: (json['short_screenshots'] as List<dynamic>).map((e) => ShortScreenShotsResponse.fromJson(e)).toList(),*/
 
     );
   }
 }
+
+/*class GamePlatformsResponse extends GamePlatformsResults {
+  GamePlatformsResponse({
+    required GamePlatformResponse? platform,
+    required String? releasedAt,
+  }): super(
+      platform: platform,
+      releasedAt: releasedAt,
+
+  );
+
+  factory GamePlatformsResponse.fromJson(Map<String, dynamic> json) {
+    return GamePlatformsResponse(
+      platform: json['platform'] != null ? GamePlatformResponse.fromJson(json['platform']) : null,
+      releasedAt: json['released_at'],
+    );
+  }
+}
+
+
+class GamePlatformResponse extends GamePlatformResult {
+  GamePlatformResponse(
+      {required int? id,
+        required String? name,
+        required String? image,
+        required int? gamesCount,
+        required String? imageBackground})
+      : super(
+    id: id,
+    name: name,
+    image: image,
+    gamesCount: gamesCount,
+    imageBackground: imageBackground,
+  );
+
+  factory GamePlatformResponse.fromJson(Map<String, dynamic> json) {
+    return GamePlatformResponse(
+      id: json['id'],
+      name: json['name'],
+      image: json['image'],
+      gamesCount: json['games_count'],
+      imageBackground: json['image_background'],
+    );
+  }
+}*/
 
 class GenresResponse extends Genres {
     const GenresResponse({
@@ -61,6 +109,19 @@ class GenresResponse extends Genres {
         name: json['name'],
       );
     }
+
+}
+
+class ShortScreenShotsResponse extends ShortScreenShots {
+  const ShortScreenShotsResponse({
+    required String image,
+  }) : super(image: image);
+
+  factory ShortScreenShotsResponse.fromJson(Map<String, dynamic> json) {
+    return ShortScreenShotsResponse(
+      image: json['image'],
+    );
+  }
 
 }
 

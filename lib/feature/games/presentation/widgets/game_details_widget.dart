@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_flix_flutter/config/theme/colors.dart';
 import 'package:game_flix_flutter/feature/games/domain/model/game.dart';
+import 'package:logger/logger.dart';
 import '../../../../injector.dart';
 import '../../../categories/presentation/widgets/error_widget.dart';
 import '../../domain/model/game_deatils.dart';
@@ -27,6 +28,7 @@ class GameDetailsWidget extends StatelessWidget {
   BuildContext? blocContext;
   bool isFavorite;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +37,7 @@ class GameDetailsWidget extends StatelessWidget {
       slivers: [
         SliverAppBar(
           pinned: true,
-          title: Text(game.name!),
+          title: Text(gameDetails.name),
           actions: buildAppBarActions(context),
           expandedHeight: 270.0,
           flexibleSpace: FlexibleSpaceBar(
@@ -119,7 +121,7 @@ class GameDetailsWidget extends StatelessWidget {
                           children: [
                             Expanded(
                               child: Text(
-                                game.name!,
+                                gameDetails.name,
                                 style: const TextStyle(
                                   color: AppColors.white,
                                   fontSize: 10,
@@ -241,7 +243,7 @@ class GameDetailsWidget extends StatelessWidget {
                           Expanded(
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: game.genres!.length,
+                                  itemCount: game.genres?.length,
                                   itemBuilder: (context, index) {
                                     final genre = game.genres![index];
                                     return Container(
@@ -298,7 +300,7 @@ class GameDetailsWidget extends StatelessWidget {
                           Expanded(
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: game.platforms!.length,
+                              itemCount: game.platforms?.length,
                               itemBuilder: (context, index) {
                                 final platform = game.platforms![index];
                                 return Container(
@@ -386,28 +388,7 @@ class GameDetailsWidget extends StatelessWidget {
                                           'assets/icons/gamepad.png',
                                           height: 25,
                                           width: 25,
-                                        ),
-                                      if (platform.platform!.name!
-                                          .contains('PSP'))
-                                        Image.asset(
-                                          'assets/icons/gamepad.png',
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (platform.platform!.name!
-                                          .contains('Game'))
-                                        Image.asset(
-                                          'assets/icons/gamepad.png',
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (platform.platform!.name!
-                                          .contains('SNES'))
-                                        Image.asset(
-                                          'assets/icons/gamepad.png',
-                                          height: 25,
-                                          width: 25,
-                                        ),
+                                        )
                                     ],
                                   ),
                                 );
@@ -521,7 +502,7 @@ class GameDetailsWidget extends StatelessWidget {
                                             color: AppColors.darkGrey,
                                           ),
                                           child: Image.network(
-                                            i.image!,
+                                            i.image ?? '',
                                             fit: BoxFit.cover,
                                           ),
                                         ),
