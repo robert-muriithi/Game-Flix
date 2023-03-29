@@ -125,18 +125,18 @@ class Platform extends PlatformResult {
       : super(
           id: id,
           name: name,
-          image: image,
           gamesCount: gamesCount,
           imageBackground: imageBackground,
+          image: image
         );
 
   factory Platform.fromJson(Map<String, dynamic> json) {
     return Platform(
       id: json['id'],
       name: json['name'],
-      image: json['image'],
       gamesCount: json['games_count'],
       imageBackground: json['image_background'],
+      image: json['image']
     );
   }
 }
@@ -185,7 +185,6 @@ class Tags extends TagsResult {
       : super(
             id: id,
             name: name,
-            language: language,
             gamesCount: gamesCount,
             imageBackground: imageBackground);
 

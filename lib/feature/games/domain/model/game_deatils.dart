@@ -13,6 +13,8 @@ class GameDetails extends Equatable {
   final int? metacritic;
   final String? released;
   final List<Genres>? genres;
+ /* final List<GamePlatformsResults>? platforms;*/
+  /*final List<ShortScreenShots>? screenShots;*/
 
   const GameDetails(
       {required this.id,
@@ -26,7 +28,10 @@ class GameDetails extends Equatable {
       this.metacritic,
       this.released,
         this.genres,
-      this.descriptionRaw});
+      this.descriptionRaw,
+        /*this.platforms,*/
+        /*this.screenShots,*/
+      });
 
   @override
   List<Object?> get props => [
@@ -40,7 +45,9 @@ class GameDetails extends Equatable {
         developers,
         descriptionRaw,
         metacritic,
-        released
+        released,
+      /* platforms*/
+        /*screenShots*/
       ];
 }
 
@@ -54,6 +61,45 @@ class Genres extends Equatable {
   List<Object?> get props => [id, name];
 
 }
+
+/*
+class GamePlatformsResults extends Equatable {
+  GamePlatformResult? platform;
+  String? releasedAt;
+
+  GamePlatformsResults({this.platform, this.releasedAt});
+
+  @override
+  List<Object?> get props => [platform, releasedAt];
+
+  @override
+  bool get stringify => true;
+}
+
+class GamePlatformResult extends Equatable {
+  int? id;
+  String? name;
+  String? image;
+  int? gamesCount;
+  String? imageBackground;
+
+  GamePlatformResult({
+    this.id,
+    this.name,
+    this.image,
+    this.gamesCount,
+    this.imageBackground,
+  });
+
+  @override
+  List<Object?> get props => [id, name, image, gamesCount, imageBackground];
+
+  @override
+  bool get stringify => true;
+}
+
+*/
+
 class Developers extends Equatable {
   final int id;
   final String name;
@@ -64,4 +110,12 @@ class Developers extends Equatable {
 
   @override
   List<Object?> get props => [id, name, gamesCount, imageBackground];
+}
+
+class ShortScreenShots extends Equatable {
+  final String image;
+  const ShortScreenShots({required this.image});
+
+  @override
+  List<Object?> get props => [image];
 }

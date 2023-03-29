@@ -9,7 +9,7 @@ abstract class GamesRemoteDataSource {
   Future<GamesResponse> getGames({required String key, required int page, required int pageSize});
 }
 
-class GamesRemoteDataSourceImpl extends GamesRemoteDataSource {
+class GamesRemoteDataSourceImpl implements GamesRemoteDataSource {
    final Dio dio;
   GamesRemoteDataSourceImpl(this.dio);
 
