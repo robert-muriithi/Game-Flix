@@ -33,7 +33,7 @@ class FavsItemWidget extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, Routes.gameDetailsPage, arguments: game);
+          Navigator.pushNamed(context, Routes.favoriteGameDetails, arguments: game);
         },
         child: Container(
           margin: const EdgeInsets.all(8),

@@ -17,9 +17,7 @@ part 'games_state.dart';
 
 class GamesBloc extends Bloc<GamesEvent, GamesState> {
   final GetAllGamesUseCase getGamesUseCase;
-  GamesBloc(
-      this.getGamesUseCase,
-      ) : super(GamesInitialState()) {
+  GamesBloc(this.getGamesUseCase) : super(GamesInitialState()) {
     on<GamesEvent>(getGamesEventObserver);
     //on<HideAppBarEvent>(hideAppBarEventObserver);
   }

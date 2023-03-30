@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_flix_flutter/feature/favourites/presentation/pages/favorite_game_details.dart';
 import '../../feature/categories/presentation/pages/categories_page.dart';
 import '../../feature/favourites/presentation/pages/favourites_page.dart';
 import '../../feature/games/presentation/pages/game_details_page.dart';
@@ -26,6 +27,7 @@ class Routes {
   static const String screenshotsPage = '/home_container/games/game_details/screenshots';
   static const String searchPage = '/home_container/categories/search';
   static const String searchResultDetails = '/home_container/categories/search';
+  static const String favoriteGameDetails = '/home_container/favorites/game_details';
 
   static const initialRoute = navigationContainer;
 
@@ -44,6 +46,11 @@ class Routes {
     ),
     searchResultDetails : (context) =>  SearchResultDetailsPage(
        result: ModalRoute.of(context)!.settings.arguments as SearchResultsModel,
+    ),
+    favoriteGameDetails : ((context) => FavoriteGameDetails(
+      game: ModalRoute.of(context)!.settings.arguments as GameResults,
+    
+    )
     ),
   };
 

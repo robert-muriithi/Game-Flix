@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:game_flix_flutter/core/utils/util_functions.dart';
 import 'package:game_flix_flutter/feature/favourites/domain/usecase/get_favs_use_case.dart';
 
 import '../../../../core/errors/failure.dart';
@@ -42,14 +43,5 @@ class FavsBloc extends Bloc<FavsEvent, FavsState> {
       emit(const FavsErrorState(message: Constants.UNEXPECTED_FAILURE_MESSAGE));
     }
   }
-  String mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case ServerFailure:
-        return Constants.SERVER_FAILURE_MESSAGE;
-      case DatabaseFailure:
-        return Constants.DATABASE_FAILURE_MESSAGE;
-      default:
-        return Constants.UNEXPECTED_FAILURE_MESSAGE;
-    }
-  }
+
 }
