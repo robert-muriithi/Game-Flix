@@ -97,7 +97,7 @@ class _$GameFlixDatabase extends GameFlixDatabase {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `game_details_table` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `backgroundImage` TEXT NOT NULL, `backgroundImageAdditional` TEXT NOT NULL, `website` TEXT NOT NULL, `creatorsCount` INTEGER NOT NULL, `descriptionRaw` TEXT NOT NULL, `developers` TEXT NOT NULL, PRIMARY KEY (`id`))');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `fav_games_table` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `released` TEXT NOT NULL, `backgroundImage` TEXT NOT NULL, `rating` REAL NOT NULL, `ratingsCount` INTEGER NOT NULL, `reviewsTextCount` INTEGER NOT NULL, `suggestionsCount` INTEGER NOT NULL, `updated` TEXT NOT NULL, `reviewsCount` INTEGER NOT NULL, `metaCritic` INTEGER NOT NULL, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `fav_games_table` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `released` TEXT NOT NULL, `backgroundImage` TEXT NOT NULL, `rating` REAL NOT NULL, `ratingsCount` INTEGER NOT NULL, `reviewsTextCount` INTEGER NOT NULL, `suggestionsCount` INTEGER NOT NULL, `updated` TEXT NOT NULL, `reviewsCount` INTEGER NOT NULL, `metaCritic` INTEGER NOT NULL, `platforms` TEXT NOT NULL, `genres` TEXT NOT NULL, `tags` TEXT NOT NULL, `esrbRating` TEXT NOT NULL, `shortScreenshots` TEXT NOT NULL, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -269,7 +269,15 @@ class _$FavoritesDao extends FavoritesDao {
                   'suggestionsCount': item.suggestionsCount,
                   'updated': item.updated,
                   'reviewsCount': item.reviewsCount,
-                  'metaCritic': item.metaCritic
+                  'metaCritic': item.metaCritic,
+                  'platforms':
+                      _platFormResultsConverters.encode(item.platforms),
+                  'genres': _genresResultTypeConverter.encode(item.genres),
+                  'tags': _tagsResultTypeConverter.encode(item.tags),
+                  'esrbRating':
+                      _platformResultTypeConverter.encode(item.esrbRating),
+                  'shortScreenshots': _shortScreenshotsResultsConverters
+                      .encode(item.shortScreenshots)
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -301,7 +309,15 @@ class _$FavoritesDao extends FavoritesDao {
             suggestionsCount: row['suggestionsCount'] as int,
             updated: row['updated'] as String,
             reviewsCount: row['reviewsCount'] as int,
-            metaCritic: row['metaCritic'] as int),
+            metaCritic: row['metaCritic'] as int,
+            genres: _genresResultTypeConverter.decode(row['genres'] as String),
+            platforms:
+                _platFormResultsConverters.decode(row['platforms'] as String),
+            shortScreenshots: _shortScreenshotsResultsConverters
+                .decode(row['shortScreenshots'] as String),
+            tags: _tagsResultTypeConverter.decode(row['tags'] as String),
+            esrbRating: _platformResultTypeConverter
+                .decode(row['esrbRating'] as String)),
         arguments: [id]);
   }
 
@@ -319,7 +335,15 @@ class _$FavoritesDao extends FavoritesDao {
             suggestionsCount: row['suggestionsCount'] as int,
             updated: row['updated'] as String,
             reviewsCount: row['reviewsCount'] as int,
-            metaCritic: row['metaCritic'] as int));
+            metaCritic: row['metaCritic'] as int,
+            genres: _genresResultTypeConverter.decode(row['genres'] as String),
+            platforms:
+                _platFormResultsConverters.decode(row['platforms'] as String),
+            shortScreenshots: _shortScreenshotsResultsConverters
+                .decode(row['shortScreenshots'] as String),
+            tags: _tagsResultTypeConverter.decode(row['tags'] as String),
+            esrbRating: _platformResultTypeConverter
+                .decode(row['esrbRating'] as String)));
   }
 
   @override

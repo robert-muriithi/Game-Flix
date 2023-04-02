@@ -1,4 +1,6 @@
 
+import 'package:logger/logger.dart';
+
 import '../../../../../core/data/local/database/database.dart';
 import '../../../../../core/errors/exceptions.dart';
 import 'entity/favorites/favorites_entity.dart';
@@ -48,9 +50,11 @@ class FavoritesLocalDataSourceImpl implements FavoritesLocalDataSource {
 
   @override
   Future<List<FavoriteEntity>> getAllFavorites() async {
+    final log = Logger();
     try{
       final dao = database.favoritesDao;
       final games = await dao.getAllFavorites();
+      log.d(games.map((e) => e.platforms).toList());
       return games;
     }catch (exception){
       throw DatabaseException(message: exception.toString());

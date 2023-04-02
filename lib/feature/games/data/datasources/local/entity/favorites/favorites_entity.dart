@@ -2,6 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:floor/floor.dart';
+import 'package:game_flix_flutter/feature/games/domain/model/game.dart';
 import '../../../../../../../core/utils/constants.dart';
 
 @Entity(tableName: Constants.kFavoritesTableName)
@@ -17,6 +18,16 @@ class FavoriteEntity extends Equatable {
   final String updated;
   final int reviewsCount;
   final int metaCritic;
+  final List<PlatformsResults> platforms;
+  final List<GenresResult> genres;
+  final List<TagsResult> tags;
+  final PlatformResult esrbRating;
+  final List<ShortScreenshotsResults> shortScreenshots;
+  //List<PlatformsResults>? platforms;
+  //   List<GenresResult>? genres;
+  //   List<TagsResult>? tags;
+  //   PlatformResult? esrbRating;
+  //   List<ShortScreenshotsResults>? shortScreenshots;
 
   const FavoriteEntity({
     required this.id,
@@ -29,7 +40,12 @@ class FavoriteEntity extends Equatable {
     required this.suggestionsCount,
     required this.updated,
     required this.reviewsCount,
-    required this.metaCritic
+    required this.metaCritic,
+    required this.genres,
+    required this.platforms,
+    required this.shortScreenshots,
+    required this.tags,
+    required this.esrbRating
   });
 
   @override
@@ -44,6 +60,11 @@ class FavoriteEntity extends Equatable {
     suggestionsCount,
     updated,
     reviewsCount,
-    metaCritic
+    metaCritic,
+    genres,
+    esrbRating,
+    tags,
+    shortScreenshots,
+    platforms
   ];
 }

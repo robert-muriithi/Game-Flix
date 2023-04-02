@@ -1,5 +1,3 @@
-
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -233,7 +231,7 @@ class FavoriteItemWidget extends StatelessWidget {
                                   scrollDirection: Axis.horizontal,
                                   itemCount: game.genres?.length,
                                   itemBuilder: (context, index) {
-                                    final genre = game.genres![index];
+                                    final genre = game.genres?[index];
                                     return Container(
                                       margin: const EdgeInsets.all(5),
                                       padding: const EdgeInsets.all(5),
@@ -242,7 +240,7 @@ class FavoriteItemWidget extends StatelessWidget {
                                               BorderRadius.circular(5),
                                           color: AppColors.darkGrey),
                                       child:
-                                          Center(child: Text(genre.name ?? '')),
+                                          Center(child: Text(genre?.name ?? '')),
                                     );
                                   })),
                         ],
@@ -290,7 +288,7 @@ class FavoriteItemWidget extends StatelessWidget {
                               scrollDirection: Axis.horizontal,
                               itemCount: game.platforms?.length,
                               itemBuilder: (context, index) {
-                                final platform = game.platforms![index];
+                                final platform = game.platforms?[index];
                                 return Container(
                                   height: 50,
                                   width: 50,
@@ -301,7 +299,7 @@ class FavoriteItemWidget extends StatelessWidget {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      if (platform.platform!.name!
+                                      if (platform!.platform!.name!
                                           .contains('PC'))
                                         Image.asset(
                                           'assets/icons/windows_logo.png',
@@ -406,9 +404,9 @@ class FavoriteItemWidget extends StatelessWidget {
                           Expanded(
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: game.tags!.length,
+                                  itemCount: game.tags?.length,
                                   itemBuilder: (context, index) {
-                                    final tag = game.tags![index];
+                                    final tag = game.tags?[index];
                                     return Container(
                                       margin: const EdgeInsets.all(5),
                                       padding: const EdgeInsets.all(5),
@@ -424,7 +422,7 @@ class FavoriteItemWidget extends StatelessWidget {
                                             color: AppColors.orange,
                                           ),
                                           Text(
-                                            tag.name ?? '',
+                                            tag?.name ?? '',
                                             style: const TextStyle(
                                                 color: AppColors.white),
                                           )

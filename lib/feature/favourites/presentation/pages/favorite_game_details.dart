@@ -18,9 +18,6 @@ class FavoriteGameDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title:  Text(game.name!),
-      ),
       body: _buildBody(context),
     );
   }

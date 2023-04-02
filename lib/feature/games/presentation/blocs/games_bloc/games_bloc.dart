@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:game_flix_flutter/core/usecase/usecase.dart';
+import 'package:logger/logger.dart';
 import '../../../../../core/errors/failure.dart';
 import '../../../../../core/params/params.dart';
 import '../../../../../core/utils/constants.dart';
@@ -27,6 +28,7 @@ class GamesBloc extends Bloc<GamesEvent, GamesState> {
   final List<GameResults> _games = [];
 
   Future<void> getGamesEventObserver(event, emit) async {
+    final log = Logger();
     if (event is GetGamesEvent) {
       emit(GamesLoadingState());
       final result =
@@ -39,6 +41,7 @@ class GamesBloc extends Bloc<GamesEvent, GamesState> {
           final noMoreData = games.length < pageSize;
           _games.addAll(games);
           page++;
+          log.d(games.map((e) => e.genres).toList());
           emit(GamesLoadedState(_games, noMoreData: noMoreData));
         } else {
           emit(GamesErrorState(error: Constants.UNEXPECTED_FAILURE_MESSAGE));

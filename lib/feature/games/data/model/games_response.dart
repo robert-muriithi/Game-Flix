@@ -155,10 +155,10 @@ class RequirementsEn extends RequirementsEnResult {
 
 class Genres extends GenresResult {
   Genres(
-      {required int? id,
-      required String? name,
-      required int? gamesCount,
-      required String? imageBackground})
+      {required int id,
+      required String name,
+      required int gamesCount,
+      required String imageBackground})
       : super(
             id: id,
             name: name,
@@ -178,14 +178,15 @@ class Genres extends GenresResult {
 class Tags extends TagsResult {
   Tags(
       {required int id,
-      required String? name,
-      required String? language,
-      required int? gamesCount,
+      required String name,
+      required String language,
+      required int gamesCount,
       required String? imageBackground})
       : super(
             id: id,
             name: name,
             gamesCount: gamesCount,
+            language: language,
             imageBackground: imageBackground);
 
   factory Tags.fromJson(Map<String, dynamic> json) {
@@ -201,8 +202,8 @@ class Tags extends TagsResult {
 
 class ShortScreenshots extends ShortScreenshotsResults {
   ShortScreenshots({
-    required int? id,
-    required String? image,
+    required int id,
+    required String image,
   }) : super(id: id, image: image);
 
   factory ShortScreenshots.fromJson(Map<String, dynamic> json) {

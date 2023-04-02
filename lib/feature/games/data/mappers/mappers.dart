@@ -66,19 +66,24 @@ GameResults toFavoriteEntityFromDomain(FavoriteEntity entity){
   );
 }
 
-FavoriteEntity fromFavoriteEntityToDomain(GameResults entity){
+FavoriteEntity fromFavoriteEntityToDomain(GameResults results){
   return FavoriteEntity(
-      id: entity.id!,
-      name: entity.name!,
-      released: entity.released!,
-      backgroundImage: entity.backgroundImage,
-      rating: entity.rating!,
-      ratingsCount: entity.ratingsCount!,
-      reviewsTextCount: entity.reviewsTextCount!,
-      suggestionsCount: entity.suggestionsCount!,
-      updated: entity.updated!,
-      reviewsCount: entity.reviewsCount!,
-      metaCritic: entity.metaCritic!
+      id: results.id!,
+      name: results.name!,
+      released: results.released!,
+      backgroundImage: results.backgroundImage,
+      rating: results.rating!,
+      ratingsCount: results.ratingsCount!,
+      reviewsTextCount: results.reviewsTextCount!,
+      suggestionsCount: results.suggestionsCount!,
+      updated: results.updated!,
+      reviewsCount: results.reviewsCount!,
+      metaCritic: results.metaCritic!,
+      genres: results.genres!,
+      esrbRating: results.esrbRating!,
+      platforms: results.platforms!,
+      shortScreenshots: results.shortScreenshots!,
+      tags: results.tags!
   );
 }
 
