@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:game_flix_flutter/core/utils/util_functions.dart';
 
 import '../../../../games/domain/model/game.dart';
 import '../../../../../core/errors/failure.dart';
@@ -49,11 +50,5 @@ class CategoryGamesBloc extends Bloc<CategoryGamesEvent, CategoryGamesState> {
     }
   }
 
-  String mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case ServerFailure: return Constants.SERVER_FAILURE_MESSAGE;
-      case DatabaseFailure: return Constants.DATABASE_FAILURE_MESSAGE;
-      default: return Constants.UNEXPECTED_FAILURE_MESSAGE;
-    }
-  }
+
 }

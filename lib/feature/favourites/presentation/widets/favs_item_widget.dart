@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:game_flix_flutter/config/theme/colors.dart';
 import '../../../../config/routes/routes.dart';
 import '../../../games/domain/model/game.dart';
+import '../pages/favorite_game_details.dart';
 
 class FavsItemWidget extends StatelessWidget {
   final GameResults game;
@@ -33,7 +34,10 @@ class FavsItemWidget extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, Routes.gameDetailsPage, arguments: game);
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => FavoriteGameDetails(game: game))
+          );
         },
         child: Container(
           margin: const EdgeInsets.all(8),
@@ -86,6 +90,8 @@ class FavsItemWidget extends StatelessWidget {
                     Text('Rating: ${game.rating.toString()}/5',
                         style: const TextStyle(color: AppColors.white, fontSize: 12)),
                     Text('Overall Rating: ${game.metaCritic.toString()}%',
+                        style: const TextStyle(color: AppColors.white, fontSize: 12)),
+                    Text('Genres: ${game.genres?.map((e) => e.name).toList()}',
                         style: const TextStyle(color: AppColors.white, fontSize: 12)),
                   ],
                 ),

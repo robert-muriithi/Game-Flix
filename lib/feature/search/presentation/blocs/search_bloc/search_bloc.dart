@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:game_flix_flutter/core/utils/constants.dart';
+import 'package:game_flix_flutter/core/utils/util_functions.dart';
 import '../../../../../core/errors/failure.dart';
 import '../../../../../core/params/params.dart';
 import '../../../../search/domain/model/search_results_model.dart';
@@ -48,14 +49,5 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
-  String mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case ServerFailure:
-        return Constants.SERVER_FAILURE_MESSAGE;
-      case DatabaseFailure:
-        return Constants.DATABASE_FAILURE_MESSAGE;
-      default:
-        return Constants.UNEXPECTED_FAILURE_MESSAGE;
-    }
-  }
+
 }

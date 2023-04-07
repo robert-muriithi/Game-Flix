@@ -61,18 +61,18 @@ class GameResults extends Equatable {
 }
 
 class TagsResult extends Equatable {
-  int? id;
-  String? name;
-  String? language;
-  int? gamesCount;
+  int id;
+  String name;
+  String language;
+  int gamesCount;
   String? imageBackground;
 
   TagsResult({
-    this.id,
-    this.name,
-    this.language,
-    this.gamesCount,
-    this.imageBackground,
+    required this.id,
+    required this.name,
+    required this.language,
+    required this.gamesCount,
+    required this.imageBackground,
   });
 
   @override
@@ -83,10 +83,10 @@ class TagsResult extends Equatable {
 }
 
 class ShortScreenshotsResults extends Equatable {
-  int? id;
-  String? image;
+  int id;
+  String image;
 
-  ShortScreenshotsResults({this.id, this.image});
+  ShortScreenshotsResults({required this.id, required this.image});
 
   @override
   List<Object?> get props => [id, image];
@@ -94,16 +94,16 @@ class ShortScreenshotsResults extends Equatable {
 }
 
 class GenresResult extends Equatable {
-  int? id;
-  String? name;
-  int? gamesCount;
-  String? imageBackground;
+  int id;
+  String name;
+  int gamesCount;
+  String imageBackground;
 
   GenresResult({
-    this.id,
-    this.name,
-    this.gamesCount,
-    this.imageBackground,
+    required this.id,
+    required this.name,
+    required this.gamesCount,
+    required this.imageBackground,
   });
 
   @override

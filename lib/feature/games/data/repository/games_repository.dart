@@ -81,6 +81,7 @@ class GamesRepositoryImpl implements GamesRepository {
         await gameDetailsLocalDataSource.insertGameDetails(gameResults);
         final localData = await gameDetailsLocalDataSource.getGameDetails();
         final game = fromGameDetailsEntityToDomain(localData!);
+
         return Right(game);
       } on ServerException catch (e) {
         return Left(ServerFailure(e.message));

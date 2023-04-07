@@ -1,4 +1,5 @@
 //Service Locator
+import 'package:game_flix_flutter/feature/favourites/presentation/bloc/favorite_game_details_bloc/bloc/bloc/favorite_game_details_bloc.dart';
 import 'package:game_flix_flutter/feature/games/domain/usecase/remove_game_from_favorites.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -76,6 +77,7 @@ void initFeatures() {
     getFavoritesUseCase: sl(),
     removeGameFromFavoritesUseCase: sl(),
   ));
+  sl.registerFactory(() => FavoriteGameDetailsBloc(sl()));
 
   //Use case
   sl.registerLazySingleton(() => GetCategoriesUseCase(sl()));
