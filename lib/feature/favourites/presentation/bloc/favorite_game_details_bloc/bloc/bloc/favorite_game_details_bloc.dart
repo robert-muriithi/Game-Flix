@@ -26,6 +26,7 @@ class FavoriteGameDetailsBloc extends Bloc<FavoriteGameDetailsEvent, FavoriteGam
       result.fold(
             (failure) => emit(FavoriteGameDetailsError(message: mapFailureToMessage(failure))),
             (gameDetails) {
+              log.d(gameDetails.genres);
               return emit(FavoriteGameDetailsLoaded(gameDetails: gameDetails));
             },
       );

@@ -31,7 +31,7 @@ class FavsBloc extends Bloc<FavsEvent, FavsState> {
           (failure) => emit(FavsErrorState(message: mapFailureToMessage(failure))),
           (games) {
             if(games.isNotEmpty){
-              //log.d(games.map((e) => e.shortScreenshots).toList());
+              log.d(games.map((e) => e.genres?.map((e) => e.name)).toList());
               emit(FavsLoadedState(games: games));
             } else {
               emit(const FavsEmptyState(message: 'There is nothing here.'));

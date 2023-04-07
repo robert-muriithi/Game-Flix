@@ -91,6 +91,8 @@ class FavsItemWidget extends StatelessWidget {
                         style: const TextStyle(color: AppColors.white, fontSize: 12)),
                     Text('Overall Rating: ${game.metaCritic.toString()}%',
                         style: const TextStyle(color: AppColors.white, fontSize: 12)),
+                    Text('Genres: ${game.genres?.map((e) => e.name).toList()}',
+                        style: const TextStyle(color: AppColors.white, fontSize: 12)),
                   ],
                 ),
               ),
