@@ -254,7 +254,7 @@ class GameDetailsWidget extends StatelessWidget {
                                               BorderRadius.circular(5),
                                           color: AppColors.darkGrey),
                                       child:
-                                          Center(child: Text(genre.name ?? '')),
+                                          Center(child: Text(genre.name)),
                                     );
                                   })),
                         ],
@@ -436,7 +436,7 @@ class GameDetailsWidget extends StatelessWidget {
                                             color: AppColors.orange,
                                           ),
                                           Text(
-                                            tag.name ?? '',
+                                            tag.name,
                                             style: const TextStyle(
                                                 color: AppColors.white),
                                           )
@@ -489,7 +489,7 @@ class GameDetailsWidget extends StatelessWidget {
                                               builder: (context) =>
                                                   ScreenshotsPage(
                                                       screenshot:
-                                                          i.image ?? ''),
+                                                          i.image),
                                             ),
                                           );
                                         },
@@ -502,7 +502,7 @@ class GameDetailsWidget extends StatelessWidget {
                                             color: AppColors.darkGrey,
                                           ),
                                           child: Image.network(
-                                            i.image ?? '',
+                                            i.image,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -555,12 +555,12 @@ class GameDetailsWidget extends StatelessWidget {
                                         CircleAvatar(
                                           radius: 35,
                                           backgroundImage: NetworkImage(
-                                              developer.imageBackground ?? ''),
+                                              developer.imageBackground),
                                         ),
                                         const Spacer(),
                                         Expanded(
                                           child: Text(
-                                            developer.name ?? '',
+                                            developer.name,
                                             style: const TextStyle(
                                               color: AppColors.white,
                                               fontSize: 11,
