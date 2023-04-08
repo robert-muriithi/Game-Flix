@@ -1,13 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/iconic_icons.dart';
 import 'package:game_flix_flutter/feature/games/domain/model/game_deatils.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../config/theme/colors.dart';
-import '../../../games/presentation/blocs/favorites_bloc/favorites_bloc.dart';
 
 class TagGameDetailsWidget extends StatelessWidget {
   final GameDetails gameDetails;
@@ -246,7 +243,7 @@ class TagGameDetailsWidget extends StatelessWidget {
                                               BorderRadius.circular(5),
                                               color: AppColors.darkGrey),
                                           child:
-                                          Center(child: Text(genre.name ?? '')),
+                                          Center(child: Text(genre.name)),
                                         );
                                       })),
                             ],
@@ -315,12 +312,12 @@ class TagGameDetailsWidget extends StatelessWidget {
                                             CircleAvatar(
                                               radius: 35,
                                               backgroundImage: NetworkImage(
-                                                  developer.imageBackground ?? ''),
+                                                  developer.imageBackground),
                                             ),
                                             const Spacer(),
                                             Expanded(
                                               child: Text(
-                                                developer.name ?? '',
+                                                developer.name,
                                                 style: const TextStyle(
                                                   color: AppColors.white,
                                                   fontSize: 11,

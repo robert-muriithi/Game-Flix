@@ -66,7 +66,7 @@ class TagGameItemWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      game.name ?? '',
+                      game.name,
                       style: const TextStyle(
                           color: AppColors.white,
                           fontSize: 14,

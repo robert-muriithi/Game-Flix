@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:game_flix_flutter/config/theme/colors.dart';
-import '../../../../config/routes/routes.dart';
 import '../../../games/domain/model/game.dart';
 import '../pages/favorite_game_details.dart';
 
@@ -60,7 +59,7 @@ class FavsItemWidget extends StatelessWidget {
                               ),
                               image: DecorationImage(
                                   image: NetworkImage(
-                                      game.backgroundImage ?? ''),
+                                      game.backgroundImage),
                                   fit: BoxFit.cover)
                           )
                       ),

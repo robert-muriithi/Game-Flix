@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttericon/iconic_icons.dart';
 import 'package:game_flix_flutter/config/theme/colors.dart';
 import 'package:game_flix_flutter/feature/games/domain/model/game.dart';
@@ -475,7 +474,7 @@ class FavoriteItemWidget extends StatelessWidget {
                                               builder: (context) =>
                                                   ScreenshotsPage(
                                                       screenshot:
-                                                          i.image ?? ''),
+                                                          i.image),
                                             ),
                                           );
                                         },
@@ -488,7 +487,7 @@ class FavoriteItemWidget extends StatelessWidget {
                                             color: AppColors.darkGrey,
                                           ),
                                           child: Image.network(
-                                            i.image ?? '',
+                                            i.image,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -541,12 +540,12 @@ class FavoriteItemWidget extends StatelessWidget {
                                         CircleAvatar(
                                           radius: 35,
                                           backgroundImage: NetworkImage(
-                                              developer.imageBackground ?? ''),
+                                              developer.imageBackground),
                                         ),
                                         const Spacer(),
                                         Expanded(
                                           child: Text(
-                                            developer.name ?? '',
+                                            developer.name,
                                             style: const TextStyle(
                                               color: AppColors.white,
                                               fontSize: 11,
