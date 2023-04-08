@@ -28,7 +28,8 @@ class FavsRepositoryImpl implements FavsRepository {
   Future<Either<Failure, GameResults>> getGameFromFavorite(int id) async {
     try{
       final results = await favoritesLocalDataSource.getGameFromFavorite(id);
-
+      final favResult = toFavoriteEntityFromDomain(results!);
+      return Right(favResult);
     } on DatabaseException catch(e){
       return Left(DatabaseFailure(e.message));
     }
