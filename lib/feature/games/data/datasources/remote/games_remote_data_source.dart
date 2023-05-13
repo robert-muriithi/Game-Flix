@@ -20,7 +20,6 @@ class GamesRemoteDataSourceImpl implements GamesRemoteDataSource {
       final response = await dio.get('${Constants.kBaserUrl}games?key=$key&page=$page&page_size=$pageSize');
       return GamesResponse.fromJson(response.data);
     }catch (exception){
-      log.e(exception.toString());
       throw ServerException(message: exception.toString());
     }
   }

@@ -28,7 +28,6 @@ class GameDetailsWidget extends StatelessWidget {
   BuildContext? blocContext;
   bool isFavorite;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -253,8 +252,7 @@ class GameDetailsWidget extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(5),
                                           color: AppColors.darkGrey),
-                                      child:
-                                          Center(child: Text(genre.name)),
+                                      child: Center(child: Text(genre.name)),
                                     );
                                   })),
                         ],
@@ -488,8 +486,7 @@ class GameDetailsWidget extends StatelessWidget {
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   ScreenshotsPage(
-                                                      screenshot:
-                                                          i.image),
+                                                      screenshot: i.image),
                                             ),
                                           );
                                         },
