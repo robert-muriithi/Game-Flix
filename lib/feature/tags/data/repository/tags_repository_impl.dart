@@ -25,7 +25,7 @@ class TagsRepositoryImpl implements TagsRepository {
   @override
   Future<Either<Failure, List<TagResult>>> getTags(Params params) async {
     final log = Logger();
-    if(await networkInfo.isConnected()){
+    if (await networkInfo.isConnected()) {
       try {
         final remoteTags = await tagsRemoteDataSource.getTags(
           key: params.apiKey,
@@ -41,16 +41,16 @@ class TagsRepositoryImpl implements TagsRepository {
     } else {
       return const Left(ServerFailure('No Internet Connection'));
     }
-
   }
 
   @override
-  Future<Either<Failure, List<GameDetails>>> getGames(GamesParams params) async {
+  Future<Either<Failure, List<GameDetails>>> getGames(
+      GamesParams params) async {
     final log = Logger();
-    if(await networkInfo.isConnected()){
+    if (await networkInfo.isConnected()) {
       try {
         List<GameDetails> games = [];
-        for(int id in params.ids){
+        for (int id in params.ids) {
           final remoteGames = await gameDetailsRemoteDataSource.getGameDetails(
             key: params.apiKey,
             id: id,
@@ -66,5 +66,4 @@ class TagsRepositoryImpl implements TagsRepository {
       return const Left(ServerFailure('No Internet Connection'));
     }
   }
-
 }
