@@ -8,7 +8,6 @@ import '../../../games/presentation/blocs/favorites_bloc/favorites_bloc.dart';
 import '../../../games/presentation/blocs/game_details_bloc/game_details_bloc.dart';
 import '../widget/tag_game_detail_widget.dart';
 
-
 class TagGameDetailsPage extends StatelessWidget {
   final GameDetails game;
 
@@ -82,4 +81,3 @@ class TagGameDetailsPage extends StatelessWidget {
     BlocProvider.of<FavoritesBloc>(context).add(GetFavoriteEvent(id: game.id));
   }
 }
-

@@ -17,13 +17,11 @@ class GameDetailsRemoteDatasourceImpl implements GameDetailsRemoteDataSource {
   @override
   Future<GameDetailsResponse> getGameDetails(
       {required int id, required String key}) async {
-    final log = Logger();
     try {
       final response =
           await dio.get('${Constants.kBaserUrl}games/$id?key=$key');
       return GameDetailsResponse.fromJson(response.data);
     } catch (exception) {
-      log.e(exception.toString());
       throw ServerException(message: exception.toString());
     }
   }

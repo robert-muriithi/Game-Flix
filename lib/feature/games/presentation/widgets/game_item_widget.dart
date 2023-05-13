@@ -36,8 +36,8 @@ class GameItemWidget extends StatelessWidget {
                   color: Colors.white,
                   image: DecorationImage(
                     image: CachedNetworkImageProvider(
-                        game!.backgroundImage,
-                        cacheKey: game!.backgroundImage,
+                      game!.backgroundImage,
+                      cacheKey: game!.backgroundImage,
                     ),
                     fit: BoxFit.cover,
                     scale: 2.0,
