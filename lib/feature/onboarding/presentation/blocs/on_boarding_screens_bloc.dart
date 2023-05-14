@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
 import '../../domain/repository/onboarding_screens_repository.dart';
 
 part 'on_boarding_screens_event.dart';

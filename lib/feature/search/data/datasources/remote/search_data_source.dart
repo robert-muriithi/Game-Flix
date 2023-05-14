@@ -1,9 +1,7 @@
 import 'package:logger/logger.dart';
-
 import '../../../../../core/errors/exceptions.dart';
 import '../../../../../core/params/params.dart';
 import 'package:dio/dio.dart';
-
 import '../../model/search_results_response.dart';
 
 abstract class SearchRemoteDataSource {
@@ -18,7 +16,7 @@ class SearchRemoteDataSourceImpl implements SearchRemoteDataSource {
   @override
   Future<SearchResultsResponse> searchGames(SearchParams params) async {
     final log = Logger();
-    try{
+    try {
       final response = await dio.get(
         'https://api.rawg.io/api/games',
         queryParameters: {

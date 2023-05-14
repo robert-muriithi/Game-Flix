@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../config/routes/routes.dart';
 import '../../../../config/theme/colors.dart';
 import '../../../../injector.dart';
@@ -8,13 +7,15 @@ import '../../domain/model/onboarding_content.dart';
 import '../blocs/on_boarding_screens_bloc.dart';
 
 class OnBoardingScreensContainer extends StatefulWidget {
-   OnBoardingScreensContainer({Key? key}) : super(key: key);
+  OnBoardingScreensContainer({Key? key}) : super(key: key);
 
   @override
-  State<OnBoardingScreensContainer> createState() => _OnBoardingScreensContainerState();
+  State<OnBoardingScreensContainer> createState() =>
+      _OnBoardingScreensContainerState();
 }
 
-class _OnBoardingScreensContainerState extends State<OnBoardingScreensContainer>  {
+class _OnBoardingScreensContainerState
+    extends State<OnBoardingScreensContainer> {
   PageController? pageController;
   int currentIndex = 0;
   BuildContext? blocContext;
@@ -39,7 +40,7 @@ class _OnBoardingScreensContainerState extends State<OnBoardingScreensContainer>
         scrollDirection: Axis.vertical,
         controller: pageController,
         itemCount: onBoardingContent.length,
-        onPageChanged: (int index){
+        onPageChanged: (int index) {
           setState(() {
             currentIndex = index;
           });
@@ -48,7 +49,7 @@ class _OnBoardingScreensContainerState extends State<OnBoardingScreensContainer>
           return Container(
             width: double.maxFinite,
             height: double.maxFinite,
-            decoration:  const BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -79,52 +80,57 @@ class _OnBoardingScreensContainerState extends State<OnBoardingScreensContainer>
     );
   }
 
-  BlocProvider<OnBoardingScreensBloc> _buildNavigationButon(BuildContext context){
+  BlocProvider<OnBoardingScreensBloc> _buildNavigationButon(
+      BuildContext context) {
     return BlocProvider(
-        create: (_) => sl<OnBoardingScreensBloc>(),
-        child: BlocBuilder<OnBoardingScreensBloc, OnBoardingScreensState>(
-          builder: (context, state){
-            blocContext = context;
-            if(state is OnBoardingScreensErrorState){
-              return const Center(
-                child: Text('An error occurred'),
-              );
-            } else {
-              return Container(
-                margin: const EdgeInsets.symmetric(horizontal: 30),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.orange,
-                    foregroundColor: AppColors.white,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                  ),
-                  onPressed: () {
-                    if (currentIndex == onBoardingContent.length - 1) {
-                      dispatchCompleteOnBoardingEvent(context);
-                      //Navigator.pushNamed(context, '/login');
-                    } else {
-                      pageController?.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
-                    }
-                  },
-                  child: Text(
-                    currentIndex == onBoardingContent.length - 1 ? 'Get Started' : 'Next',
-                  ),
+      create: (_) => sl<OnBoardingScreensBloc>(),
+      child: BlocBuilder<OnBoardingScreensBloc, OnBoardingScreensState>(
+          builder: (context, state) {
+        blocContext = context;
+        if (state is OnBoardingScreensErrorState) {
+          return const Center(
+            child: Text('An error occurred'),
+          );
+        } else {
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 30),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.orange,
+                foregroundColor: AppColors.white,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
-              );
-            }
-          }
-        ),
+              ),
+              onPressed: () {
+                if (currentIndex == onBoardingContent.length - 1) {
+                  dispatchCompleteOnBoardingEvent(context);
+                  //Navigator.pushNamed(context, '/login');
+                } else {
+                  pageController?.nextPage(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeIn);
+                }
+              },
+              child: Text(
+                currentIndex == onBoardingContent.length - 1
+                    ? 'Get Started'
+                    : 'Next',
+              ),
+            ),
+          );
+        }
+      }),
     );
   }
 
-  void dispatchCompleteOnBoardingEvent(BuildContext context){
-    BlocProvider.of<OnBoardingScreensBloc>(context).add(const CompleteOnBoardingEvent(true));
+  void dispatchCompleteOnBoardingEvent(BuildContext context) {
+    BlocProvider.of<OnBoardingScreensBloc>(context)
+        .add(const CompleteOnBoardingEvent(true));
     Navigator.pushReplacementNamed(context, Routes.homeContainer);
   }
 
-  Widget _buildOnBoardingContent(int index){
+  Widget _buildOnBoardingContent(int index) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
@@ -134,11 +140,11 @@ class _OnBoardingScreensContainerState extends State<OnBoardingScreensContainer>
             height: MediaQuery.of(context).size.height * 0.45,
             padding: const EdgeInsets.all(15),
             child: Image.asset(
-                onBoardingContent[index].image,
-                fit: BoxFit.contain,
-                scale: 1.0,
-                height: double.maxFinite,
-                width: double.maxFinite,
+              onBoardingContent[index].image,
+              fit: BoxFit.contain,
+              scale: 1.0,
+              height: double.maxFinite,
+              width: double.maxFinite,
             ),
           ),
           Row(
@@ -151,16 +157,24 @@ class _OnBoardingScreensContainerState extends State<OnBoardingScreensContainer>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(onBoardingContent[index].title, textAlign: TextAlign.center, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.orange,),
+                    Text(
+                      onBoardingContent[index].title,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.orange,
+                      ),
                     ),
                     const SizedBox(height: 20),
                     Expanded(
                       child: Text(
-                          onBoardingContent[index].description,
-                          style: const TextStyle(fontSize: 16, color: Colors.grey),
-                          textAlign: TextAlign.justify,
-                          softWrap: true,
-                          overflow: TextOverflow.fade,
+                        onBoardingContent[index].description,
+                        style:
+                            const TextStyle(fontSize: 16, color: Colors.grey),
+                        textAlign: TextAlign.justify,
+                        softWrap: true,
+                        overflow: TextOverflow.fade,
                       ),
                     ),
                   ],
@@ -170,22 +184,20 @@ class _OnBoardingScreensContainerState extends State<OnBoardingScreensContainer>
               SizedBox(
                 height: 60,
                 child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: List.generate(onBoardingContent.length, (index) => buildDot(index: index)),
-              ),
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: List.generate(onBoardingContent.length,
+                      (index) => buildDot(index: index)),
+                ),
               ),
             ],
           ),
           Container(
-            margin: const EdgeInsets.only(bottom: 20),
-            height: 50,
-            width: double.maxFinite,
-            child: _buildNavigationButon(context)
-          )
+              margin: const EdgeInsets.only(bottom: 20),
+              height: 50,
+              width: double.maxFinite,
+              child: _buildNavigationButon(context))
         ],
       ),
     );
   }
 }
-
-

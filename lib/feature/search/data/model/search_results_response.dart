@@ -25,53 +25,52 @@ class SearchResultsResponse {
           : null,
     );
   }
-
 }
 
-class SearchResults extends SearchResultsModel{
-  const SearchResults({
-    required String name,
-    required String? image,
-    required String? released,
-    required int id,
-    required double? score,
-    required List<GenresResults>? genres,
-    required List<ShortScreenShotsResult>? screenShots
-  }) : super(
-          name: name,
-          image: image,
-          released: released,
-          id: id,
-          score: score,
-          genres: genres,
-         screenShots: screenShots
-        );
+class SearchResults extends SearchResultsModel {
+  const SearchResults(
+      {required String name,
+      required String? image,
+      required String? released,
+      required int id,
+      required double? score,
+      required List<GenresResults>? genres,
+      required List<ShortScreenShotsResult>? screenShots})
+      : super(
+            name: name,
+            image: image,
+            released: released,
+            id: id,
+            score: score,
+            genres: genres,
+            screenShots: screenShots);
 
   factory SearchResults.fromJson(Map<String, dynamic> json) {
     return SearchResults(
-      name: json['name'],
-      image: json['background_image'],
-      released: json['released'],
-      id: json['id'],
-      score: json['rating'],
-      genres: json['genres'] != null
-          ? (json['genres'] as List)
-              .map((e) => GenresResults.fromJson(e))
-              .toList()
-          : null,
-      screenShots: json['short_screenshots'] != null
-        ? (json['short_screenshots'] as List).map((e) =>ShortScreenShotsResult.fromJson(e)).toList() : null
-    );
+        name: json['name'],
+        image: json['background_image'],
+        released: json['released'],
+        id: json['id'],
+        score: json['rating'],
+        genres: json['genres'] != null
+            ? (json['genres'] as List)
+                .map((e) => GenresResults.fromJson(e))
+                .toList()
+            : null,
+        screenShots: json['short_screenshots'] != null
+            ? (json['short_screenshots'] as List)
+                .map((e) => ShortScreenShotsResult.fromJson(e))
+                .toList()
+            : null);
   }
 }
 
 class ShortScreenShotsResult extends ShortScreenShots {
-  const ShortScreenShotsResult({required String image}): super (image: image);
-  
-  factory ShortScreenShotsResult.fromJson(Map<String, dynamic> json){
+  const ShortScreenShotsResult({required String image}) : super(image: image);
+
+  factory ShortScreenShotsResult.fromJson(Map<String, dynamic> json) {
     return ShortScreenShotsResult(image: json['image']);
   }
-  
 }
 
 class GenresResults extends Genres {
