@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'search_widget.dart';
 import '../../../../config/theme/colors.dart';
 import 'background_wave_clipper.dart';
@@ -38,26 +37,22 @@ class SliverSearchBar extends SliverPersistentHeaderDelegate {
           width: 100,
         ),
       ),
-       Positioned(
+      Positioned(
         top: topPadding,
-          left: 100,
-          child: const Text('Discover your next\nfavourite game',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold
-              )
-          ),
+        left: 100,
+        child: const Text('Discover your next\nfavourite game',
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold)),
       ),
 
       Positioned(
           top: topPadding + offset,
           left: 16,
           right: 16,
-          child: const SearchBarWidget()
-      ),
+          child: const SearchBarWidget()),
       //Image
-
     ]);
   }
 

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:game_flix_flutter/feature/games/presentation/pages/tagged_games_page.dart';
-
 import '../../../../config/theme/colors.dart';
 import '../../../tags/presentation/pages/tags_page.dart';
 import '../widgets/custom_painter.dart';
@@ -89,7 +87,7 @@ class _HomePageState extends State<HomePage>
                     ),
                     ConstrainedBox(
                       constraints: const BoxConstraints.expand(),
-                      child:  TagsPage(),
+                      child: TagsPage(),
                     ),
                   ],
                 ),
@@ -105,7 +103,7 @@ class _HomePageState extends State<HomePage>
     return Container(
       width: 300.0,
       height: 45.0,
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
         border: Border.all(color: AppColors.orange, width: 2.0),
         borderRadius: const BorderRadius.all(Radius.circular(25.0)),
       ),

@@ -3,13 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_flix_flutter/config/theme/colors.dart';
 import 'package:game_flix_flutter/feature/games/domain/model/game.dart';
-import 'package:logger/logger.dart';
-import '../../../../injector.dart';
-import '../../../categories/presentation/widgets/error_widget.dart';
 import '../../domain/model/game_deatils.dart';
 import 'package:fluttericon/iconic_icons.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
 import '../blocs/favorites_bloc/favorites_bloc.dart';
 import '../pages/screenshots_page.dart';
 import 'package:share_plus/share_plus.dart';

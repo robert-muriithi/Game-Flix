@@ -23,8 +23,7 @@ class GamesPage extends StatelessWidget {
         title: Container(
       margin: const EdgeInsets.only(top: 10),
       child: const Text('Games'),
-    )
-    );
+    ));
   }
 
   BlocProvider<GamesBloc> buildBody(BuildContext context) {

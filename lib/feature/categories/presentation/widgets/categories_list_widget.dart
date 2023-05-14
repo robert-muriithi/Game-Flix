@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../domain/model/genre.dart';
 import 'category_item.dart';
 

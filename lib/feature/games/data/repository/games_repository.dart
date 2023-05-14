@@ -1,14 +1,9 @@
 import 'package:dartz/dartz.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/errors/failure.dart';
-import 'package:game_flix_flutter/core/usecase/usecase.dart';
-import '../datasources/local/favorites_local_data_source.dart';
 import '../datasources/local/games_local_datasource.dart';
-import 'package:game_flix_flutter/feature/categories/data/datasources/local/genres_local_datasource.dart';
 import '../datasources/remote/games_remote_data_source.dart';
-import 'package:game_flix_flutter/feature/categories/data/datasources/remote/remote_genres_data_source.dart';
 import '../../domain/model/game.dart';
-import 'package:game_flix_flutter/feature/categories/domain/model/genre.dart';
 import '../../domain/model/game_deatils.dart';
 import '../../domain/repository/games_repository.dart';
 import '../../../../core/network/network.dart';
@@ -23,17 +18,18 @@ class GamesRepositoryImpl implements GamesRepository {
   final GameDetailsLocalDataSource gameDetailsLocalDataSource;
   final GamesRemoteDataSource gamesRemoteDataSource;
   final GameDetailsRemoteDataSource gameDetailsRemoteDataSource;
+
   ///final FavoritesLocalDataSource favoritesLocalDataSource;
   final NetworkInfo networkInfo;
 
-  GamesRepositoryImpl(
-      {required this.gamesRemoteDataSource,
-      required this.gamesLocalDataSource,
-      required this.networkInfo,
-      required this.gameDetailsRemoteDataSource,
-      required this.gameDetailsLocalDataSource,
-     // required this.favoritesLocalDataSource
-      });
+  GamesRepositoryImpl({
+    required this.gamesRemoteDataSource,
+    required this.gamesLocalDataSource,
+    required this.networkInfo,
+    required this.gameDetailsRemoteDataSource,
+    required this.gameDetailsLocalDataSource,
+    // required this.favoritesLocalDataSource
+  });
 
   @override
   Future<Either<Failure, List<GameResults>>> getAllGames(Params params) async {

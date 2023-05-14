@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:game_flix_flutter/feature/games/domain/model/game.dart';
-
 import 'game_item_widget.dart';
 
 class GamesListWidget extends StatelessWidget {
   final List<GameResults> games;
+
   const GamesListWidget({Key? key, required this.games}) : super(key: key);
 
   @override
@@ -26,8 +26,7 @@ class GamesListWidget extends StatelessWidget {
             return CategoryGameItemWidget(
               game: game,
             );
-          }
-      ),
+          }),
     );
   }
 }
