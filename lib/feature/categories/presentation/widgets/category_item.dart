@@ -12,7 +12,8 @@ class CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, Routes.categoryGamesPage, arguments: genre);
+        Navigator.pushNamed(context, Routes.categoryGamesPage,
+            arguments: genre);
       },
       child: Container(
           decoration: BoxDecoration(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/widgets/loading/loading.dart';
 import '../../../../injector.dart';
 import '../blocs/games_bloc/games_bloc.dart';
@@ -24,8 +23,7 @@ class GamesPage extends StatelessWidget {
         title: Container(
       margin: const EdgeInsets.only(top: 10),
       child: const Text('Games'),
-    )
-    );
+    ));
   }
 
   BlocProvider<GamesBloc> buildBody(BuildContext context) {

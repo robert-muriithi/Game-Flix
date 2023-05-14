@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../../../config/routes/routes.dart';
 import '../../../games/domain/model/game.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
 import '../../../../config/theme/colors.dart';
 
 class CategoryGameItemWidget extends StatelessWidget {

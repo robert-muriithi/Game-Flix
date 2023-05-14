@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:game_flix_flutter/config/routes/routes.dart';
 import 'package:game_flix_flutter/feature/games/domain/model/game.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
 import '../../../../config/theme/colors.dart';
 
 class GameItemWidget extends StatelessWidget {

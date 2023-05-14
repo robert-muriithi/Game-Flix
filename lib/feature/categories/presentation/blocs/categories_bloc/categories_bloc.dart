@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:game_flix_flutter/core/utils/util_functions.dart';
 
-import '../../../../../core/errors/failure.dart';
 import '../../../../../core/params/params.dart';
 import '../../../../../core/utils/constants.dart';
 import '../../../domain/model/genre.dart';

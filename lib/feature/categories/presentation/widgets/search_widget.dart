@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:game_flix_flutter/config/routes/routes.dart';
 import 'package:game_flix_flutter/config/theme/colors.dart';
-
 import '../../../search/presentation/pages/search_page.dart';
 
 class SearchBarWidget extends StatelessWidget {
@@ -12,7 +10,6 @@ class SearchBarWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         showSearch(context: context, delegate: SearchDelegatePage());
-
       },
       child: SizedBox(
           width: MediaQuery.of(context).size.width - 32,
