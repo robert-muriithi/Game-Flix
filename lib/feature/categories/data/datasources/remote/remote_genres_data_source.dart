@@ -1,7 +1,6 @@
 import 'package:game_flix_flutter/core/errors/exceptions.dart';
 import 'package:game_flix_flutter/core/utils/constants.dart';
 import 'package:dio/dio.dart';
-import 'package:game_flix_flutter/feature/games/domain/model/game.dart';
 import 'package:logger/logger.dart';
 import '../../../../games/data/model/games_response.dart';
 import '../../model/genres_response.dart';
